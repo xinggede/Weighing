@@ -41,7 +41,7 @@ public class ManageFragment extends BaseFragment<MainPresenter> implements MainC
             case R.id.bt_outbound_custom:
                 break;
             case R.id.bt_my_order:
-                startFragment(new MessageFragment());
+                startFragment(new MyOrderFragment());
                 break;
             case R.id.bt_my_goods:
                 startFragment(new MyGoodsListFragment());

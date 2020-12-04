@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class MessageFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class MyOrderFragment extends BaseFragment<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -35,7 +35,7 @@ public class MessageFragment extends BaseFragment<MainPresenter> implements Main
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_message;
+        return R.layout.fragment_my_order;
     }
 
     @Override

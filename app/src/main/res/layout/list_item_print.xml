@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/list_item_touch_bg" >
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/DescriptionStyle"
+        android:layout_marginStart="10dp"
+        android:textSize="16sp"
+        android:text="名称"/>
+
+    <TextView
+        android:id="@+id/tv_code"
+        style="@style/DescriptionStyle"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/tv_name"
+        android:textColor="@color/colorAccent"
+        android:text="打印机编号"/>
+
+    <ImageView
+        android:id="@+id/iv_default"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:scaleType="centerCrop"
+        android:layout_toStartOf="@+id/iv1"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_print_default" />
+
+    <ImageView
+        android:id="@+id/iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_arrow_right" />
+
+</RelativeLayout>

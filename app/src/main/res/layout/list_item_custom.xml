@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/list_item_touch_bg" >
+
+    <TextView
+        android:id="@+id/tv_company_name"
+        style="@style/DescriptionStyle"
+        android:layout_marginStart="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="公司名称"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/DescriptionStyle"
+        android:layout_below="@+id/tv_company_name"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorAccent"
+        android:layout_alignStart="@+id/tv_company_name"
+        android:text="赵总: 1234567890"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        style="@style/DescriptionStyle"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/tv_company_name"
+        android:text="南山科技园"/>
+
+
+    <ImageView
+        android:id="@+id/iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_arrow_right" />
+
+</RelativeLayout>

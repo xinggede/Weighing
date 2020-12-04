@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/inputEtStyle"
+        android:layout_width="0dp"
+        android:background="@null"
+        android:layout_weight="0.3"
+        android:layout_marginStart="0dp"
+        android:focusableInTouchMode="true"
+        android:gravity="start"
+        android:text="名称" />
+
+    <com.xing.weight.view.CusFloatEditText
+        android:id="@+id/et_price"
+        style="@style/inputEtStyle"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:gravity="center"
+        android:layout_marginStart="0dp"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:maxLength="10"
+        android:text="单价" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bt_jian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/app_touch_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="-"
+            android:textColor="@color/colorAccent"
+            android:textSize="13sp" />
+
+        <com.xing.weight.view.CusFloatEditText
+            android:id="@+id/et_number"
+            style="@style/inputEtStyle"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            android:maxLength="10"
+            android:text="数量" />
+
+        <TextView
+            android:id="@+id/bt_jia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/app_touch_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="+"
+            android:textColor="@color/colorAccent"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <com.xing.weight.view.CusFloatEditText
+        android:id="@+id/et_amount"
+        style="@style/inputEtStyle"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_marginStart="0dp"
+        android:enabled="false"
+        android:gravity="end"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:maxLength="10"
+        android:text="金额" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+        android:id="@+id/ib_more"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_arrow_more" />
+
+</LinearLayout>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_color_bj">
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/qmui_config_color_white"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="出单编号："/>
+
+                <TextView
+                    android:id="@+id/tv_number"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text1"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <com.xing.weight.view.CusTextView
+                    style="@style/inputTvStyle"
+                    android:text="货物名称："/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/inputEtStyle"
+                    android:drawableEnd="@mipmap/icon_arrow_down"
+                    android:hint="@string/text2"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="入场时间："/>
+
+                <TextView
+                    android:id="@+id/tv_enter_time"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text3"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <com.xing.weight.view.CusTextView
+                    style="@style/inputTvStyle"
+                    android:text="皮重："/>
+
+                <EditText
+                    android:id="@+id/et_empty_weight"
+                    style="@style/inputEtStyle"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/text4"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="出场时间："/>
+
+                <TextView
+                    android:id="@+id/tv_out_time"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text3"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <com.xing.weight.view.CusTextView
+                    style="@style/inputTvStyle"
+                    android:text="毛重："/>
+
+                <EditText
+                    android:id="@+id/et_max_weight"
+                    style="@style/inputEtStyle"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/text5"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="折损："/>
+
+                <EditText
+                    android:id="@+id/et_loss_weight"
+                    style="@style/inputEtStyle"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/text6"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="净重："/>
+
+                <TextView
+                    android:id="@+id/et_real_weight"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text7"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="单价："/>
+
+                <EditText
+                    android:id="@+id/et_price"
+                    style="@style/inputEtStyle"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/text6"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="总价："/>
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text7"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <com.xing.weight.view.CusTextView
+                    style="@style/inputTvStyle"
+                    android:text="司磅员："/>
+
+                <EditText
+                    android:id="@+id/et_person_weigher"
+                    style="@style/inputEtStyle"
+                    android:inputType="textPersonName"
+                    android:hint="@string/text6"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="出货单位："/>
+
+                <EditText
+                    android:id="@+id/et_shipping_unit"
+                    style="@style/inputEtStyle"
+                    android:inputType="textPersonName"
+                    android:maxLength="50"
+                    android:hint="@string/text6"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="负责人："/>
+
+                <EditText
+                    android:id="@+id/et_person_in_charge"
+                    style="@style/inputEtStyle"
+                    android:inputType="textPersonName"
+                    android:hint="@string/text6"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <com.xing.weight.view.CusTextView
+                    style="@style/inputTvStyle"
+                    android:text="司机："/>
+
+                <EditText
+                    android:id="@+id/et_driver"
+                    style="@style/inputEtStyle"
+                    android:inputType="textPersonName"
+                    android:hint="@string/text6"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout"
+                android:gravity="top">
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="备注："/>
+
+                <EditText
+                    android:id="@+id/et_remarks"
+                    style="@style/inputEtStyle"
+                    android:inputType="textMultiLine"
+                    android:minHeight="50dp"
+                    android:minLines="5"
+                    android:gravity="top"
+                    android:maxLength="200"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/text8"/>
+            </LinearLayout>
+
+            <com.qmuiteam.qmui.layout.QMUILinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/bt_print"
+                    style="@style/RoundButtonStyle"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/print"/>
+
+            </com.qmuiteam.qmui.layout.QMUILinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

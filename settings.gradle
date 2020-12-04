@@ -1,0 +1,2 @@
+include ':app', ':ScanCode'
+rootProject.name='Weighing'

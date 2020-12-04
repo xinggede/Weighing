@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">称磅单</string>
+    <string name="perm_title">申请权限</string>
+    <string name="perm_content">权限申请失败，应用程序可能无法正常工作，请打开应用程序设置修改应用程序权限。</string>
+    <string name="loading">加载中&#8230;</string>
+    <string name="perm_write">应用需要存储权限才能正常工作。</string>
+    <string name="perm_camera">扫码功能需要摄像头权限才能正常工作。</string>
+
+    <string name="logo_name">速印</string>
+
+    <string name="login">登&#8195;录</string>
+    <string name="register">注&#8195;册</string>
+    <string name="get_captcha">获取验证码</string>
+    <string name="confirm">确&#8195;定</string>
+    <string name="reset_pwd">重置密码</string>
+    <string name="print">打&#8195;印</string>
+    <string name="print_manage">打印机管理</string>
+    <string name="save">保&#8195;存</string>
+    <string name="company_info">公司信息</string>
+
+    <string name="bill_text1">磅单定制</string>
+    <string name="bill_text2">出库单定制</string>
+    <string name="bill_text3">我的订单</string>
+    <string name="bill_text4">我的货品</string>
+    <string name="bill_text5">我的客户</string>
+    <string name="bill_text6">更多</string>
+
+
+    <string name="pls_input_phone">请输入手机号</string>
+    <string name="pls_input_password">请输入密码</string>
+    <string name="pls_input_captcha">请输入验证码</string>
+    <string name="pls_input_print_number">请输入打印机编号</string>
+    <string name="pls_input_print_code">请输入打印机校验码</string>
+    <string name="pls_input_print_name">请输入打印机名称</string>
+    <string name="pls_input_print_paper">请选择纸张类型</string>
+
+    <string name="pls_input_company_name">请输入公司名称</string>
+    <string name="pls_input_company_charge">请输入负责人</string>
+    <string name="pls_input_company_phone">请输入联系方式</string>
+    <string name="pls_input_company_address">请输入联系地址</string>
+
+    <string name="pls_input_goods_name">请输入货品名称</string>
+    <string name="pls_input_goods_model">请输入货品型号</string>
+    <string name="pls_input_goods_specs">请输入货品规格</string>
+    <string name="pls_input_goods_price">请输入货品单价</string>
+    <string name="pls_input_goods_describe">请输入货品描述信息</string>
+
+    <string name="user_agreement">圈子用户协议</string>
+
+    <string name="text1">系统自动生成</string>
+    <string name="text2">请选择货物名称</string>
+    <string name="text3">系统自动录入</string>
+    <string name="text4">空车重量</string>
+    <string name="text5">满车重量</string>
+    <string name="text6">单行输入</string>
+    <string name="text7">程序计算，不用手工填写</string>
+    <string name="text8">描述此次货物信息</string>
+
+    <string name="change">change</string>
+    <string name="focus">focus</string>
+
+</resources>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_color_bj">
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/qmui_config_color_white"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="公司名称：" />
+
+                <EditText
+                    android:id="@+id/et_company_name"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/pls_input_company_name" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_company_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="负责人：" />
+
+                <TextView
+                    android:id="@+id/et_company_charge"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/pls_input_company_charge" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_company_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="联系方式：" />
+
+                <EditText
+                    android:id="@+id/et_company_phone"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/pls_input_company_phone"
+                    android:inputType="phone" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_company_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="联系地址：" />
+
+                <EditText
+                    android:id="@+id/et_company_address"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/pls_input_company_address" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_goods_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="货物类型：" />
+
+                <EditText
+                    android:id="@+id/et_goods_type"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_car_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="车重：" />
+
+                <EditText
+                    android:id="@+id/et_car_weight"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_enter_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="入场时间：" />
+
+                <EditText
+                    android:id="@+id/et_enter_time"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="date" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_total_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="总重：" />
+
+                <EditText
+                    android:id="@+id/et_total_weight"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text7"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_out_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="出场时间：" />
+
+                <EditText
+                    android:id="@+id/et_out_time"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="date" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_real_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="净重：" />
+
+                <TextView
+                    android:id="@+id/et_real_weight"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="折扣率：" />
+
+                <EditText
+                    android:id="@+id/et_discount"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="单价：" />
+
+                <EditText
+                    android:id="@+id/et_price"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="总价：" />
+
+                <EditText
+                    android:id="@+id/et_total_price"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_person_weigher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="司磅员：" />
+
+                <EditText
+                    android:id="@+id/et_person_weigher"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_shipping_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="收货单位：" />
+
+                <EditText
+                    android:id="@+id/et_shipping_unit"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="textPersonName"
+                    android:maxLength="50" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="司机：" />
+
+                <EditText
+                    android:id="@+id/et_driver"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text6"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/inputItemLayout"
+                android:gravity="top">
+
+                <CheckBox
+                    android:id="@+id/ck_remarks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/inputTvStyle"
+                    android:text="备注：" />
+
+                <EditText
+                    android:id="@+id/et_remarks"
+                    style="@style/inputEtStyle"
+                    android:gravity="top"
+                    android:hint="@string/text8"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:minHeight="50dp"
+                    android:minLines="5" />
+            </LinearLayout>
+
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/bt_print"
+                style="@style/RoundButtonStyle"
+                android:layout_margin="20dp"
+                android:text="@string/save" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

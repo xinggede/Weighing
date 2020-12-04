@@ -1,0 +1,94 @@
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yingmei.scancode.zxing.ZXingView
+        android:id="@+id/zxingview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:qrcv_animTime="1000"
+        app:qrcv_borderSize="0dp"
+        app:qrcv_cornerColor="@android:color/white"
+        app:qrcv_cornerDisplayType="center"
+        app:qrcv_cornerLength="40dp"
+        app:qrcv_cornerSize="5dp"
+        app:qrcv_isAutoZoom="true"
+        app:qrcv_isOnlyDecodeScanBoxArea="true"
+        app:qrcv_isScanLineReverse="true"
+        app:qrcv_isShowLocationPoint="true"
+        app:qrcv_isShowTipBackground="true"
+        app:qrcv_maskColor="#60000000"
+        app:qrcv_qrCodeTipText="请对准打印机机身铭牌二维码"
+        app:qrcv_rectWidth="250dp"
+        app:qrcv_tipTextColor="@android:color/white"
+        app:qrcv_tipTextMargin="40dp"
+        app:qrcv_tipTextSize="14sp"
+        android:fitsSystemWindows="true"
+        app:qrcv_toolbarHeight="?attr/qmui_topbar_height"
+        app:qrcv_verticalBias="0.4" />
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+        <Button
+            android:id="@+id/bt_input_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@mipmap/icon_s_input"
+            android:drawablePadding="10dp"
+            android:onClick="onClick"
+            android:text="输入机器编码"
+            android:textColor="@color/qmui_config_color_white"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/bt_scan_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@mipmap/icon_s_img"
+            android:drawablePadding="10dp"
+            android:onClick="onClick"
+            android:text="相册"
+            android:textColor="@color/qmui_config_color_white"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/bt_open_light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@mipmap/icon_s_light_close"
+            android:drawablePadding="10dp"
+            android:onClick="onClick"
+            android:text="打开手电筒"
+            android:textColor="@color/qmui_config_color_white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

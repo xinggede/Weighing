@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/app_primary_color"
+    android:clipChildren="false">
+
+
+    <com.qmuiteam.qmui.layout.QMUILinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.xing.weight.view.CircleImageView
+            android:id="@+id/iv_head"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/DescriptionStyle"
+            android:text="XXX"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/qmui_config_color_white"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/qmui_config_color_white"
+            android:orientation="vertical">
+
+            <com.qmuiteam.qmui.layout.QMUIRelativeLayout
+                android:id="@+id/re_company_info"
+                style="@style/LinStyle"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@drawable/app_touch_bg"
+                app:qmui_topDividerColor="@color/divider_color"
+                app:qmui_topDividerHeight="1px">
+
+                <TextView
+                    style="@style/DescriptionStyle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/company_info" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_arrow_right" />
+
+            </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
+
+            <com.qmuiteam.qmui.layout.QMUIRelativeLayout
+                android:id="@+id/re_print_manage"
+                style="@style/LinStyle"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@drawable/app_touch_bg">
+
+                <TextView
+                    style="@style/DescriptionStyle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/print_manage" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_arrow_right" />
+
+            </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
+
+            <com.qmuiteam.qmui.layout.QMUIRelativeLayout
+                android:id="@+id/re_term_of_validity"
+                style="@style/LinStyle"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@drawable/app_touch_bg">
+
+                <TextView
+                    style="@style/DescriptionStyle"
+                    android:layout_centerVertical="true"
+                    android:text="有效期" />
+
+                <TextView
+                    android:id="@+id/tv_days"
+                    style="@style/DescriptionStyle"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/tv2"
+                    android:layout_marginEnd="10dp"
+                    android:text="15天" />
+
+                <TextView
+                    android:id="@+id/tv2"
+                    style="@style/DescriptionStyle"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/iv2"
+                    android:textColor="#f00"
+                    android:text="续期" />
+
+                <ImageView
+                    android:id="@+id/iv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_arrow_right" />
+
+            </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
+
+            <com.qmuiteam.qmui.layout.QMUIRelativeLayout
+                android:id="@+id/re_about"
+                style="@style/LinStyle"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@drawable/app_touch_bg">
+
+                <TextView
+                    style="@style/DescriptionStyle"
+                    android:layout_centerVertical="true"
+                    android:text="关于" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_arrow_right" />
+
+            </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/bt_exit"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/btn_exit_text_color"
+            app:qmui_backgroundColor="@color/btn_exit_bj_color"
+            app:qmui_radius="10dp"
+            android:text="退出登录" />
+
+    </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

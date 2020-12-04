@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/list_item_touch_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_drive_number"
+            style="@style/DescriptionStyle"
+            android:layout_centerVertical="true"
+            android:text="粤BXF05F0"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/DescriptionStyle"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="5分钟前" />
+
+    </RelativeLayout>
+    <com.qmuiteam.qmui.layout.QMUILinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:divider="@drawable/lin_ver_line"
+        android:showDividers="middle"
+        app:qmui_borderColor="@color/divider_color"
+        app:qmui_borderWidth="1px">
+
+        <TextView
+            style="@style/TabTVStyle"
+            android:text="收货方"/>
+
+        <TextView
+            style="@style/TabTVStyle"
+            android:text="货号"/>
+        <TextView
+            style="@style/TabTVStyle"
+            android:text="总量"/>
+
+        <TextView
+            style="@style/TabTVStyle"
+            android:text="司机"/>
+
+        <TextView
+            style="@style/TabTVStyle"
+            android:text="出场时间"/>
+
+    </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+    <com.qmuiteam.qmui.layout.QMUILinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:divider="@drawable/lin_ver_line"
+        android:showDividers="middle"
+        app:qmui_borderColor="@color/divider_color"
+        app:qmui_borderWidth="1px">
+
+        <TextView
+            android:id="@+id/tv_receive_name"
+            style="@style/TabTVStyle"
+            android:text="万科*名称"/>
+
+        <TextView
+            android:id="@+id/tv_art_name"
+            style="@style/TabTVStyle"
+            android:text="水泥"/>
+        <TextView
+            android:id="@+id/tv_total_weight"
+            style="@style/TabTVStyle"
+            android:text="47吨"/>
+
+        <TextView
+            android:id="@+id/tv_drive_name"
+            style="@style/TabTVStyle"
+            android:text="小赵"/>
+
+        <TextView
+            android:id="@+id/tv_out_time"
+            style="@style/TabTVStyle"
+            android:text="12:05"/>
+
+    </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+    <TextView
+        android:id="@+id/tv_describe"
+        style="@style/DescriptionStyle"
+        android:layout_marginTop="10dp"
+        android:text="该车载重15吨，2020年10月12日首次入场"/>
+
+
+</LinearLayout>

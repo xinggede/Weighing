@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- common -->
+    <color name="app_color_blue_disabled">#8000A8E1</color>
+    <color name="app_color_blue_pressed">#c000A8E1</color>
+
+    <color name="app_color_blue_2">#31BDF3</color>
+    <color name="app_color_blue_2_disabled">#7F31BDF3</color>
+    <color name="app_color_blue_2_pressed">#7F31BDF3</color>
+
+    <color name="app_color_theme_4">#9FD661</color>
+    <color name="app_color_theme_5">#3FD0AD</color>
+    <color name="app_color_theme_6">#2BBDF3</color>
+    <color name="app_color_theme_7">#5A9AEF</color>
+    <color name="app_color_theme_8">#AC8FEF</color>
+    <color name="app_color_theme_9">#EE85C1</color>
+
+
+    <color name="tab_panel_bg">#ffffff</color>
+    <color name="tab_panel_divider">#f00</color>
+
+
+    <color name="colorAccent">#11D183</color>
+    <color name="home_top">#11D183</color>
+    <color name="search_bj">#33848B87</color>
+    <color name="app_color_description">#000</color>
+    <color name="app_color_blue">#3D98FF</color>
+    <color name="tab_bj">#F9F9F9</color>
+    <color name="tab_normal_color">#8a8a8a</color>
+    <color name="text_hint_color">#999999</color>
+    <color name="text_normal_color">#4B4747</color>
+    <color name="black">#000</color>
+
+    <color name="btn_text_color_1">#FFFFFF</color>
+    <color name="btn_text_color_2">#837F7E</color>
+    <color name="btn_text_color_3">#1BA89D</color>
+
+    <color name="btn_bj_color_1">#11D183</color>
+    <color name="btn_bj_color_2">#3BA378</color>
+    <color name="btn_bj_color_3">#057A4B</color>
+
+    <color name="divider_color">#706D6D</color>
+
+    <color name="gray_color_bj">#EFF3F5</color>
+
+</resources>

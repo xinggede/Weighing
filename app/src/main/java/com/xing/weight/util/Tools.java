@@ -29,6 +29,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.compile;
 
 
 public class Tools {
@@ -77,6 +81,34 @@ public class Tools {
         }
         toast.setText(id);
         toast.show();
+    }
+
+    /**
+     * 验证手机号码
+     *
+     * @param mobiles
+     * @return
+     */
+    public static boolean isMobile(String mobiles) {
+        Pattern p = compile("^[1]\\d{10}$");
+        // Pattern p = Pattern
+        // .compile("^(1[3|5|8|4|7]\\d{9})$");
+        Pattern p1 = compile("^((\\+86)|(86))?(13)\\d{9}$");
+
+        Matcher m = p.matcher(mobiles);
+        if (m.matches())
+            return true;
+        else {
+            m = p1.matcher(mobiles);
+            return m.matches();
+        }
+    }
+
+    /**
+     * 是不是密码 (长度8-16位，必须包含数字和字母的组合)
+     */
+    public static boolean isPassword(String password) {
+        return Pattern.matches("^(?![0-9]+$)(?![a-zA-Z]+$)(?![^A-Za-z0-9]+$)[0-9A-Za-z|[^A-Za-z0-9]]{6,16}$", password);
     }
 
     public static int dpToPx(Resources res, int dp) {

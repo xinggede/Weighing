@@ -36,4 +36,15 @@ dependencies {
     implementation "com.qmuiteam:arch:$qmui_arch_version"
     annotationProcessor "com.qmuiteam:arch-compiler:$qmui_arch_version"
     implementation project(path: ':ScanCode')
+
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'me.jessyan:retrofit-url-manager:1.4.0'
+    // RxJava
+    api 'io.reactivex.rxjava2:rxjava:2.2.10'
+    // RxAndroid
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    // adapter
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    // json串转换
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 }

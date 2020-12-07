@@ -1,27 +1,20 @@
 package com.xing.weight.fragment.login;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
-import com.xing.weight.MainActivity;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.fragment.login.mode.LoginContract;
 import com.xing.weight.fragment.login.mode.LoginPresenter;
 import com.xing.weight.util.Tools;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -66,6 +59,26 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         tvRegister.setText(sp);
     }
 
+    private void login(){
+        String phone = etPhone.getText().toString();
+        if(TextUtils.isEmpty(phone)){
+            etPhone.requestFocus();
+            return;
+        }
+//        if(!Tools.isMobile(phone)){
+//            layoutPhone.setError("手机号码不正确");
+//            return;
+//        }
+//        layoutPhone.setErrorEnabled(false);
+        String pwd = etPwd.getText().toString();
+        if(TextUtils.isEmpty(pwd)){
+            etPwd.requestFocus();
+            return;
+        }
+//        layoutPwd.setErrorEnabled(false);
+        mPresenter.login(phone, pwd);
+    }
+
     @OnClick({R.id.tv_forget, R.id.bt_login, R.id.iv_wx})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -74,8 +87,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
                 break;
 
             case R.id.bt_login:
-                startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish();
+                login();
                 break;
 
             case R.id.iv_wx:

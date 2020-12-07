@@ -11,6 +11,7 @@ import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.bean.CustomInfo;
+import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
 import com.xing.weight.fragment.main.manage.mode.MyGoodsAdapter;
@@ -114,6 +115,7 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
     }
 
     private void onDataLoaded() {
+        mPresenter.getGoods();
         List<String> data = new ArrayList<>(Arrays.asList("Helps", "Maintain", "Liver", "Health", "Function", "Supports", "Healthy", "Fat",
                 "Metabolism", "Nuturally", "Bracket", "Refrigerator", "Bathtub", "Wardrobe", "Comb", "Apron", "Carpet", "Bolster", "Pillow", "Cushion"));
         Collections.shuffle(data);
@@ -165,5 +167,13 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
                 Tools.logd("handleEffect:"+ customInfo.name);
             }
         });
+    }
+
+    @Override
+    public void onHttpResult(int code, Object data) {
+        if(code == 0){
+            List<GoodsDetail> goodsDetails = (List<GoodsDetail>) data;
+//            mAdapter.setData(goodsDetails);
+        }
     }
 }

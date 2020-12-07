@@ -10,4 +10,12 @@ public class ManagePresenter extends BasePresenter<ManageContract.View, ManageCo
     }
 
 
+    public void getGoods(){
+        requestHttp(mModel.getMainApi().getGoods(),
+                valueInfo -> {
+                    getView().onHttpResult(0, valueInfo);
+                });
+    }
+
+
 }

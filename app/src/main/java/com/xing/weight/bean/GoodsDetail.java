@@ -5,13 +5,27 @@ import com.xing.weight.util.Tools;
 
 public class GoodsDetail extends Effect {
 
+    public int id;
+
     public String name;
 
-    public String spec;
+    public String code;
+
+    public String model;
+
+    public String type;
+
+    public String pricebuy;
 
     public double price;
 
-    public double unit;
+    public String wastage;
+
+    public double remark;
+
+    public String createDate;
+
+    public String modifyDate;
 
     public double quantity;
 

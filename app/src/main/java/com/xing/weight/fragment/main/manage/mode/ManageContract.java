@@ -7,6 +7,7 @@ public class ManageContract {
 
     public interface View extends BaseContract.View {
 
+        void onHttpResult(int code, Object data);
 
     }
 

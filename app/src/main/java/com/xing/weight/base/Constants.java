@@ -10,7 +10,7 @@ public class Constants {
     public static final String DATA = "data";
 
     public static final String PHONE_NUMBER = "phoneNumber";
-    public static final String ACCESS_TOKEN = "accessToken";
+    public static final String TOKEN = "token";
     public static final String TEMP_TOKEN = "tempToken";
     public static final String INVOICE_STYLE = "invoiceStyle";
     public static final String INVOICE_STYLE_NAME = "invoiceStyleName";

@@ -39,6 +39,7 @@
     <string name="pls_input_company_charge">请输入负责人</string>
     <string name="pls_input_company_phone">请输入联系方式</string>
     <string name="pls_input_company_address">请输入联系地址</string>
+    <string name="pls_input_company_describe">请输入描述信息</string>
 
     <string name="pls_input_goods_code">请输入货品编号</string>
     <string name="pls_input_goods_name">请输入货品名称</string>
@@ -57,6 +58,7 @@
     <string name="text6">单行输入</string>
     <string name="text7">程序计算，不用手工填写</string>
     <string name="text8">描述此次货物信息</string>
+    <string name="text9">请选择出货单位</string>
 
     <string name="change">change</string>
     <string name="focus">focus</string>

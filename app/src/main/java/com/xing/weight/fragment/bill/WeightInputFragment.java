@@ -12,17 +12,16 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.main.MainContract;
-import com.xing.weight.fragment.main.MainPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.GoodsDetail;
+import com.xing.weight.fragment.bill.mode.BillContract;
+import com.xing.weight.fragment.bill.mode.BillPresenter;
 
 import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class WeightInputFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class WeightInputFragment extends BaseFragment<BillPresenter> implements BillContract.View {
 
 
     @BindView(R.id.topbar)
@@ -49,8 +48,8 @@ public class WeightInputFragment extends BaseFragment<MainPresenter> implements 
     TextView tvTotalPrice;
     @BindView(R.id.et_person_weigher)
     EditText etPersonWeigher;
-    @BindView(R.id.et_shipping_unit)
-    EditText etShippingUnit;
+    @BindView(R.id.tv_shipping_unit)
+    TextView tvShippingUnit;
     @BindView(R.id.et_person_in_charge)
     EditText etPersonInCharge;
     @BindView(R.id.et_driver)
@@ -58,11 +57,11 @@ public class WeightInputFragment extends BaseFragment<MainPresenter> implements 
     @BindView(R.id.et_remarks)
     EditText etRemarks;
 
-    private QMUIPopup choosePopup;
+    private QMUIPopup chooseGoodsPopup, chooseCustomPopup;
 
     @Override
-    protected MainPresenter onLoadPresenter() {
-        return new MainPresenter();
+    protected BillPresenter onLoadPresenter() {
+        return new BillPresenter();
     }
 
     @Override
@@ -89,26 +88,22 @@ public class WeightInputFragment extends BaseFragment<MainPresenter> implements 
     }
 
 
-    private void showChooseName(View v) {
-        List<String> data = new ArrayList<>();
-        data.add("矿砂");
-        data.add("山石");
-        data.add("土方");
-
-        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, data);
-
-        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                tvName.setText(adapterView.getItemAtPosition(i).toString());
-                if (choosePopup != null) {
-                    choosePopup.dismiss();
+    private void showChooseGoods(View v) {
+        if (chooseGoodsPopup == null) {
+            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getSaveGoods());
+            AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (chooseGoodsPopup != null) {
+                        chooseGoodsPopup.dismiss();
+                    }
+                    GoodsDetail detail = (GoodsDetail) adapterView.getItemAtPosition(i);
+                    tvName.setText(detail.name);
+                    etPrice.setText(String.valueOf(detail.price));
+                    etRemarks.setText(detail.remark);
                 }
-            }
-        };
-
-        if (choosePopup == null) {
-            choosePopup = QMUIPopups.listPopup(getContext(),
+            };
+            chooseGoodsPopup = QMUIPopups.listPopup(getContext(),
                     QMUIDisplayHelper.dp2px(getContext(), 200),
                     QMUIDisplayHelper.dp2px(getContext(), 300),
                     adapter,
@@ -119,17 +114,73 @@ public class WeightInputFragment extends BaseFragment<MainPresenter> implements 
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
-        choosePopup.show(v);
+        chooseGoodsPopup.show(v);
     }
 
-    @OnClick({R.id.tv_name, R.id.bt_print})
+    private void showChooseCustom(View v) {
+        if (chooseGoodsPopup == null) {
+            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getSaveCustomer());
+            AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (chooseGoodsPopup != null) {
+                        chooseGoodsPopup.dismiss();
+                    }
+                    CustomerInfo info = (CustomerInfo) adapterView.getItemAtPosition(i);
+                    tvShippingUnit.setText(info.name);
+                    etPersonInCharge.setText(info.name);
+                }
+            };
+            chooseGoodsPopup = QMUIPopups.listPopup(getContext(),
+                    QMUIDisplayHelper.dp2px(getContext(), 200),
+                    QMUIDisplayHelper.dp2px(getContext(), 300),
+                    adapter,
+                    onItemClickListener)
+                    .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
+                    .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
+                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .shadow(true)
+                    .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
+        }
+        chooseGoodsPopup.show(v);
+    }
+
+    @OnClick({R.id.tv_name, R.id.bt_print, R.id.tv_shipping_unit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_name:
-                showChooseName(view);
+                if(mPresenter.getSaveGoods().isEmpty()){
+                    mPresenter.getGoods();
+                } else {
+                    showChooseGoods(view);
+                }
+                break;
+            case R.id.tv_shipping_unit:
+                if(mPresenter.getSaveCustomer().isEmpty()){
+                    mPresenter.getCustom();
+                } else {
+                    showChooseCustom(view);
+                }
                 break;
             case R.id.bt_print:
+                save();
                 break;
+        }
+    }
+
+    private void save(){
+        String code = tvNumber.getText().toString();
+
+    }
+
+    @Override
+    public void onHttpResult(boolean success, int code, Object data) {
+        if(success){
+            if(code == 0){
+                showChooseGoods(tvName);
+            } else if(code == 1){
+                showChooseCustom(tvShippingUnit);
+            }
         }
     }
 }

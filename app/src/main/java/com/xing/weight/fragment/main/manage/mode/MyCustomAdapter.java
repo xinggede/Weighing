@@ -12,6 +12,7 @@ import com.qmuiteam.qmui.recyclerView.QMUISwipeViewHolder;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.bean.CustomerInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyCustomAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
-    private List<String> mData = new ArrayList<>();
+    private List<CustomerInfo> mData = new ArrayList<>();
     public final QMUISwipeAction mDeleteAction;
     private BaseRecyclerAdapter.OnItemClickListener mClickListener;
 
@@ -36,7 +37,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         mDeleteAction = builder.text("删除").backgroundColor(Color.RED).build();
     }
 
-    public void setData(@Nullable List<String> list) {
+    public void setData(@Nullable List<CustomerInfo> list) {
         mData.clear();
         if (list != null) {
             mData.addAll(list);
@@ -49,19 +50,23 @@ public class MyCustomAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         notifyItemRemoved(pos);
     }
 
-    public void add(int pos, String item) {
+    public void add(int pos, CustomerInfo item) {
         mData.add(pos, item);
         notifyItemInserted(pos);
     }
 
-    public void prepend(@NonNull List<String> items) {
+    public void prepend(@NonNull List<CustomerInfo> items) {
         mData.addAll(0, items);
         notifyDataSetChanged();
     }
 
-    public void append(@NonNull List<String> items) {
+    public void append(@NonNull List<CustomerInfo> items) {
         mData.addAll(items);
         notifyDataSetChanged();
+    }
+
+    public CustomerInfo getItem(int position){
+        return mData.get(position);
     }
 
     @NonNull
@@ -83,8 +88,15 @@ public class MyCustomAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull QMUISwipeViewHolder holder, int position) {
-        TextView textView = holder.itemView.findViewById(R.id.tv_company_name);
-        textView.setText(mData.get(position));
+        CustomerInfo info = getItem(position);
+        TextView tvCompanyName = holder.itemView.findViewById(R.id.tv_company_name);
+        tvCompanyName.setText(info.comname);
+
+        TextView tvName = holder.itemView.findViewById(R.id.tv_name);
+        tvName.setText(info.name+": " + info.phone);
+
+        TextView tvAddress = holder.itemView.findViewById(R.id.tv_address);
+        tvAddress.setText(info.address);
     }
 
     @Override

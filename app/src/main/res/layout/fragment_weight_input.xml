@@ -176,16 +176,15 @@
 
             <LinearLayout style="@style/inputItemLayout">
 
-                <TextView
+                <com.xing.weight.view.CusTextView
                     style="@style/inputTvStyle"
                     android:text="出货单位："/>
 
-                <EditText
-                    android:id="@+id/et_shipping_unit"
+                <TextView
+                    android:id="@+id/tv_shipping_unit"
                     style="@style/inputEtStyle"
-                    android:inputType="textPersonName"
-                    android:maxLength="50"
-                    android:hint="@string/text6"/>
+                    android:drawableEnd="@mipmap/icon_arrow_down"
+                    android:hint="@string/text9"/>
 
             </LinearLayout>
 

@@ -8,6 +8,7 @@ public class CustomerInfo implements Parcelable {
 
     public int id;
     public String name;
+    public String comname;
     public String phone;
     public String address;
     public String remark;
@@ -15,6 +16,11 @@ public class CustomerInfo implements Parcelable {
     public int comid;
     public String createDate;
     public String modifyDate;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 
     @Override
     public int describeContents() {
@@ -25,6 +31,7 @@ public class CustomerInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.comname);
         dest.writeString(this.phone);
         dest.writeString(this.address);
         dest.writeString(this.remark);
@@ -40,6 +47,7 @@ public class CustomerInfo implements Parcelable {
     protected CustomerInfo(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
+        this.comname = in.readString();
         this.phone = in.readString();
         this.address = in.readString();
         this.remark = in.readString();

@@ -1,16 +1,22 @@
 package com.xing.weight.fragment.main.manage;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.qmuiteam.qmui.arch.effect.MapEffect;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
 import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,6 +34,8 @@ public class MyCustomAddFragment extends BaseFragment<ManagePresenter> implement
     EditText etPhone;
     @BindView(R.id.et_company_address)
     EditText etCompanyAddress;
+    @BindView(R.id.et_company_describe)
+    EditText etCompanyDescribe;
 
     CustomerInfo customInfo;
 
@@ -55,23 +63,65 @@ public class MyCustomAddFragment extends BaseFragment<ManagePresenter> implement
             topbar.setTitle("添加客户信息");
         } else {
             topbar.setTitle("编辑客户信息");
-            etCompanyName.setText(customInfo.name);
-            etName.setText(customInfo.phone);
-            etCompanyName.setText(customInfo.name);
-            etCompanyName.setText(customInfo.name);
+            etCompanyName.setText(customInfo.comname);
+            etName.setText(customInfo.name);
+            etPhone.setText(customInfo.phone);
+            etCompanyAddress.setText(customInfo.address);
+            etCompanyDescribe.setText(customInfo.remark);
         }
     }
 
     @OnClick(R.id.bt_save)
     public void onViewClicked() {
-        CustomerInfo customInfo = new CustomerInfo();
-        customInfo.name = "哈哈哈哈哈哈哈哈哈";
-//        notifyEffect(customInfo);
-        popBackStack();
+        String companyName = etCompanyName.getText().toString();
+        if(TextUtils.isEmpty(companyName)){
+            showToast(R.string.pls_input_company_name);
+            etCompanyName.requestFocus();
+            return;
+        }
+        String name = etName.getText().toString();
+        if(TextUtils.isEmpty(name)){
+            showToast(R.string.pls_input_company_charge);
+            etName.requestFocus();
+            return;
+        }
+        String phone = etPhone.getText().toString();
+        if(TextUtils.isEmpty(phone)){
+            showToast(R.string.pls_input_company_phone);
+            etPhone.requestFocus();
+            return;
+        }
+        String address = etCompanyAddress.getText().toString();
+        if(TextUtils.isEmpty(address)){
+            showToast(R.string.pls_input_company_address);
+            etCompanyAddress.requestFocus();
+            return;
+        }
+
+        String describe = etCompanyDescribe.getText().toString();
+        if(customInfo == null){
+            CustomerInfo info = new CustomerInfo();
+            info.comname = companyName;
+            info.name = name;
+            info.phone = phone;
+            info.address = address;
+            info.remark = describe;
+            mPresenter.addCustom(info);
+        } else {
+            customInfo.comname = companyName;
+            customInfo.name = name;
+            customInfo.phone = phone;
+            customInfo.address = address;
+            customInfo.remark = describe;
+            mPresenter.updateCustom(customInfo);
+        }
     }
 
     @Override
     public void onHttpResult(boolean success, int code, Object data) {
-
+        Map<String,Object> map = new HashMap<>();
+        map.put(getClass().getName(), true);
+        notifyEffect(new MapEffect(map));
+        popBackStack();
     }
 }

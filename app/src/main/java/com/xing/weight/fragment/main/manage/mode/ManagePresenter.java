@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.xing.weight.base.mvp.BasePresenter;
+import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PageList;
 import com.xing.weight.bean.request.RequestList;
@@ -55,7 +56,7 @@ public class ManagePresenter extends BasePresenter<ManageContract.View, ManageCo
                     getView().onHttpResult(true, 1, valueInfo);
                 }, e -> {
                     onError(e);
-                    getView().onHttpResult(false, 0, null);
+                    getView().onHttpResult(false, 1, null);
                 }, false);
     }
 
@@ -102,26 +103,26 @@ public class ManagePresenter extends BasePresenter<ManageContract.View, ManageCo
                     getView().onHttpResult(true, 1, valueInfo);
                 }, e -> {
                     onError(e);
-                    getView().onHttpResult(false, 0, null);
+                    getView().onHttpResult(false, 1, null);
                 }, false);
     }
 
     public void deleteCustom(int id) {
-        requestHttp(mModel.getMainApi().deleteGoods(id),
+        requestHttp(mModel.getMainApi().deleteCustomer(id),
                 o -> {
                     getView().onHttpResult(true, 2, o);
                 });
     }
 
-    public void addCustom(GoodsDetail goodsDetail) {
-        requestHttp(mModel.getMainApi().addGoods(goodsDetail),
+    public void addCustom(CustomerInfo customerInfo) {
+        requestHttp(mModel.getMainApi().addCustomer(customerInfo),
                 o -> {
                     getView().onHttpResult(true, 3, o);
                 });
     }
 
-    public void updateCustom(GoodsDetail goodsDetail) {
-        requestHttp(mModel.getMainApi().updateGoods(goodsDetail),
+    public void updateCustom(CustomerInfo customerInfo) {
+        requestHttp(mModel.getMainApi().updateCustomer(customerInfo),
                 o -> {
                     getView().onHttpResult(true, 4, o);
                 });

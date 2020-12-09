@@ -4,14 +4,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
 import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
 import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.PageList;
 import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
 import com.xing.weight.fragment.main.manage.mode.MyCustomAdapter;
@@ -23,6 +28,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_BOTTOM;
+import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_TOP;
 
 public class MyCustomListFragment extends BaseFragment<ManagePresenter> implements ManageContract.View {
 
@@ -83,7 +91,7 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
         QMUIRVItemSwipeAction swipeAction = new QMUIRVItemSwipeAction(true, new QMUIRVItemSwipeAction.Callback() {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                mAdapter.remove(viewHolder.getAdapterPosition());
+                delete(viewHolder.getAdapterPosition());
             }
 
             @Override
@@ -94,11 +102,8 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
             @Override
             public void onClickAction(QMUIRVItemSwipeAction swipeAction, RecyclerView.ViewHolder selected, QMUISwipeAction action) {
                 super.onClickAction(swipeAction, selected, action);
-                if (action == mAdapter.mDeleteAction) {
-                    mAdapter.remove(selected.getAdapterPosition());
-                } else {
-                    swipeAction.clear();
-                }
+                delete(selected.getAdapterPosition());
+                swipeAction.clear();
             }
         });
 
@@ -117,9 +122,9 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((itemView, pos) -> {
-            startFragment(new MyCustomAddFragment(new CustomerInfo()));
+            startFragment(new MyCustomAddFragment(mAdapter.getItem(pos)));
         });
-
+        callback();
         onDataLoaded();
     }
 
@@ -138,6 +143,27 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
         mPresenter.getCustomMore(page);
     }
 
+    private void delete(int position) {
+        deleteIndex = position;
+        CustomerInfo info = mAdapter.getItem(position);
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle(info.comname)
+                .setMessage("确定要删除该客户吗？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                        mPresenter.deleteCustom(info.id);
+                    }
+                }).create(R.style.DialogTheme2).show();
+    }
+
 
     @OnClick({R.id.ib_back, R.id.ib_add})
     public void onViewClicked(View view) {
@@ -153,11 +179,47 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
     }
 
     private void callback() {
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(MyCustomAddFragment.class.getName()) != null;
+            }
 
+            @Override
+            public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
+                boolean value = (boolean) effect.getValue(MyCustomAddFragment.class.getName());
+                if (value) {
+                    onDataLoaded();
+                }
+            }
+        });
     }
 
     @Override
     public void onHttpResult(boolean success, int code, Object data) {
-
+        if (mPullAction != null) {
+            pullLayout.finishActionRun(mPullAction);
+        }
+        if (success) {
+            if (code == 0) {
+                PageList<CustomerInfo> pageList = (PageList<CustomerInfo>) data;
+                mAdapter.setData(pageList.records);
+                if (mAdapter.getItemCount() >= pageList.total) {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP);
+                } else {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+            } else if (code == 1) {
+                PageList<CustomerInfo> pageList = (PageList<CustomerInfo>) data;
+                mAdapter.append(pageList.records);
+                if (mAdapter.getItemCount() >= pageList.total) {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP);
+                } else {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+            } else if (code == 2) {
+                mAdapter.remove(deleteIndex);
+            }
+        }
     }
 }

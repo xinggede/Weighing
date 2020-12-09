@@ -13,7 +13,6 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
-import okhttp3.RequestBody;
 
 public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContract.Model> {
 
@@ -39,9 +38,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContr
         requestLogin.username = phone;
         requestLogin.password = pwd;
         getView().showLoading();
-        String json = "{\"username\":\"" + phone + "\", \"password\":\""+pwd+"\"}";
 
-        Disposable disposable = mModel.getLoginApi().login(mModel.getRequestBody(json))
+        Disposable disposable = mModel.getLoginApi().login(requestLogin)
                 .compose(ResponseTransformer.handleResult())
                 .compose(SchedulerProvider.getInstance().applySchedulers())
                 .retryWhen(new RetryWithDelay(2, 3000))
@@ -51,14 +49,14 @@ public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContr
                         return Observable.create(new ObservableOnSubscribe<LoginResultInfo>() {
                             @Override
                             public void subscribe(ObservableEmitter<LoginResultInfo> emitter) throws Exception {
-//                                mModel.saveData(userInfo);
+                                mModel.saveData(userInfo);
                                 emitter.onNext(userInfo);
                                 emitter.onComplete();
                             }
                         }).compose(SchedulerProvider.getInstance().applySchedulers());
                     }
                 }).subscribe(userInfo -> {
-//                    getView().loginSuccess(userInfo);
+                    getView().onHttpResult(0, userInfo);
                 }, e -> {
                     onError(e);
                     onComplete(true);

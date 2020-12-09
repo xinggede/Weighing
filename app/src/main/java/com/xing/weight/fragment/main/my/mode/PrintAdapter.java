@@ -12,6 +12,7 @@ import com.qmuiteam.qmui.recyclerView.QMUISwipeViewHolder;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.bean.PrinterInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PrintAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
-    private List<String> mData = new ArrayList<>();
+    private List<PrinterInfo> mData = new ArrayList<>();
     public final QMUISwipeAction mDeleteAction;
     final QMUISwipeAction mSetDefaultAction;
     private BaseRecyclerAdapter.OnItemClickListener mClickListener;
@@ -38,12 +39,12 @@ public class PrintAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         mSetDefaultAction = builder.text("设为默认").backgroundColor(ContextCompat.getColor(context, R.color.colorAccent)).build();
     }
 
-    public void setData(@Nullable List<String> list) {
-        mData.clear();
+    public void setData(@Nullable List<PrinterInfo> list) {
         if (list != null) {
+            mData.clear();
             mData.addAll(list);
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public void remove(int pos) {
@@ -51,19 +52,23 @@ public class PrintAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         notifyItemRemoved(pos);
     }
 
-    public void add(int pos, String item) {
+    public void add(int pos, PrinterInfo item) {
         mData.add(pos, item);
         notifyItemInserted(pos);
     }
 
-    public void prepend(@NonNull List<String> items) {
+    public void prepend(@NonNull List<PrinterInfo> items) {
         mData.addAll(0, items);
         notifyDataSetChanged();
     }
 
-    public void append(@NonNull List<String> items) {
+    public void append(@NonNull List<PrinterInfo> items) {
         mData.addAll(items);
         notifyDataSetChanged();
+    }
+
+    public PrinterInfo getItem(int position) {
+        return mData.get(position);
     }
 
     @NonNull
@@ -86,8 +91,11 @@ public class PrintAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull QMUISwipeViewHolder holder, int position) {
-        TextView textView = holder.itemView.findViewById(R.id.tv_code);
-        textView.setText(mData.get(position));
+        PrinterInfo info = mData.get(position);
+        TextView tvName = holder.itemView.findViewById(R.id.tv_name);
+        TextView tvCode = holder.itemView.findViewById(R.id.tv_code);
+        tvName.setText(info.name);
+        tvCode.setText(info.devcode);
     }
 
     @Override

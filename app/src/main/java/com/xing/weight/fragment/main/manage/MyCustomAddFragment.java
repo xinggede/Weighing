@@ -8,7 +8,7 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
-import com.xing.weight.bean.CustomInfo;
+import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
 
@@ -29,7 +29,9 @@ public class MyCustomAddFragment extends BaseFragment<ManagePresenter> implement
     @BindView(R.id.et_company_address)
     EditText etCompanyAddress;
 
-    public MyCustomAddFragment(CustomInfo customInfo) {
+    CustomerInfo customInfo;
+
+    public MyCustomAddFragment(CustomerInfo customInfo) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.DATA,customInfo);
         setArguments(bundle);
@@ -47,20 +49,29 @@ public class MyCustomAddFragment extends BaseFragment<ManagePresenter> implement
 
     @Override
     protected void initView(View view) {
-        CustomInfo customInfo = getArguments().getParcelable(Constants.DATA);
+        customInfo = getArguments().getParcelable(Constants.DATA);
         topbar.addLeftBackImageButton().setOnClickListener(v->popBackStack());
         if(customInfo == null){
             topbar.setTitle("添加客户信息");
         } else {
             topbar.setTitle("编辑客户信息");
+            etCompanyName.setText(customInfo.name);
+            etName.setText(customInfo.phone);
+            etCompanyName.setText(customInfo.name);
+            etCompanyName.setText(customInfo.name);
         }
     }
 
     @OnClick(R.id.bt_save)
     public void onViewClicked() {
-        CustomInfo customInfo = new CustomInfo();
+        CustomerInfo customInfo = new CustomerInfo();
         customInfo.name = "哈哈哈哈哈哈哈哈哈";
-        notifyEffect(customInfo);
+//        notifyEffect(customInfo);
         popBackStack();
+    }
+
+    @Override
+    public void onHttpResult(boolean success, int code, Object data) {
+
     }
 }

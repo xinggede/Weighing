@@ -4,6 +4,10 @@ import android.app.Application;
 
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.xing.weight.base.CrashHandler;
+import com.xing.weight.util.Tools;
+
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 
 public class CPApp extends Application {
@@ -24,12 +28,12 @@ public class CPApp extends Application {
     }
 
     private void setRxJavaErrorHandler() {
-       /* RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
                 Tools.loge("rxJavaErrorHandler: " + throwable.getMessage());
             }
-        });*/
+        });
     }
 
 }

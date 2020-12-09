@@ -1,5 +1,6 @@
 package com.xing.weight.fragment.login;
 
+import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
+import com.xing.weight.MainActivity;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.fragment.login.mode.LoginContract;
@@ -99,5 +101,11 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     @Override
     public Object onLastFragmentFinish() {
         return null;
+    }
+
+    @Override
+    public void onHttpResult(int code, Object o) {
+        startActivity(new Intent(getContext(), MainActivity.class));
+        getActivity().finish();
     }
 }

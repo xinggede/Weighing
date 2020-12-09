@@ -3,17 +3,27 @@ package com.xing.weight.fragment.main.my;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
 import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.base.RecyclerViewHolder;
+import com.xing.weight.bean.GoodsDetail;
+import com.xing.weight.bean.PageList;
+import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.fragment.main.MainContract;
 import com.xing.weight.fragment.main.MainPresenter;
+import com.xing.weight.fragment.main.manage.MyGoodsAddFragment;
+import com.xing.weight.fragment.main.my.mode.MyContract;
+import com.xing.weight.fragment.main.my.mode.MyPresenter;
 import com.xing.weight.fragment.main.my.mode.PrintAdapter;
 import com.xing.weight.view.SpaceItemDecoration;
 
@@ -27,7 +37,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class PrintManageFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_TOP;
+
+public class PrintManageFragment extends BaseFragment<MyPresenter> implements MyContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -37,10 +49,12 @@ public class PrintManageFragment extends BaseFragment<MainPresenter> implements 
     QMUITopBarLayout topbar;
 
     private PrintAdapter mAdapter;
+    private QMUIPullLayout.PullAction mPullAction;
+    private int deleteIndex;
 
     @Override
-    protected MainPresenter onLoadPresenter() {
-        return new MainPresenter();
+    protected MyPresenter onLoadPresenter() {
+        return new MyPresenter();
     }
 
     @Override
@@ -55,31 +69,25 @@ public class PrintManageFragment extends BaseFragment<MainPresenter> implements 
             popBackStack();
         });
         topbar.addRightImageButton(R.mipmap.icon_add, R.id.topbar_right_add_button).setOnClickListener((v)->{
-            startFragment(new PrintAddFragment());
+            startFragment(new PrintAddFragment(null));
         });
+
+        pullLayout.setEnabledEdges(PULL_EDGE_TOP);
 
         pullLayout.setActionListener(new QMUIPullLayout.ActionListener() {
             @Override
             public void onActionTriggered(@NonNull QMUIPullLayout.PullAction pullAction) {
+                mPullAction = pullAction;
                 if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_TOP) {
                     onRefreshData();
-                } else if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_BOTTOM) {
-                    onLoadMore();
                 }
-
-                pullLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pullLayout.finishActionRun(pullAction);
-                    }
-                }, 3000);
             }
         });
 
         QMUIRVItemSwipeAction swipeAction = new QMUIRVItemSwipeAction(true, new QMUIRVItemSwipeAction.Callback() {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                mAdapter.remove(viewHolder.getAdapterPosition());
+                delete(viewHolder.getAdapterPosition());
             }
 
             @Override
@@ -91,10 +99,11 @@ public class PrintManageFragment extends BaseFragment<MainPresenter> implements 
             public void onClickAction(QMUIRVItemSwipeAction swipeAction, RecyclerView.ViewHolder selected, QMUISwipeAction action) {
                 super.onClickAction(swipeAction, selected, action);
                 if(action == mAdapter.mDeleteAction){
-                    mAdapter.remove(selected.getAdapterPosition());
-                }else{
-                    swipeAction.clear();
+                    delete(selected.getAdapterPosition());
+                } else{
+
                 }
+                swipeAction.clear();
             }
         });
 
@@ -111,34 +120,76 @@ public class PrintManageFragment extends BaseFragment<MainPresenter> implements 
         recyclerView.addItemDecoration(new SpaceItemDecoration(QMUIDisplayHelper.dp2px(getContext(),10), 2));
         mAdapter = new PrintAdapter(getContext());
         recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int pos) {
+                startFragment(new PrintAddFragment(mAdapter.getItem(pos)));
+            }
+        });
+        callback();
         onDataLoaded();
     }
 
+    private void callback() {
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(PrintAddFragment.class.getName()) != null;
+            }
+
+            @Override
+            public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
+                boolean value = (boolean) effect.getValue(PrintAddFragment.class.getName());
+                if (value) {
+                    onDataLoaded();
+                }
+            }
+        });
+    }
+
     private void onDataLoaded() {
-        List<String> data = new ArrayList<>(Arrays.asList("Helps", "Maintain", "Liver", "Health", "Function", "Supports", "Healthy", "Fat",
-                "Metabolism", "Nuturally", "Bracket", "Refrigerator", "Bathtub", "Wardrobe", "Comb", "Apron", "Carpet", "Bolster", "Pillow", "Cushion"));
-        Collections.shuffle(data);
-        mAdapter.setData(data);
+        mPresenter.getPrinter(true);
     }
 
     private void onRefreshData() {
-//        List<String> data = new ArrayList<>();
-//        long id = System.currentTimeMillis();
-//        for(int i = 0; i < 10; i++){
-//            data.add("onRefreshData-" + id + "-"+ i);
-//        }
-//        mAdapter.prepend(data);
-//        recyclerView.scrollToPosition(0);
+        mPresenter.getPrinter(false);
     }
 
-    private void onLoadMore() {
-//        List<String> data = new ArrayList<>();
-//        long id = System.currentTimeMillis();
-//        for(int i = 0; i < 10; i++){
-//            data.add("onLoadMore-" + id + "-"+ i);
-//        }
-//        mAdapter.append(data);
+    private void delete(int position) {
+        deleteIndex = position;
+        PrinterInfo printerInfo = mAdapter.getItem(position);
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle(printerInfo.name)
+                .setMessage("确定要删除该打印机吗？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                        mPresenter.deletePrinter(printerInfo.id);
+                    }
+                }).create(R.style.DialogTheme2).show();
     }
 
 
+    @Override
+    public void onHttpResult(boolean success, int code, Object data) {
+        if (mPullAction != null) {
+            pullLayout.finishActionRun(mPullAction);
+        }
+        if(success){
+            if(code == 0){
+                PageList<PrinterInfo> pageList = (PageList<PrinterInfo>) data;
+                mAdapter.setData(pageList.records);
+            } else if(code == 1){
+                mAdapter.remove(deleteIndex);
+            }
+        }
+    }
 }

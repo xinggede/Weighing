@@ -63,4 +63,8 @@ public class RegisterFragment extends BaseFragment<LoginPresenter> implements Lo
         }
     }
 
+    @Override
+    public void onHttpResult(int code, Object o) {
+
+    }
 }

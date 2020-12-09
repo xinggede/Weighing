@@ -1,38 +1,24 @@
 package com.xing.weight.fragment.main.manage;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qmuiteam.qmui.arch.effect.Effect;
-import com.qmuiteam.qmui.arch.effect.QMUIFragmentEffectHandler;
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
 import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.base.BaseRecyclerAdapter;
-import com.xing.weight.bean.CustomInfo;
+import com.xing.weight.base.Constants;
+import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
 import com.xing.weight.fragment.main.manage.mode.MyCustomAdapter;
-import com.xing.weight.fragment.main.my.mode.PrintAdapter;
-import com.xing.weight.util.Tools;
 import com.xing.weight.view.CusSearchText;
 import com.xing.weight.view.SpaceItemDecoration;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -46,8 +32,19 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
     QMUIPullLayout pullLayout;
     @BindView(R.id.et_search)
     CusSearchText etSearch;
-
+    private int page = 1, deleteIndex;
+    private QMUIPullLayout.PullAction mPullAction;
+    private boolean isChoose = false;
     private MyCustomAdapter mAdapter;
+
+    public MyCustomListFragment() {
+    }
+
+    public MyCustomListFragment(boolean isChoose) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.DATA, isChoose);
+        setArguments(bundle);
+    }
 
     @Override
     protected ManagePresenter onLoadPresenter() {
@@ -61,9 +58,13 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
 
     @Override
     protected void initView(View view) {
+        if (getArguments() != null) {
+            isChoose = getArguments().getBoolean(Constants.DATA, false);
+        }
         pullLayout.setActionListener(new QMUIPullLayout.ActionListener() {
             @Override
             public void onActionTriggered(@NonNull QMUIPullLayout.PullAction pullAction) {
+                mPullAction = pullAction;
                 if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_TOP) {
                     onRefreshData();
                 } else if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_BOTTOM) {
@@ -116,36 +117,25 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((itemView, pos) -> {
-            startFragment(new MyCustomAddFragment(new CustomInfo()));
+            startFragment(new MyCustomAddFragment(new CustomerInfo()));
         });
 
         onDataLoaded();
     }
 
     private void onDataLoaded() {
-        List<String> data = new ArrayList<>(Arrays.asList("Helps", "Maintain", "Liver", "Health", "Function", "Supports", "Healthy", "Fat",
-                "Metabolism", "Nuturally", "Bracket", "Refrigerator", "Bathtub", "Wardrobe", "Comb", "Apron", "Carpet", "Bolster", "Pillow", "Cushion"));
-        Collections.shuffle(data);
-        mAdapter.setData(data);
+        page = 1;
+        mPresenter.getCustom(page, true);
     }
 
     private void onRefreshData() {
-//        List<String> data = new ArrayList<>();
-//        long id = System.currentTimeMillis();
-//        for(int i = 0; i < 10; i++){
-//            data.add("onRefreshData-" + id + "-"+ i);
-//        }
-//        mAdapter.prepend(data);
-//        recyclerView.scrollToPosition(0);
+        page = 1;
+        mPresenter.getCustom(page, false);
     }
 
     private void onLoadMore() {
-//        List<String> data = new ArrayList<>();
-//        long id = System.currentTimeMillis();
-//        for(int i = 0; i < 10; i++){
-//            data.add("onLoadMore-" + id + "-"+ i);
-//        }
-//        mAdapter.append(data);
+        page++;
+        mPresenter.getCustomMore(page);
     }
 
 
@@ -162,17 +152,12 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
         }
     }
 
-    private void callback(){
-        registerEffect(this, new QMUIFragmentEffectHandler<CustomInfo>() {
-            @Override
-            public boolean shouldHandleEffect(@NonNull CustomInfo customInfo) { //（调用的线程）返回true才可能执行handleEffect
-                return true;
-            }
+    private void callback() {
 
-            @Override
-            public void handleEffect(@NonNull CustomInfo customInfo) { //该方法只会在界面显示的时候才调用（主线程）
-                Tools.logd("handleEffect:"+ customInfo.name);
-            }
-        });
+    }
+
+    @Override
+    public void onHttpResult(boolean success, int code, Object data) {
+
     }
 }

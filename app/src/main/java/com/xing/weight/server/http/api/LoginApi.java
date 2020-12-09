@@ -18,10 +18,7 @@ public interface LoginApi {
 
     @POST("/api/login")
     Observable<BasicResponse<LoginResultInfo>> login(@Body RequestLogin requestBody);
-//    Observable<BasicResponse<UserInfo>> login(@FieldMap Map<String, String> map);
 
-    @POST("/api/login")
-    Observable<BasicResponse<LoginResultInfo>> login(@Body RequestBody requestBody);
 
 
 }

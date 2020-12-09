@@ -29,16 +29,18 @@
     <string name="pls_input_phone">请输入手机号</string>
     <string name="pls_input_password">请输入密码</string>
     <string name="pls_input_captcha">请输入验证码</string>
-    <string name="pls_input_print_number">请输入打印机编号</string>
-    <string name="pls_input_print_code">请输入打印机校验码</string>
+    <string name="pls_input_print_code">请输入打印机编号</string>
+    <string name="pls_input_print_check_code">请输入打印机校验码</string>
     <string name="pls_input_print_name">请输入打印机名称</string>
     <string name="pls_input_print_paper">请选择纸张类型</string>
 
     <string name="pls_input_company_name">请输入公司名称</string>
+    <string name="pls_input_company_code">请输入公司编号</string>
     <string name="pls_input_company_charge">请输入负责人</string>
     <string name="pls_input_company_phone">请输入联系方式</string>
     <string name="pls_input_company_address">请输入联系地址</string>
 
+    <string name="pls_input_goods_code">请输入货品编号</string>
     <string name="pls_input_goods_name">请输入货品名称</string>
     <string name="pls_input_goods_model">请输入货品型号</string>
     <string name="pls_input_goods_specs">请输入货品规格</string>
@@ -58,5 +60,7 @@
 
     <string name="change">change</string>
     <string name="focus">focus</string>
+
+    <string name="number_or_words">0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 
 </resources>

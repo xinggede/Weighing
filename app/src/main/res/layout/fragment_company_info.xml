@@ -51,6 +51,28 @@
             <TextView
                 style="@style/DescriptionStyle"
                 android:layout_marginStart="20dp"
+                android:text="公司编号" />
+
+            <EditText
+                android:id="@+id/et_company_code"
+                style="@style/ETStyle"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@null"
+                android:hint="@string/pls_input_company_code"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:digits="@string/number_or_words"
+                android:maxLength="50"
+                android:padding="10dp" />
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
+
+            <TextView
+                style="@style/DescriptionStyle"
+                android:layout_marginStart="20dp"
                 android:text="负&#8194;责&#8194;人" />
 
             <EditText

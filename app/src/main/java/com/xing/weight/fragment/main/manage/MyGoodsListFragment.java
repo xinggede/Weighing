@@ -1,34 +1,37 @@
 package com.xing.weight.fragment.main.manage;
 
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qmuiteam.qmui.arch.effect.QMUIFragmentEffectHandler;
+import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
 import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.bean.CustomInfo;
+import com.xing.weight.base.Constants;
 import com.xing.weight.bean.GoodsDetail;
+import com.xing.weight.bean.PageList;
 import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
 import com.xing.weight.fragment.main.manage.mode.MyGoodsAdapter;
-import com.xing.weight.util.Tools;
 import com.xing.weight.view.CusSearchText;
 import com.xing.weight.view.SpaceItemDecoration;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_BOTTOM;
+import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_TOP;
 
 public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implements ManageContract.View {
 
@@ -40,6 +43,19 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
     CusSearchText etSearch;
 
     private MyGoodsAdapter mAdapter;
+    private int page = 1, deleteIndex;
+    private QMUIPullLayout.PullAction mPullAction;
+
+    private boolean isChoose = false;
+
+    public MyGoodsListFragment() {
+    }
+
+    public MyGoodsListFragment(boolean isChoose) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.DATA, isChoose);
+        setArguments(bundle);
+    }
 
     @Override
     protected ManagePresenter onLoadPresenter() {
@@ -53,28 +69,26 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
 
     @Override
     protected void initView(View view) {
+        if (getArguments() != null) {
+            isChoose = getArguments().getBoolean(Constants.DATA, false);
+        }
+        mPresenter.searchGoodsData(etSearch);
         pullLayout.setActionListener(new QMUIPullLayout.ActionListener() {
             @Override
             public void onActionTriggered(@NonNull QMUIPullLayout.PullAction pullAction) {
-                if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_TOP) {
+                mPullAction = pullAction;
+                if (pullAction.getPullEdge() == PULL_EDGE_TOP) {
                     onRefreshData();
-                } else if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_BOTTOM) {
+                } else if (pullAction.getPullEdge() == PULL_EDGE_BOTTOM) {
                     onLoadMore();
                 }
-
-                pullLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pullLayout.finishActionRun(pullAction);
-                    }
-                }, 3000);
             }
         });
 
         QMUIRVItemSwipeAction swipeAction = new QMUIRVItemSwipeAction(true, new QMUIRVItemSwipeAction.Callback() {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                mAdapter.remove(viewHolder.getAdapterPosition());
+                delete(viewHolder.getAdapterPosition());
             }
 
             @Override
@@ -86,10 +100,11 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
             public void onClickAction(QMUIRVItemSwipeAction swipeAction, RecyclerView.ViewHolder selected, QMUISwipeAction action) {
                 super.onClickAction(swipeAction, selected, action);
                 if (action == mAdapter.mDeleteAction) {
-                    mAdapter.remove(selected.getAdapterPosition());
+                    delete(selected.getAdapterPosition());
                 } else {
-                    swipeAction.clear();
+
                 }
+                swipeAction.clear();
             }
         });
 
@@ -108,37 +123,51 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((itemView, pos) -> {
-            startFragment(new MyGoodsAddFragment(new CustomInfo()));
-        });
+            if (isChoose) {
+                notifyEffect(mAdapter.getItem(pos));
+            } else {
+                startFragment(new MyGoodsAddFragment(mAdapter.getItem(pos)));
+            }
 
+        });
+        callback();
         onDataLoaded();
     }
 
     private void onDataLoaded() {
-        mPresenter.getGoods();
-        List<String> data = new ArrayList<>(Arrays.asList("Helps", "Maintain", "Liver", "Health", "Function", "Supports", "Healthy", "Fat",
-                "Metabolism", "Nuturally", "Bracket", "Refrigerator", "Bathtub", "Wardrobe", "Comb", "Apron", "Carpet", "Bolster", "Pillow", "Cushion"));
-        Collections.shuffle(data);
-        mAdapter.setData(data);
+        page = 1;
+        mPresenter.getGoods(page, true);
     }
 
     private void onRefreshData() {
-//        List<String> data = new ArrayList<>();
-//        long id = System.currentTimeMillis();
-//        for(int i = 0; i < 10; i++){
-//            data.add("onRefreshData-" + id + "-"+ i);
-//        }
-//        mAdapter.prepend(data);
-//        recyclerView.scrollToPosition(0);
+        page = 1;
+        mPresenter.getGoods(page, false);
     }
 
     private void onLoadMore() {
-//        List<String> data = new ArrayList<>();
-//        long id = System.currentTimeMillis();
-//        for(int i = 0; i < 10; i++){
-//            data.add("onLoadMore-" + id + "-"+ i);
-//        }
-//        mAdapter.append(data);
+        page++;
+        mPresenter.getGoodsMore(page);
+    }
+
+    private void delete(int position) {
+        deleteIndex = position;
+        GoodsDetail goodsDetail = mAdapter.getItem(position);
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle(goodsDetail.name)
+                .setMessage("确定要删除该商品吗？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                        mPresenter.deleteGoods(goodsDetail.id);
+                    }
+                }).create(R.style.DialogTheme2).show();
     }
 
 
@@ -149,31 +178,76 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
                 popBackStack();
                 break;
             case R.id.ib_add:
-                callback();
                 startFragment(new MyGoodsAddFragment(null));
                 break;
         }
     }
 
-    private void callback(){
-        registerEffect(this, new QMUIFragmentEffectHandler<CustomInfo>() {
+    private void callback() {
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
             @Override
-            public boolean shouldHandleEffect(@NonNull CustomInfo customInfo) { //（调用的线程）返回true才可能执行handleEffect
-                return true;
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(MyGoodsAddFragment.class.getName()) != null;
             }
 
             @Override
-            public void handleEffect(@NonNull CustomInfo customInfo) { //该方法只会在界面显示的时候才调用（主线程）
-                Tools.logd("handleEffect:"+ customInfo.name);
+            public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
+                boolean value = (boolean) effect.getValue(MyGoodsAddFragment.class.getName());
+                if (value) {
+                    onDataLoaded();
+                }
             }
         });
     }
 
     @Override
-    public void onHttpResult(int code, Object data) {
-        if(code == 0){
-            List<GoodsDetail> goodsDetails = (List<GoodsDetail>) data;
-//            mAdapter.setData(goodsDetails);
+    public void onHttpResult(boolean success, int code, Object data) {
+        if (mPullAction != null) {
+            pullLayout.finishActionRun(mPullAction);
+        }
+        if (code == 0) {
+            if (success) {
+                PageList<GoodsDetail> pageList = (PageList<GoodsDetail>) data;
+                mAdapter.setData(pageList.records);
+                if (mAdapter.getItemCount() >= pageList.total) {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP);
+                } else {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+            }
+        } else if (code == 1) {
+            if (success) {
+                PageList<GoodsDetail> pageList = (PageList<GoodsDetail>) data;
+                mAdapter.append(pageList.records);
+                if (mAdapter.getItemCount() >= pageList.total) {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP);
+                } else {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+            }
+        } else if (code == 2) {
+            if (success) {
+                mAdapter.remove(deleteIndex);
+            }
+        } else if (code == 10) {
+            if (success) {
+                if(!TextUtils.isEmpty(etSearch.getText())){
+                    mAdapter.saveData();
+                }
+                PageList<GoodsDetail> pageList = (PageList<GoodsDetail>) data;
+                mAdapter.setData(pageList.records);
+                if (mAdapter.getItemCount() >= pageList.total) {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP);
+                } else {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+            } else {
+                if(mAdapter.getSaveData() == null){
+                    return;
+                }
+                mAdapter.setData(mAdapter.getSaveData());
+                mAdapter.clearSaveData();
+            }
         }
     }
 }

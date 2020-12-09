@@ -16,27 +16,20 @@
 package com.xing.weight.server.http.config;
 
 
-import android.text.TextUtils;
-
 import com.xing.weight.base.Constants;
 import com.xing.weight.base.Prefs;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.Buffer;
 
 public final class HttpRequestInterceptor implements Interceptor {
-    private static final Charset UTF8 = Charset.forName("UTF-8");
-    private static final MediaType MEDIA_TYPE = MediaType.get("application/json; charset=UTF-8");
+    //    private static final Charset UTF8 = Charset.forName("UTF-8");
+//    private static final MediaType MEDIA_TYPE = MediaType.get("application/json; charset=UTF-8");
     public static String token = null;
 
     public static void resetToken() {
@@ -48,16 +41,16 @@ public final class HttpRequestInterceptor implements Interceptor {
     public Response intercept(@NotNull Chain chain) throws IOException {
         if (token == null) {
             token = Prefs.getInstance().getString(Constants.TOKEN);
-//            if (TextUtils.isEmpty(token)) {
-//                token = Prefs.getInstance().getString(Constants.TEMP_TOKEN);
-//            }
         }
         Request request = chain.request();
         if (token == null) {
             return chain.proceed(request);
         }
+        request = request.newBuilder().addHeader("token", token).build();
+        return chain.proceed(request);
 
-        Request.Builder requestBuilder = request.newBuilder();
+
+      /*  Request.Builder requestBuilder = request.newBuilder();
         if(request.method().equalsIgnoreCase("GET")){
             HttpUrl.Builder newUrlBuilder = request.url().newBuilder()
                     .addQueryParameter("token", token);
@@ -98,6 +91,6 @@ public final class HttpRequestInterceptor implements Interceptor {
             requestBuilder.method(request.method(), newFormBody.build());
         }
         Request newRequest = requestBuilder.build();
-        return chain.proceed(newRequest);
+        return chain.proceed(newRequest);*/
     }
 }

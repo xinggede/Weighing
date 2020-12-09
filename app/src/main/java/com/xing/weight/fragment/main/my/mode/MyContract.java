@@ -1,9 +1,10 @@
-package com.xing.weight.fragment.main.manage.mode;
+package com.xing.weight.fragment.main.my.mode;
 
 
 import com.xing.weight.base.mvp.BaseContract;
+import com.xing.weight.bean.CompanyInfo;
 
-public class ManageContract {
+public class MyContract {
 
     public interface View extends BaseContract.View {
 
@@ -13,7 +14,9 @@ public class ManageContract {
 
     interface Model extends BaseContract.Model {
 
+        int getCompanyId();
 
+        void saveCompanyInfo(CompanyInfo companyInfo);
     }
 
 }

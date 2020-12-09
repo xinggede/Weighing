@@ -12,6 +12,7 @@ import com.qmuiteam.qmui.recyclerView.QMUISwipeViewHolder;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.bean.GoodsDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyGoodsAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
-    private List<String> mData = new ArrayList<>();
+    private List<GoodsDetail> mData = new ArrayList<>();
     public final QMUISwipeAction mDeleteAction;
     private BaseRecyclerAdapter.OnItemClickListener mClickListener;
 
@@ -35,12 +36,35 @@ public class MyGoodsAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         mDeleteAction = builder.text("删除").backgroundColor(Color.RED).build();
     }
 
-    public void setData(@Nullable List<String> list) {
-        mData.clear();
-        if (list != null) {
-            mData.addAll(list);
+    private List<GoodsDetail> saveData = new ArrayList<>();
+    boolean isSave = false;
+    public void saveData(){
+        if(!isSave){
+            saveData.clear();
+            saveData.addAll(mData);
+            isSave = true;
         }
-        notifyDataSetChanged();
+    }
+
+    public List<GoodsDetail> getSaveData(){
+        if(!isSave){
+            return null;
+        }
+        return saveData;
+    }
+
+    public void clearSaveData(){
+        saveData.clear();
+        isSave = false;
+    }
+
+
+    public void setData(@Nullable List<GoodsDetail> list) {
+        if (list != null) {
+            mData.clear();
+            mData.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     public void remove(int pos) {
@@ -48,20 +72,25 @@ public class MyGoodsAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         notifyItemRemoved(pos);
     }
 
-    public void add(int pos, String item) {
+    public void add(int pos, GoodsDetail item) {
         mData.add(pos, item);
         notifyItemInserted(pos);
     }
 
-    public void prepend(@NonNull List<String> items) {
+    public void prepend(@NonNull List<GoodsDetail> items) {
         mData.addAll(0, items);
         notifyDataSetChanged();
     }
 
-    public void append(@NonNull List<String> items) {
+    public void append(@NonNull List<GoodsDetail> items) {
         mData.addAll(items);
         notifyDataSetChanged();
     }
+
+    public GoodsDetail getItem(int position){
+        return mData.get(position);
+    }
+
 
     @NonNull
     @Override
@@ -82,8 +111,15 @@ public class MyGoodsAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull QMUISwipeViewHolder holder, int position) {
-        TextView textView = holder.itemView.findViewById(R.id.tv_name_or_specs);
-        textView.setText(mData.get(position));
+        GoodsDetail detail = mData.get(position);
+        TextView tvName = holder.itemView.findViewById(R.id.tv_name_or_specs);
+        tvName.setText(detail.name+":"+detail.model);
+
+        TextView tvModel = holder.itemView.findViewById(R.id.tv_model_or_price);
+        tvModel.setText(detail.type+":"+ detail.pricebuy);
+
+        TextView tvDescribe = holder.itemView.findViewById(R.id.tv_describe);
+        tvDescribe.setText(detail.remark);
     }
 
     @Override

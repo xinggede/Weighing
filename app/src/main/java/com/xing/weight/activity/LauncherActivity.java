@@ -53,13 +53,12 @@ public class LauncherActivity extends BaseActivity<EmptyPresenter> implements Ba
     }
 
     private void start() {
-        startActivity(new Intent(this, LoginActivity.class));
-        if (mPresenter.isFirst()) {
-//            startActivity(new Intent(this, RegisterActivity.class));
-        } else if (mPresenter.isLogin()) {
-//            startActivity(new Intent(this, MainActivity.class));
+       /* if (mPresenter.isFirst()) {
+            startActivity(new Intent(this, RegisterActivity.class));
+        } else */if (mPresenter.isLogin()) {
+            startActivity(new Intent(this, MainActivity.class));
         } else {
-//            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
         finish();
     }

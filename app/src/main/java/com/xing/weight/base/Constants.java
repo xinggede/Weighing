@@ -11,12 +11,13 @@ public class Constants {
 
     public static final String PHONE_NUMBER = "phoneNumber";
     public static final String TOKEN = "token";
-    public static final String TEMP_TOKEN = "tempToken";
-    public static final String INVOICE_STYLE = "invoiceStyle";
-    public static final String INVOICE_STYLE_NAME = "invoiceStyleName";
-    public static final String INVOICE_STYLE_TYPE = "invoiceStyleType";
-    public static final String TAXPAYER_NAME = "taxpayerName";
-    public static final String TAXPAYER_ID = "taxpayerId";
+    public static final String COMPANY_NAME = "companyName";
+    public static final String COMPANY_ID = "companyId";
+    public static final String COMPANY_CODE = "companyCode";
+    public static final String COMPANY_BOSS = "companyBoss";
+    public static final String COMPANY_PHONE = "companyPhone";
+    public static final String COMPANY_ADDRESS = "companyAddress";
+
     public static final String TERMINAL_ID = "terminalId";
     public static final String ADDRESS = "address";
     public static final String TEL = "tel";

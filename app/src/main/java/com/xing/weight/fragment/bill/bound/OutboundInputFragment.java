@@ -1,4 +1,4 @@
-package com.xing.weight.fragment.bill;
+package com.xing.weight.fragment.bill.bound;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
+import com.xing.weight.fragment.bill.BillRecordFragment;
 import com.xing.weight.fragment.bill.mode.GoodsAdapter;
 import com.xing.weight.fragment.bill.mode.InputChangeListener;
 import com.xing.weight.fragment.main.MainContract;

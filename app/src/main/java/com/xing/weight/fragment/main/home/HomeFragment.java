@@ -6,7 +6,7 @@ import android.widget.EditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.OutboundInputFragment;
+import com.xing.weight.fragment.bill.bound.OutboundInputFragment;
 import com.xing.weight.fragment.bill.pound.WeightInputFragment;
 import com.xing.weight.fragment.main.home.mode.HomeContract;
 import com.xing.weight.fragment.main.home.mode.HomePresenter;

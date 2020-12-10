@@ -54,7 +54,7 @@ public class AboutFragment extends BaseFragment<MainPresenter> implements MainCo
                 break;
 
             case R.id.re_phone:
-                Intent intent=new Intent(Intent.ACTION_CALL);
+                Intent intent=new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + tvPhone.getText().toString()));
                 startActivity(intent);
                 break;

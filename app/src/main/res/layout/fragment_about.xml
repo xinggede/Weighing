@@ -27,10 +27,11 @@
 
             <LinearLayout
                 style="@style/inputItemLayout"
+                android:layout_marginTop="20dp"
                 android:gravity="center">
 
                 <TextView
-                    android:layout_width="300dp"
+                    android:layout_width="280dp"
                     android:layout_height="150dp"
                     android:background="@drawable/oval_bj"
                     android:gravity="center"
@@ -137,7 +138,7 @@
                     android:background="@color/qmui_config_color_white"
                     android:padding="10dp"
                     android:text="@string/vip_describe"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -19,6 +19,7 @@ public interface LoginApi {
     @POST("/api/login")
     Observable<BasicResponse<LoginResultInfo>> login(@Body RequestLogin requestBody);
 
-
+    @POST("/api/logout")
+    Observable<BasicResponse<Object>> logout();
 
 }

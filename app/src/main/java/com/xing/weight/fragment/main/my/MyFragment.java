@@ -1,19 +1,24 @@
 package com.xing.weight.fragment.main.my;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.xing.weight.LoginActivity;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.main.MainContract;
-import com.xing.weight.fragment.main.MainPresenter;
+import com.xing.weight.fragment.main.my.mode.MyContract;
+import com.xing.weight.fragment.main.my.mode.MyPresenter;
 import com.xing.weight.view.CircleImageView;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MyFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
 
 
     @BindView(R.id.iv_head)
@@ -26,8 +31,8 @@ public class MyFragment extends BaseFragment<MainPresenter> implements MainContr
     QMUIRoundButton btExit;
 
     @Override
-    protected MainPresenter onLoadPresenter() {
-        return new MainPresenter();
+    protected MyPresenter onLoadPresenter() {
+        return new MyPresenter();
     }
 
     @Override
@@ -52,9 +57,38 @@ public class MyFragment extends BaseFragment<MainPresenter> implements MainContr
             case R.id.re_term_of_validity:
                 break;
             case R.id.re_about:
+                startFragment(new AboutFragment());
                 break;
             case R.id.bt_exit:
+                exit();
                 break;
+        }
+    }
+
+    public void exit() {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("提示")
+                .setMessage("确定要退出登录吗？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                        mPresenter.logout();
+                    }
+                }).create(R.style.DialogTheme2).show();
+    }
+
+    @Override
+    public void onHttpResult(boolean success, int code, Object data) {
+        if(success){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
         }
     }
 }

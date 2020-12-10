@@ -73,6 +73,16 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyContract.Model
     }
 
 
-
+    public void logout(){
+        requestHttp(mModel.getLoginApi().logout(),
+                o -> {
+                    mModel.exit();
+                    getView().onHttpResult(true,0, o);
+                }, e->{
+                    mModel.exit();
+                    getView().onHttpResult(true,0, null);
+                    onComplete(true);
+                },true);
+    }
 
 }

@@ -64,5 +64,6 @@
     <string name="focus">focus</string>
 
     <string name="number_or_words">0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="vip_describe">会员有效期内，可优先体验公司新产品\n会员有效期内，可使用所有打印模板\n会员有效期内，享受所有升级服务\n会员有效期内，续费享受九折优惠</string>
 
 </resources>

@@ -49,7 +49,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment
         protected void onViewCreated(@NonNull View rootView) {
             super.onViewCreated(rootView); //4
             unbinder = ButterKnife.bind(this, rootView);
-        mPresenter = onLoadPresenter();
+             mPresenter = onLoadPresenter();
         try {
             if (mPresenter != null) {
                 mPresenter.attachView(this);

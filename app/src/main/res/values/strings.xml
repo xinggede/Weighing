@@ -53,7 +53,7 @@
     <string name="text1">系统自动生成</string>
     <string name="text2">请选择货物名称</string>
     <string name="text3">系统自动录入</string>
-    <string name="text4">空车重量</string>
+    <string name="text4">请输入空车重量</string>
     <string name="text5">满车重量</string>
     <string name="text6">单行输入</string>
     <string name="text7">程序计算，不用手工填写</string>

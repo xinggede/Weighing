@@ -3,13 +3,11 @@ package com.xing.weight.fragment.main.home;
 import android.view.View;
 import android.widget.EditText;
 
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.AboutFragment;
 import com.xing.weight.fragment.bill.OutboundInputFragment;
-import com.xing.weight.fragment.bill.WeightInputFragment;
+import com.xing.weight.fragment.bill.pound.WeightInputFragment;
 import com.xing.weight.fragment.main.home.mode.HomeContract;
 import com.xing.weight.fragment.main.home.mode.HomePresenter;
 

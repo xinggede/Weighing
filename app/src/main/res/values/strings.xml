@@ -34,6 +34,7 @@
     <string name="pls_input_print_name">请输入打印机名称</string>
     <string name="pls_input_print_paper">请选择纸张类型</string>
 
+    <string name="pls_input_model_name">请输入模板名称</string>
     <string name="pls_input_company_name">请输入公司名称</string>
     <string name="pls_input_company_code">请输入公司编号</string>
     <string name="pls_input_company_charge">请输入负责人</string>
@@ -53,12 +54,14 @@
     <string name="text1">系统自动生成</string>
     <string name="text2">请选择货物名称</string>
     <string name="text3">系统自动录入</string>
-    <string name="text4">请输入空车重量</string>
+    <string name="text4">空车重量</string>
     <string name="text5">满车重量</string>
     <string name="text6">单行输入</string>
     <string name="text7">程序计算，不用手工填写</string>
     <string name="text8">描述此次货物信息</string>
     <string name="text9">请选择出货单位</string>
+
+    <string name="text10">字段描述信息</string>
 
     <string name="change">change</string>
     <string name="focus">focus</string>

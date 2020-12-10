@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_color_bj">
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" />
+
+    <LinearLayout style="@style/inputItemLayout"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/inputTvStyle"
+            android:text="选择模板："/>
+
+        <TextView
+            android:id="@+id/tv_shipping_unit"
+            style="@style/inputEtStyle"
+            android:drawableEnd="@mipmap/icon_arrow_down"
+            android:hint="@string/text9"/>
+
+    </LinearLayout>
+
+
+
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

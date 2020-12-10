@@ -10,7 +10,7 @@ import com.xing.weight.fragment.main.MainPresenter;
 
 import butterknife.BindView;
 
-public class CustomWeightFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class WeightEditFragment extends BaseFragment<MainPresenter> implements MainContract.View {
 
 
     @BindView(R.id.topbar)
@@ -23,7 +23,7 @@ public class CustomWeightFragment extends BaseFragment<MainPresenter> implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_custom_weight;
+        return R.layout.fragment_weight_edit;
     }
 
     @Override

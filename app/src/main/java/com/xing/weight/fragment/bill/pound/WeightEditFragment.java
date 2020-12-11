@@ -170,122 +170,141 @@ public class WeightEditFragment extends BaseFragment<MainPresenter> implements M
         List<PoundModel> list = new ArrayList<>();
         if (ckCode.isChecked()) {
             poundModel = new PoundModel(tvCode.getText().toString());
+            poundModel.type = PoundModel.PoundType.CODE;
             poundModel.hint = etCode.getText().toString();
             list.add(poundModel);
         }
 
         if (ckCompanyName.isChecked()) {
             poundModel = new PoundModel(tvCompanyName.getText().toString());
+            poundModel.type = PoundModel.PoundType.CNAME;
             poundModel.hint = etCompanyName.getText().toString();
             list.add(poundModel);
         }
 
         if (ckCompanyCharge.isChecked()) {
             poundModel = new PoundModel(tvCompanyCharge.getText().toString());
+            poundModel.type = PoundModel.PoundType.CBOSS;
             poundModel.hint = etCompanyCharge.getText().toString();
             list.add(poundModel);
         }
 
         if (ckCompanyPhone.isChecked()) {
             poundModel = new PoundModel(tvCompanyPhone.getText().toString());
+            poundModel.type = PoundModel.PoundType.CPHONE;
             poundModel.hint = etCompanyPhone.getText().toString();
-            poundModel.type = 2;
+            poundModel.inputType = 2;
             list.add(poundModel);
         }
 
         if (ckCompanyAddress.isChecked()) {
             poundModel = new PoundModel(tvCompanyAddress.getText().toString());
+            poundModel.type = PoundModel.PoundType.CADDRESS;
             poundModel.hint = etCompanyAddress.getText().toString();
             list.add(poundModel);
         }
 
         if (ckGoodsType.isChecked()) {
             poundModel = new PoundModel(tvGoodsType.getText().toString());
+            poundModel.type = PoundModel.PoundType.GTYPE;
             poundModel.hint = etGoodsType.getText().toString();
             list.add(poundModel);
         }
 
         if (ckCarWeight.isChecked()) {
             poundModel = new PoundModel(tvCarWeight.getText().toString());
+            poundModel.type = PoundModel.PoundType.CARWEIGHT;
             poundModel.hint = etCarWeight.getText().toString();
-            poundModel.type = 1;
+            poundModel.inputType = 1;
             poundModel.lenght = 10;
             list.add(poundModel);
         }
 
         if (ckInTime.isChecked()) {
             poundModel = new PoundModel(tvInTime.getText().toString());
+            poundModel.type = PoundModel.PoundType.INTIME;
             poundModel.hint = etInTime.getText().toString();
             list.add(poundModel);
         }
 
         if (ckTotalWeight.isChecked()) {
             poundModel = new PoundModel(tvTotalWeight.getText().toString());
+            poundModel.type = PoundModel.PoundType.TOTALWEIGHT;
             poundModel.hint = etTotalWeight.getText().toString();
-            poundModel.type = 1;
+            poundModel.inputType = 1;
             poundModel.lenght = 10;
             list.add(poundModel);
         }
 
         if (ckOutTime.isChecked()) {
             poundModel = new PoundModel(tvOutTime.getText().toString());
+            poundModel.type = PoundModel.PoundType.OUTTIME;
             poundModel.hint = etOutTime.getText().toString();
             list.add(poundModel);
         }
 
         if (ckRealWeight.isChecked()) {
             poundModel = new PoundModel(tvRealWeight.getText().toString());
+            poundModel.type = PoundModel.PoundType.REALWEIGHT;
             poundModel.hint = etRealWeight.getText().toString();
-            poundModel.type = 1;
+            poundModel.inputType = 1;
             poundModel.lenght = 10;
             list.add(poundModel);
         }
 
         if (ckDiscount.isChecked()) {
             poundModel = new PoundModel(tvDiscount.getText().toString());
+            poundModel.type = PoundModel.PoundType.DISCOUNT;
             poundModel.hint = etDiscount.getText().toString();
-            poundModel.type = 1;
+            poundModel.inputType = 1;
             poundModel.lenght = 10;
             list.add(poundModel);
         }
 
         if (ckPrice.isChecked()) {
             poundModel = new PoundModel(tvPrice.getText().toString());
+            poundModel.type = PoundModel.PoundType.PRICE;
             poundModel.hint = etPrice.getText().toString();
-            poundModel.type = 1;
+            poundModel.inputType = 1;
             poundModel.lenght = 10;
             list.add(poundModel);
         }
 
         if (ckTotalPrice.isChecked()) {
             poundModel = new PoundModel(tvTotalPrice.getText().toString());
+            poundModel.type = PoundModel.PoundType.TOTALPRICE;
             poundModel.hint = etTotalPrice.getText().toString();
-            poundModel.type = 1;
+            poundModel.inputType = 1;
             poundModel.lenght = 10;
             list.add(poundModel);
         }
 
         if (ckPersonWeigher.isChecked()) {
             poundModel = new PoundModel(tvPersonWeigher.getText().toString());
+            poundModel.type = PoundModel.PoundType.PERSON;
             poundModel.hint = etPersonWeigher.getText().toString();
             list.add(poundModel);
         }
 
         if (ckReceiveName.isChecked()) {
             poundModel = new PoundModel(tvReceiveName.getText().toString());
+            poundModel.type = PoundModel.PoundType.RECEIVENAME;
             poundModel.hint = etReceiveName.getText().toString();
             list.add(poundModel);
         }
 
         if (ckDriver.isChecked()) {
             poundModel = new PoundModel(tvDriver.getText().toString());
+            poundModel.type = PoundModel.PoundType.DRIVER;
             poundModel.hint = etDriver.getText().toString();
             list.add(poundModel);
         }
 
         if (ckRemarks.isChecked()) {
             poundModel = new PoundModel(tvRemarks.getText().toString());
+            poundModel.type = PoundModel.PoundType.REMARKS;
             poundModel.hint = etRemarks.getText().toString();
+            poundModel.inputType = 3;
             poundModel.lenght = 100;
             list.add(poundModel);
         }

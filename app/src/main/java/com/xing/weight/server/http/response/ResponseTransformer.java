@@ -20,7 +20,6 @@ public class ResponseTransformer {
                 .flatMap(new ResponseFunction<>());
     }
 
-
     /**
      * 非服务器产生的异常，比如本地无无网络请求，Json数据解析错误等等。
      *
@@ -33,6 +32,7 @@ public class ResponseTransformer {
             return Observable.error(CustomException.handleException(throwable));
         }
     }
+
 
     /**
      * 服务其返回的数据解析
@@ -47,7 +47,7 @@ public class ResponseTransformer {
             int code = basicResponse.getCode();
             String message = basicResponse.getMessage();
             if (code == 200) {
-                if(basicResponse.getData() == null){
+                if (basicResponse.getData() == null) {
                     return (ObservableSource<T>) Observable.just("");
                 }
                 return Observable.just(basicResponse.getData());

@@ -72,11 +72,11 @@ public final class CusConverterFactory extends Converter.Factory {
 //            }
 //            String value = ((ResponseFormat) annotation).value();
 //            if (ResponseFormat.JSON.equals(value)) {
-//                return jsonFactory.responseBodyConverter(type, annotations, retrofit);
+//                return jsonFactory.responseBodyConverter(inputType, annotations, retrofit);
 //            } else if (ResponseFormat.XML.equals(value)) {
-//                return xmlFactory.responseBodyConverter(type, annotations, retrofit);
+//                return xmlFactory.responseBodyConverter(inputType, annotations, retrofit);
 //            } else {
-//                return stringFactory.responseBodyConverter(type, annotations, retrofit);
+//                return stringFactory.responseBodyConverter(inputType, annotations, retrofit);
 //            }
 //        }
         return jsonFactory.responseBodyConverter(type, annotations, retrofit);

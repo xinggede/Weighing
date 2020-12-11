@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/inputItemLayout">
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/inputTvStyle"
+        android:text="title" />
+
+    <TextView
+        android:id="@+id/et_value"
+        android:drawableEnd="@mipmap/icon_arrow_down"
+        style="@style/inputEtStyle"/>
+
+</LinearLayout>

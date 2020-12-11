@@ -49,6 +49,8 @@
     <string name="pls_input_goods_price">请输入货品单价</string>
     <string name="pls_input_goods_describe">请输入货品描述信息</string>
 
+    <string name="pls_choose_model">请选择模板</string>
+
     <string name="user_agreement">圈子用户协议</string>
 
     <string name="text1">系统自动生成</string>
@@ -62,6 +64,8 @@
     <string name="text9">请选择出货单位</string>
 
     <string name="text10">字段描述信息</string>
+
+    <string name="pls_input">请输入%1$s</string>
 
     <string name="change">change</string>
     <string name="focus">focus</string>

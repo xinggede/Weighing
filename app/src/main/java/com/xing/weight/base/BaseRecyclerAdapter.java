@@ -14,10 +14,11 @@ import java.util.List;
 
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
     private List<T> mData = new ArrayList<>();
-    private final Context mContext;
+    protected Context mContext;
     private LayoutInflater mInflater;
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
+    protected OnChildClickListener onChildClickListener;
 
     public BaseRecyclerAdapter(Context ctx, @Nullable List<T> list) {
         if(list != null){
@@ -106,6 +107,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         mLongClickListener = listener;
     }
 
+    public void setOnChildClickListener(OnChildClickListener onChildClickListener) {
+        this.onChildClickListener = onChildClickListener;
+    }
+
     @SuppressWarnings("SameReturnValue")
     abstract public int getItemLayoutId(int viewType);
 
@@ -113,6 +118,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     public interface OnItemClickListener {
         void onItemClick(View itemView, int pos);
+    }
+
+    public interface OnChildClickListener {
+        void onChildClick(View v, int pos);
     }
 
     public interface OnItemLongClickListener {

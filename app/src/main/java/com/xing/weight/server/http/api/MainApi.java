@@ -21,7 +21,7 @@ public interface MainApi {
     @POST("/api/goods/getPageList")
     Observable<BasicResponse<PageList<GoodsDetail>>> getGoods(@Body RequestList requestList); //获取货品列表
 
-    @DELETE("/api/goods/delete/{id}")
+    @POST("/api/goods/delete/{id}")
     Observable<BasicResponse<Object>> deleteGoods(@Path("id") int goodsId);
 
     @POST("/api/goods/add")
@@ -33,7 +33,7 @@ public interface MainApi {
     @POST("/api/customer/getPageList")
     Observable<BasicResponse<PageList<CustomerInfo>>> getCustomer(@Body RequestList requestList); //获取货品列表
 
-    @DELETE("/api/customer/delete/{id}")
+    @POST("/api/customer/delete/{id}")
     Observable<BasicResponse<Object>> deleteCustomer(@Path("id") int cId);
 
     @POST("/api/customer/add")
@@ -51,7 +51,7 @@ public interface MainApi {
     @POST("/api/printer/update")
     Observable<BasicResponse<Object>> updatePrinter(@Body PrinterInfo requestBody); //添加商品
 
-    @DELETE("/api/printer/delete/{id}")
+    @POST("/api/printer/delete/{id}")
     Observable<BasicResponse<Object>> deletePrinter(@Path("id") int pId);
 
     @GET("/api/company/info/{id}")

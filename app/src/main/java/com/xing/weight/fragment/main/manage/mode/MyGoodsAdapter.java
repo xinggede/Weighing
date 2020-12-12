@@ -31,7 +31,7 @@ public class MyGoodsAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         QMUISwipeAction.ActionBuilder builder = new QMUISwipeAction.ActionBuilder()
                 .textSize(QMUIDisplayHelper.sp2px(context, 14))
                 .textColor(Color.WHITE)
-                .paddingStartEnd(QMUIDisplayHelper.dp2px(context, 14));
+                .paddingStartEnd(QMUIDisplayHelper.dp2px(context, 20));
 
         mDeleteAction = builder.text("删除").backgroundColor(Color.RED).build();
     }

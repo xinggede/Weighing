@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipChildren="false"
-    android:background="?attr/app_content_bg_color"
-    app:qmui_skin_background="?attr/app_skin_main_background">
+    android:background="?attr/app_skin_main_background">
 
     <com.qmuiteam.qmui.widget.QMUIViewPager
         android:id="@+id/pager"

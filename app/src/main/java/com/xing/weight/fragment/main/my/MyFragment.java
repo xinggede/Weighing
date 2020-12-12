@@ -20,7 +20,6 @@ import butterknife.OnClick;
 
 public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
 
-
     @BindView(R.id.iv_head)
     CircleImageView ivHead;
     @BindView(R.id.tv_name)
@@ -42,6 +41,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initView(View view) {
+        tvName.setText(mPresenter.getUserName());
 
     }
 

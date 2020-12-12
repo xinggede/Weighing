@@ -49,23 +49,13 @@ public class BaseModel implements BaseContract.Model {
     @Override
     public void exit() {
         prefs.remove(Constants.TOKEN);
-//        prefs.remove(Constants.TAXPAYER_NAME);
-//        prefs.remove(Constants.TAXPAYER_ID);
-//        prefs.remove(Constants.ADDRESS);
-//        prefs.remove(Constants.TEL);
-//        prefs.remove(Constants.BANK_NAME);
-//        prefs.remove(Constants.BANK_ACCOUNT);
-//        prefs.remove(Constants.PAYEE);
-//        prefs.remove(Constants.CHECKER);
-//        prefs.remove(Constants.DRAWER);
-//        prefs.remove(Constants.DRAWER_PHONE_NUMBER);
-//        prefs.remove(Constants.QR_TEXT);
-//        prefs.remove(Constants.QR_SHOW);
-//        prefs.remove(Constants.QR_CHANGE);
-//        prefs.remove(Constants.INVOICE_STYLE);
-//        prefs.remove(Constants.INVOICE_STYLE_NAME);
-//        prefs.remove(Constants.INVOICE_STYLE_TYPE);
-//        prefs.remove(Constants.SERVER_ID);
+
+        prefs.remove(Constants.COMPANY_ID);
+        prefs.remove(Constants.COMPANY_NAME);
+        prefs.remove(Constants.COMPANY_BOSS);
+        prefs.remove(Constants.COMPANY_PHONE);
+        prefs.remove(Constants.COMPANY_CODE);
+        prefs.remove(Constants.COMPANY_ADDRESS);
 
         RetrofitManager.resetToken();
     }

@@ -102,6 +102,9 @@ public class CompanyInfoFragment extends BaseFragment<MyPresenter> implements My
                 etCompanyCharge.setText(companyInfo.boss);
                 etCompanyPhone.setText(companyInfo.phone);
                 etCompanyAddress.setText(companyInfo.address);
+            } else if(code == 1){
+                showToast("保存成功");
+                popBackStack();
             }
         }
     }

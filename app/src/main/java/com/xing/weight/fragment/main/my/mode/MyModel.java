@@ -9,7 +9,7 @@ public class MyModel extends BaseModel implements MyContract.Model {
 
     @Override
     public int getCompanyId() {
-        return prefs.getInt(Constants.COMPANY_ID, -1);
+        return prefs.getInt(Constants.COMPANY_ID, 0);
     }
 
     @Override
@@ -20,6 +20,15 @@ public class MyModel extends BaseModel implements MyContract.Model {
         prefs.saveString(Constants.COMPANY_PHONE, companyInfo.phone);
         prefs.saveString(Constants.COMPANY_CODE, companyInfo.comcode);
         prefs.saveString(Constants.COMPANY_ADDRESS, companyInfo.address);
+    }
 
+    @Override
+    public String getUserName() {
+        return prefs.getString(Constants.USER_NAME);
+    }
+
+    @Override
+    public String getUserHead() {
+        return prefs.getString(Constants.USER_HEAD);
     }
 }

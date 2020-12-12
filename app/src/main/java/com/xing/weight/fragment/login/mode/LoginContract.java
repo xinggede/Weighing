@@ -8,7 +8,7 @@ public class LoginContract {
 
     public interface View extends BaseContract.View {
 
-        void onHttpResult(int code, Object o);
+        void onHttpResult(boolean success, int code, Object o);
 
     }
 

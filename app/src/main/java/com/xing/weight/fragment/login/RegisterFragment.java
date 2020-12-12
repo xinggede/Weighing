@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.qmuiteam.qmui.arch.effect.MapEffect;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
@@ -12,6 +13,10 @@ import com.xing.weight.fragment.login.mode.LoginContract;
 import com.xing.weight.fragment.login.mode.LoginPresenter;
 import com.xing.weight.util.Tools;
 import com.xing.weight.view.CusEditText;
+import com.xing.weight.view.DelayButton;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,7 +31,7 @@ public class RegisterFragment extends BaseFragment<LoginPresenter> implements Lo
     @BindView(R.id.et_captcha)
     EditText etCaptcha;
     @BindView(R.id.bt_get_captcha)
-    QMUIRoundButton btGetCaptcha;
+    DelayButton btGetCaptcha;
     @BindView(R.id.et_pwd)
     CusEditText etPwd;
     @BindView(R.id.checkbox)
@@ -57,14 +62,62 @@ public class RegisterFragment extends BaseFragment<LoginPresenter> implements Lo
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_get_captcha:
+                String phone = etPhone.getText().toString();
+                if (!Tools.isMobile(phone)) {
+                    showToast("手机号码不正确");
+                    etPhone.requestFocus();
+                    etPhone.setSelection(etPhone.length());
+                    return;
+                }
+                mPresenter.getSmsCode(phone);
                 break;
             case R.id.bt_ok:
+                register();
                 break;
         }
     }
 
-    @Override
-    public void onHttpResult(int code, Object o) {
+    private void register() {
+        String phone = etPhone.getText().toString();
+        if (!Tools.isMobile(phone)) {
+            showToast("手机号码不正确");
+            etPhone.requestFocus();
+            etPhone.setSelection(etPhone.length());
+            return;
+        }
+        String code = etCaptcha.getText().toString();
+        if (Tools.isMobile(code)) {
+            showToast(R.string.pls_input_captcha);
+            etCaptcha.requestFocus();
+            return;
+        }
+        String pwd = etPwd.getText().toString();
+        if (pwd.length() < 6) {
+            showToast("密码长度至少6位");
+            etPwd.requestFocus();
+            etPwd.setSelection(etPwd.length());
+            return;
+        }
+        mPresenter.register(phone, code, pwd);
+    }
 
+    @Override
+    public void onHttpResult(boolean success, int code, Object o) {
+        if (code == 0) {
+            if (success) {
+                Map<String, Object> map = new HashMap<>();
+                map.put(getClass().getName(), etPhone.getText().toString());
+                notifyEffect(new MapEffect(map));
+                popBackStack();
+            }
+        } else if(code == 1){
+            if(success){
+                btGetCaptcha.setEnabled(false);
+                btGetCaptcha.start();
+            } else {
+                btGetCaptcha.setEnabled(true);
+                btGetCaptcha.reset();
+            }
+        }
     }
 }

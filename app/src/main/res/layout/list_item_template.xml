@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:minHeight="50dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/list_item_touch_bg" >
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/TabTVStyle"
+        android:text="编号" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_marginStart="10dp"
+        style="@style/DescriptionStyle"
+        android:text="2020-10-20 10:50:30" />
+
+    <ImageView
+        android:id="@+id/iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_arrow_right" />
+</LinearLayout>

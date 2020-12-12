@@ -15,6 +15,8 @@ public class LoginModel extends BaseModel implements LoginContract.Model {
         LoginResultInfo.BdUserBean bean = resultInfo.getBdUser();
         if(bean != null){
             prefs.saveString(Constants.PHONE_NUMBER, bean.getPhoneno());
+            prefs.saveString(Constants.USER_NAME, bean.getUsername());
+            prefs.saveString(Constants.USER_HEAD, bean.getImgurl());
             prefs.saveString(Constants.COMPANY_NAME, bean.getComname());
             prefs.saveInt(Constants.COMPANY_ID, bean.getComid());
         }

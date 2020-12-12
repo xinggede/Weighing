@@ -1,5 +1,6 @@
 package com.xing.weight.fragment.main.my.mode;
 
+import com.xing.weight.base.Constants;
 import com.xing.weight.base.mvp.BasePresenter;
 import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.GoodsDetail;
@@ -13,13 +14,21 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyContract.Model
         return new MyModel();
     }
 
+    public String getUserName() {
+        return mModel.getUserName();
+    }
+
+    public String getUserHead() {
+        return mModel.getUserHead();
+    }
+
     public int getCompanyId(){
         return mModel.getCompanyId();
     }
 
     public void getCompanyInfo(){
         int id = getCompanyId();
-        if(id == -1){
+        if(id == 0){
             return;
         }
         requestHttp(mModel.getMainApi().getCompanyInfo(id),
@@ -29,7 +38,8 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyContract.Model
     }
 
     public void addCompanyInfo(CompanyInfo companyInfo){
-        requestHttp(getCompanyId() == -1?mModel.getMainApi().addCompanyInfo(companyInfo):mModel.getMainApi().updateCompanyInfo(companyInfo),
+        companyInfo.id = getCompanyId();
+        requestHttp(getCompanyId() == 0?mModel.getMainApi().addCompanyInfo(companyInfo):mModel.getMainApi().updateCompanyInfo(companyInfo),
                 valueInfo -> {
                     mModel.saveCompanyInfo(valueInfo);
                     getView().onHttpResult(true,1, valueInfo);

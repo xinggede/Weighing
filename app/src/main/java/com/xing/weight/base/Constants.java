@@ -10,6 +10,8 @@ public class Constants {
     public static final String DATA = "data";
 
     public static final String PHONE_NUMBER = "phoneNumber";
+    public static final String USER_NAME = "userName";
+    public static final String USER_HEAD = "userHead";
     public static final String TOKEN = "token";
     public static final String COMPANY_NAME = "companyName";
     public static final String COMPANY_ID = "companyId";

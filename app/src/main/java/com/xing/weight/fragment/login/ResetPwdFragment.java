@@ -61,7 +61,7 @@ public class ResetPwdFragment extends BaseFragment<LoginPresenter> implements Lo
     }
 
     @Override
-    public void onHttpResult(int code, Object o) {
+    public void onHttpResult(boolean success, int code, Object o) {
 
     }
 }

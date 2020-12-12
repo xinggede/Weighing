@@ -17,6 +17,10 @@ public class MyContract {
         int getCompanyId();
 
         void saveCompanyInfo(CompanyInfo companyInfo);
+
+        String getUserName();
+
+        String getUserHead();
     }
 
 }

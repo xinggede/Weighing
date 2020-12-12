@@ -56,7 +56,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContr
                         }).compose(SchedulerProvider.getInstance().applySchedulers());
                     }
                 }).subscribe(userInfo -> {
-                    getView().onHttpResult(0, userInfo);
+                    getView().onHttpResult(true, 0, userInfo);
                 }, e -> {
                     onError(e);
                     onComplete(true);
@@ -64,6 +64,28 @@ public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContr
                     onComplete(true);
                 });
         addDispose(disposable);
+    }
+
+    public void register(String phone, String code, String pwd) {
+        RequestLogin requestLogin = new RequestLogin();
+        requestLogin.username = phone;
+        requestLogin.phoneno = phone;
+        requestLogin.code = code;
+        requestLogin.password = pwd;
+        requestHttp(mModel.getLoginApi().register(requestLogin),
+                o -> {
+                    getView().onHttpResult(true, 0, o);
+                });
+    }
+
+    public void getSmsCode(String phone) {
+        requestHttp(mModel.getLoginApi().getSmsCode(phone),
+                o -> {
+                    getView().onHttpResult(true, 1, o);
+                }, e->{
+                    getView().onHttpResult(false, 1, null);
+                    onComplete(true);
+                },true);
     }
 
 }

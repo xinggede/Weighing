@@ -9,6 +9,10 @@ import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.qmuiteam.qmui.arch.effect.Effect;
+import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentEffectHandler;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
 import com.xing.weight.MainActivity;
@@ -16,7 +20,10 @@ import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.fragment.login.mode.LoginContract;
 import com.xing.weight.fragment.login.mode.LoginPresenter;
+import com.xing.weight.fragment.main.manage.MyGoodsAddFragment;
 import com.xing.weight.util.Tools;
+
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -55,10 +62,28 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
             @Override
             public void onSpanClick(View widget) {
+                callback();
                 startFragment(new RegisterFragment());
             }
         }, 5, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tvRegister.setText(sp);
+    }
+
+    private void callback(){
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(RegisterFragment.class.getName()) != null;
+            }
+
+            @Override
+            public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
+                String value = (String) effect.getValue(RegisterFragment.class.getName());
+                etPhone.setText(value);
+                layoutPhone.setErrorEnabled(false);
+                layoutPwd.setErrorEnabled(false);
+            }
+        });
     }
 
     private void login(){
@@ -67,17 +92,19 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
             etPhone.requestFocus();
             return;
         }
-//        if(!Tools.isMobile(phone)){
-//            layoutPhone.setError("手机号码不正确");
-//            return;
-//        }
-//        layoutPhone.setErrorEnabled(false);
-        String pwd = etPwd.getText().toString();
-        if(TextUtils.isEmpty(pwd)){
-            etPwd.requestFocus();
+        if(!Tools.isMobile(phone)){
+            layoutPhone.setErrorEnabled(true);
+            layoutPhone.setError("手机号码不正确");
             return;
         }
-//        layoutPwd.setErrorEnabled(false);
+        layoutPhone.setErrorEnabled(false);
+        String pwd = etPwd.getText().toString();
+        if(pwd.length() < 6){
+            layoutPwd.setErrorEnabled(true);
+            layoutPwd.setError("密码不正确");
+            return;
+        }
+        layoutPwd.setErrorEnabled(false);
         mPresenter.login(phone, pwd);
     }
 
@@ -104,8 +131,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     }
 
     @Override
-    public void onHttpResult(int code, Object o) {
-        startActivity(new Intent(getContext(), MainActivity.class));
-        getActivity().finish();
+    public void onHttpResult(boolean success, int code, Object o) {
+        if(success){
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
+        }
     }
 }

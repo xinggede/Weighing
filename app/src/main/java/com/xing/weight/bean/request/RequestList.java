@@ -6,6 +6,7 @@ public class RequestList {
     public int pageSize = 20;
     public PageSorts pageSorts;
     public String keyword;
+    public int type;
 
     public static class PageSorts {
         public String column;

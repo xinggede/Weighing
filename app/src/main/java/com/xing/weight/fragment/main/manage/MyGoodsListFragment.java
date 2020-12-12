@@ -9,7 +9,6 @@ import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
 import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
@@ -22,8 +21,6 @@ import com.xing.weight.fragment.main.manage.mode.ManageContract;
 import com.xing.weight.fragment.main.manage.mode.ManagePresenter;
 import com.xing.weight.fragment.main.manage.mode.MyGoodsAdapter;
 import com.xing.weight.view.CusSearchText;
-import com.xing.weight.view.SpaceItemDecoration;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;

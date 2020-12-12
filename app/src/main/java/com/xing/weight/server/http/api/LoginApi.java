@@ -7,7 +7,10 @@ import com.xing.weight.server.http.response.BasicResponse;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface LoginApi {
 
@@ -18,6 +21,12 @@ public interface LoginApi {
 
     @POST("/api/login")
     Observable<BasicResponse<LoginResultInfo>> login(@Body RequestLogin requestBody);
+
+    @POST("/api/register")
+    Observable<BasicResponse<LoginResultInfo>> register(@Body RequestLogin requestBody);
+
+    @GET("/api/verifyCode/getPhoneCode")
+    Observable<BasicResponse<Object>> getSmsCode(@Query("phone") String phone);
 
     @POST("/api/logout")
     Observable<BasicResponse<Object>> logout();

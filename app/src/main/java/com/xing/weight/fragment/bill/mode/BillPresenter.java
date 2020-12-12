@@ -49,6 +49,44 @@ public class BillPresenter extends BasePresenter<BillContract.View, BillContract
                 });
     }
 
+    /**
+     * 1磅单;2出库单
+     * @param type
+     */
+    public void getTemplate(int type,boolean show) {
+        RequestList requestList = new RequestList();
+        requestList.pageIndex = 1;
+        requestList.type = type;
+        requestHttp(mModel.getMainApi().getTemplate(requestList),
+                valueInfo -> {
+                    getView().onHttpResult(true, 0, valueInfo);
+                }, e -> {
+                    getView().onHttpResult(false, 0, null);
+                    onError(e);
+                    onComplete(show);
+                }, show);
+    }
+
+    public void getTemplateMore(int type,int index) {
+        RequestList requestList = new RequestList();
+        requestList.pageIndex = index;
+        requestList.type = type;
+        requestHttp(mModel.getMainApi().getTemplate(requestList),
+                valueInfo -> {
+                    getView().onHttpResult(true, 1, valueInfo);
+                },e -> {
+                    getView().onHttpResult(false, 1, null);
+                    onError(e);
+                }, false);
+    }
+
+    public void deleteTemplate(int id) {
+        requestHttp(mModel.getMainApi().deleteTemplate(id),
+                valueInfo -> {
+                    getView().onHttpResult(true, 2, valueInfo);
+                });
+    }
+
 
     @Override
     public void detachView() {

@@ -5,9 +5,6 @@ public class RequestLogin {
     public String username;
     public String password;
 
-    public String phoneNumber;
-    public String smsCode;
-    public String newPassword;
-
-
+    public String phoneno;
+    public String code;
 }

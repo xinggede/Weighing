@@ -11,140 +11,152 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true" />
 
-    <com.qmuiteam.qmui.layout.QMUILinearLayout
-        android:id="@+id/lin_top"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/qmui_topbar_height"
-        android:background="@color/qmui_config_color_white"
-        android:orientation="vertical">
-
-        <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
-
-            <TextView
-                style="@style/DescriptionStyle"
-                android:layout_marginStart="10dp"
-                android:text="打印机编号" />
-
-            <EditText
-                android:id="@+id/et_print_code"
-                style="@style/ETStyle"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@null"
-                android:layout_weight="1"
-                android:hint="@string/pls_input_print_code"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLength="20"
-                android:digits="@string/number_or_words"
-                android:padding="10dp" />
-
-            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                android:id="@+id/iv_scan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:padding="5dp"
-                android:src="@mipmap/icon_scan_black"
-                app:qmui_border_width="0px"
-                app:qmui_corner_radius="0dp"
-                app:qmui_selected_border_width="0px"
-                app:qmui_selected_mask_color="?attr/qmui_config_color_gray_6" />
-
-        </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-        <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
-
-            <TextView
-                style="@style/DescriptionStyle"
-                android:layout_marginStart="10dp"
-                android:text="校&#8195;验&#8195;码" />
-
-            <EditText
-                android:id="@+id/et_print_check_code"
-                style="@style/ETStyle"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/pls_input_print_check_code"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:digits="@string/number_or_words"
-                android:maxLength="4"
-                android:padding="10dp" />
-
-        </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-        <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
-
-            <TextView
-                style="@style/DescriptionStyle"
-                android:layout_marginStart="10dp"
-                android:text="打印机名称" />
-
-            <EditText
-                android:id="@+id/et_name"
-                style="@style/ETStyle"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@null"
-                android:hint="@string/pls_input_print_name"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName"
-                android:maxLength="20"
-                android:padding="10dp" />
-
-        </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-        <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
-
-            <TextView
-                style="@style/DescriptionStyle"
-                android:layout_marginStart="10dp"
-                android:text="纸&#8197;张&#8197;类&#8197;型&#8197;" />
-
-            <TextView
-                android:id="@+id/tv_paper_type"
-                style="@style/ETStyle"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@null"
-                android:drawableEnd="@mipmap/icon_arrow_down"
-                android:hint="@string/pls_input_print_paper"
-                android:text="A4"
-                android:padding="10dp" />
-
-        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
 
         <com.qmuiteam.qmui.layout.QMUILinearLayout
-            style="@style/LinStyle"
-            android:gravity="top">
+            android:id="@+id/lin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/DescriptionStyle"
-                android:layout_marginStart="10dp"
-                android:text="描&#8195;&#8195;&#8195;述" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_remarks"
-                style="@style/inputEtStyle"
-                android:gravity="top"
-                android:hint="描述信息"
-                android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
-                android:maxLength="200"
-                android:minLines="3" />
+
+                <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
+
+                    <TextView
+                        style="@style/DescriptionStyle"
+                        android:layout_marginStart="10dp"
+                        android:text="打印机编号" />
+
+                    <EditText
+                        android:id="@+id/et_print_code"
+                        style="@style/ETStyle"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="@string/number_or_words"
+                        android:hint="@string/pls_input_print_code"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="20"
+                        android:padding="10dp" />
+
+                    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                        android:id="@+id/iv_scan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:padding="5dp"
+                        android:src="@mipmap/icon_scan_black"
+                        app:qmui_border_width="0px"
+                        app:qmui_corner_radius="0dp"
+                        app:qmui_selected_border_width="0px"
+                        app:qmui_selected_mask_color="?attr/qmui_config_color_gray_6" />
+
+                </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+                <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
+
+                    <TextView
+                        style="@style/DescriptionStyle"
+                        android:layout_marginStart="10dp"
+                        android:text="校&#8195;验&#8195;码" />
+
+                    <EditText
+                        android:id="@+id/et_print_check_code"
+                        style="@style/ETStyle"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="@string/number_or_words"
+                        android:hint="@string/pls_input_print_check_code"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="4"
+                        android:padding="10dp" />
+
+                </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+                <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
+
+                    <TextView
+                        style="@style/DescriptionStyle"
+                        android:layout_marginStart="10dp"
+                        android:text="打印机名称" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        style="@style/ETStyle"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@null"
+                        android:hint="@string/pls_input_print_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        android:padding="10dp" />
+
+                </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+                <com.qmuiteam.qmui.layout.QMUILinearLayout style="@style/LinStyle">
+
+                    <TextView
+                        style="@style/DescriptionStyle"
+                        android:layout_marginStart="10dp"
+                        android:text="纸&#8197;张&#8197;类&#8197;型&#8197;" />
+
+                    <TextView
+                        android:id="@+id/tv_paper_type"
+                        style="@style/ETStyle"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@null"
+                        android:drawableEnd="@mipmap/icon_arrow_down"
+                        android:hint="@string/pls_input_print_paper"
+                        android:padding="10dp"
+                        android:text="A4" />
+
+                </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+                <com.qmuiteam.qmui.layout.QMUILinearLayout
+                    style="@style/LinStyle"
+                    android:gravity="top">
+
+                    <TextView
+                        style="@style/DescriptionStyle"
+                        android:layout_marginStart="10dp"
+                        android:text="描&#8195;&#8195;&#8195;述" />
+
+                    <EditText
+                        android:id="@+id/et_remarks"
+                        style="@style/inputEtStyle"
+                        android:gravity="top"
+                        android:hint="描述信息"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:maxLength="200"
+                        android:minLines="3" />
+                </com.qmuiteam.qmui.layout.QMUILinearLayout>
+            </LinearLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/bt_save"
+                style="@style/RoundButtonStyle"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/save" />
         </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/bt_save"
-            style="@style/RoundButtonStyle"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/save" />
-
-    </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
+    </ScrollView>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

@@ -65,6 +65,38 @@
 
         </com.qmuiteam.qmui.layout.QMUILinearLayout>
 
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/lin_title"
+            style="@style/LinStyle"
+            android:visibility="gone">
+            <TextView
+                style="@style/TabTVStyle"
+                android:text="编号" />
+
+            <TextView
+                style="@style/TabTVStyle"
+                android:text="名称" />
+
+            <TextView
+                style="@style/TabTVStyle"
+                android:text="单价" />
+
+            <TextView
+                style="@style/TabTVStyle"
+                android:text="规格" />
+
+            <TextView
+                style="@style/TabTVStyle"
+                android:text="型号" />
+
+            <ImageView
+                android:id="@+id/iv1"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_arrow_right"
+                android:visibility="invisible"/>
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
         <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
             android:id="@+id/pull_layout"
             android:layout_width="match_parent"

@@ -1,41 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
+    android:minHeight="50dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
     android:background="@drawable/list_item_touch_bg" >
 
     <TextView
-        android:id="@+id/tv_name_or_specs"
-        style="@style/DescriptionStyle"
-        android:layout_marginStart="10dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:text="名称及规格"/>
+        android:id="@+id/tv_number"
+        style="@style/TabTVStyle"
+        android:text="编号" />
 
     <TextView
-        android:id="@+id/tv_model_or_price"
-        style="@style/DescriptionStyle"
-        android:layout_below="@+id/tv_name_or_specs"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/colorAccent"
-        android:layout_alignStart="@+id/tv_name_or_specs"
-        android:text="型号及单价"/>
+        android:id="@+id/tv_name"
+        style="@style/TabTVStyle"
+        android:text="名称" />
 
     <TextView
-        android:id="@+id/tv_describe"
-        style="@style/DescriptionStyle"
-        android:layout_below="@+id/tv_model_or_price"
-        android:layout_marginTop="5dp"
-        android:layout_alignStart="@+id/tv_name_or_specs"
-        android:text="描述"/>
+        android:id="@+id/tv_price"
+        style="@style/TabTVStyle"
+        android:text="单价" />
+
+    <TextView
+        android:id="@+id/tv_spec"
+        style="@style/TabTVStyle"
+        android:text="规格" />
+
+    <TextView
+        android:id="@+id/tv_model"
+        style="@style/TabTVStyle"
+        android:text="型号" />
 
     <ImageView
         android:id="@+id/iv1"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
         android:src="@mipmap/icon_arrow_right" />
-
-</RelativeLayout>
+</LinearLayout>

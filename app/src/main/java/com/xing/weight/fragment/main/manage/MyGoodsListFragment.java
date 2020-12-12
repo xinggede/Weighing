@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.qmuiteam.qmui.arch.effect.MapEffect;
 import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
+import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
 import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -25,6 +25,7 @@ import com.xing.weight.view.CusSearchText;
 import com.xing.weight.view.SpaceItemDecoration;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -41,6 +42,8 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
     QMUIPullLayout pullLayout;
     @BindView(R.id.et_search)
     CusSearchText etSearch;
+    @BindView(R.id.lin_title)
+    QMUILinearLayout linTitle;
 
     private MyGoodsAdapter mAdapter;
     private int page = 1, deleteIndex;
@@ -118,7 +121,8 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
             }
         });
 
-        recyclerView.addItemDecoration(new SpaceItemDecoration(QMUIDisplayHelper.dp2px(getContext(), 10), 2));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+//        recyclerView.addItemDecoration(new SpaceItemDecoration(QMUIDisplayHelper.dp2px(getContext(), 10), 2));
         mAdapter = new MyGoodsAdapter(getContext());
         recyclerView.setAdapter(mAdapter);
 
@@ -209,6 +213,8 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
             if (success) {
                 PageList<GoodsDetail> pageList = (PageList<GoodsDetail>) data;
                 mAdapter.setData(pageList.records);
+
+                linTitle.setVisibility(mAdapter.getItemCount() > 0?View.VISIBLE:View.GONE);
                 if (mAdapter.getItemCount() >= pageList.total) {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP);
                 } else {
@@ -228,10 +234,11 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
         } else if (code == 2) {
             if (success) {
                 mAdapter.remove(deleteIndex);
+                linTitle.setVisibility(mAdapter.getItemCount() > 0?View.VISIBLE:View.GONE);
             }
         } else if (code == 10) {
             if (success) {
-                if(!TextUtils.isEmpty(etSearch.getText())){
+                if (!TextUtils.isEmpty(etSearch.getText())) {
                     mAdapter.saveData();
                 }
                 PageList<GoodsDetail> pageList = (PageList<GoodsDetail>) data;
@@ -242,12 +249,13 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
                 }
             } else {
-                if(mAdapter.getSaveData() == null){
+                if (mAdapter.getSaveData() == null) {
                     return;
                 }
                 mAdapter.setData(mAdapter.getSaveData());
                 mAdapter.clearSaveData();
             }
+            linTitle.setVisibility(mAdapter.getItemCount() > 0?View.VISIBLE:View.GONE);
         }
     }
 }

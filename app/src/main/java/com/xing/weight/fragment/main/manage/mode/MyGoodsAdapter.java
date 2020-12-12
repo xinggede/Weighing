@@ -112,14 +112,16 @@ public class MyGoodsAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull QMUISwipeViewHolder holder, int position) {
         GoodsDetail detail = mData.get(position);
-        TextView tvName = holder.itemView.findViewById(R.id.tv_name_or_specs);
-        tvName.setText(detail.name+":"+detail.model);
-
-        TextView tvModel = holder.itemView.findViewById(R.id.tv_model_or_price);
-        tvModel.setText(detail.type+":"+ detail.pricebuy);
-
-        TextView tvDescribe = holder.itemView.findViewById(R.id.tv_describe);
-        tvDescribe.setText(detail.remark);
+        TextView tvNumber = holder.itemView.findViewById(R.id.tv_number);
+        tvNumber.setText(detail.code);
+        TextView tvName = holder.itemView.findViewById(R.id.tv_name);
+        tvName.setText(detail.name);
+        TextView tvPrice = holder.itemView.findViewById(R.id.tv_price);
+        tvPrice.setText(detail.pricebuy);
+        TextView tvModel = holder.itemView.findViewById(R.id.tv_model);
+        tvModel.setText(detail.type);
+        TextView tvSpec = holder.itemView.findViewById(R.id.tv_spec);
+        tvSpec.setText(detail.model);
     }
 
     @Override

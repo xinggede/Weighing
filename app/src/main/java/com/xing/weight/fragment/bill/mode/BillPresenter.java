@@ -3,6 +3,7 @@ package com.xing.weight.fragment.bill.mode;
 import com.xing.weight.base.mvp.BasePresenter;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
+import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.bean.request.RequestList;
 
 import java.util.ArrayList;
@@ -84,6 +85,12 @@ public class BillPresenter extends BasePresenter<BillContract.View, BillContract
         requestHttp(mModel.getMainApi().deleteTemplate(id),
                 valueInfo -> {
                     getView().onHttpResult(true, 2, valueInfo);
+                });
+    }
+    public void addTemplate(TemplateInfo templateInfo,boolean isAdd) {
+        requestHttp(isAdd?mModel.getMainApi().addTemplate(templateInfo):mModel.getMainApi().updateTemplate(templateInfo),
+                valueInfo -> {
+                    getView().onHttpResult(true, 0, valueInfo);
                 });
     }
 

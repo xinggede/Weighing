@@ -12,7 +12,7 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
-import com.xing.weight.bean.PoundModel;
+import com.xing.weight.bean.PoundItemInfo;
 import com.xing.weight.fragment.bill.BillRecordFragment;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
@@ -175,18 +175,18 @@ public class WeightInputFragment1 extends BaseFragment<BillPresenter> implements
 
     @Override
     public void onChildClick(View v, int pos) {
-        PoundModel poundModel = inputAdapter.getItem(pos);
-        if(poundModel.type == PoundModel.PoundType.CNAME){
+        PoundItemInfo poundItemInfo = inputAdapter.getItem(pos);
+        if(poundItemInfo.type == PoundItemInfo.PoundType.CNAME){
             cView = v;
             showChooseCustom(v);
-        } else if(poundModel.type == PoundModel.PoundType.GTYPE){
+        } else if(poundItemInfo.type == PoundItemInfo.PoundType.GTYPE){
             gView = v;
             if(mPresenter.getSaveGoods().isEmpty()){
                 mPresenter.getGoods();
             } else {
                 showChooseGoods(v);
             }
-        } else if(poundModel.type == PoundModel.PoundType.ADD){
+        } else if(poundItemInfo.type == PoundItemInfo.PoundType.ADD){
 
         }
     }

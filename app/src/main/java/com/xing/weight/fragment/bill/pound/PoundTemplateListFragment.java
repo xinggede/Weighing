@@ -14,9 +14,7 @@ import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
-import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PageList;
-import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
@@ -31,7 +29,7 @@ import butterknife.BindView;
 import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_BOTTOM;
 import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_TOP;
 
-public class WeightListFragment extends BaseFragment<BillPresenter> implements BillContract.View {
+public class PoundTemplateListFragment extends BaseFragment<BillPresenter> implements BillContract.View {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
@@ -51,15 +49,15 @@ public class WeightListFragment extends BaseFragment<BillPresenter> implements B
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my_weight;
+        return R.layout.fragment_template;
     }
 
     @Override
     protected void initView(View view) {
         topbar.setTitle("磅单模板列表");
         topbar.addLeftBackImageButton().setOnClickListener(v->popBackStack());
-        topbar.addRightImageButton(R.mipmap.icon_add,R.id.topbar_right_add_button).setOnClickListener((v)->{
-            startFragment(new WeightEditFragment());
+        topbar.addRightImageButton(R.mipmap.icon_add, R.id.topbar_right_add_button).setOnClickListener((v)->{
+            startFragment(new PoundTemplateEditFragment(null));
         });
 
         pullLayout.setActionListener(new QMUIPullLayout.ActionListener() {
@@ -91,7 +89,6 @@ public class WeightListFragment extends BaseFragment<BillPresenter> implements B
                 if(action == mAdapter.mDeleteAction){
                     delete(selected.getAdapterPosition());
                 } else{
-
                 }
                 swipeAction.clear();
             }
@@ -114,7 +111,7 @@ public class WeightListFragment extends BaseFragment<BillPresenter> implements B
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
-//                startFragment(new PrintAddFragment(mAdapter.getItem(pos)));
+                startFragment(new PoundTemplateEditFragment(mAdapter.getItem(pos)));
             }
         });
         callback();
@@ -125,12 +122,12 @@ public class WeightListFragment extends BaseFragment<BillPresenter> implements B
         registerEffect(this, new QMUIFragmentMapEffectHandler() {
             @Override
             public boolean shouldHandleEffect(@NonNull MapEffect effect) {
-                return effect.getValue(PrintAddFragment.class.getName()) != null;
+                return effect.getValue(PoundTemplateEditFragment.class.getName()) != null;
             }
 
             @Override
-            public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
-                boolean value = (boolean) effect.getValue(PrintAddFragment.class.getName());
+            public void handleEffect(@NonNull MapEffect effect) {
+                boolean value = (boolean) effect.getValue(PoundTemplateEditFragment.class.getName());
                 if (value) {
                     onDataLoaded();
                 }

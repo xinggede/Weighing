@@ -13,27 +13,27 @@ import android.widget.EditText;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.base.RecyclerViewHolder;
-import com.xing.weight.bean.PoundModel;
+import com.xing.weight.bean.PoundItemInfo;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
 
-import static com.xing.weight.bean.PoundModel.PoundType;
+import static com.xing.weight.bean.PoundItemInfo.PoundType;
 
-public class WeightInputAdapter extends BaseRecyclerAdapter<PoundModel> {
+public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
-    public WeightInputAdapter(Context ctx, @Nullable List<PoundModel> list) {
+    public WeightInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
     }
 
     @Override
     public int getItemViewType(int position) {
-        PoundModel poundModel = getItem(position);
-        if (poundModel.type == PoundType.CNAME || poundModel.type == PoundType.GTYPE) {
+        PoundItemInfo poundItemInfo = getItem(position);
+        if (poundItemInfo.type == PoundType.CNAME || poundItemInfo.type == PoundType.GTYPE) {
             return 1;
         }
-        if (poundModel.type == PoundType.ADD) {
+        if (poundItemInfo.type == PoundType.ADD) {
             return 2;
         }
         return 0;
@@ -51,7 +51,7 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundModel> {
     }
 
     @Override
-    public void bindData(RecyclerViewHolder holder, int position, PoundModel item) {
+    public void bindData(RecyclerViewHolder holder, int position, PoundItemInfo item) {
         int t = getItemViewType(position);
         if (t == 2) {
             holder.setClickListener(R.id.bt_print, new CusClickListener(position));
@@ -124,7 +124,7 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundModel> {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            PoundModel item = getItem(position);
+            PoundItemInfo item = getItem(position);
             if (item == null) {
                 return;
             }

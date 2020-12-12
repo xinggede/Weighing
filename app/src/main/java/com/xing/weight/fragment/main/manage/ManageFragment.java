@@ -5,7 +5,8 @@ import android.view.View;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.pound.WeightEditFragment;
+import com.xing.weight.fragment.bill.pound.PoundTemplateEditFragment;
+import com.xing.weight.fragment.bill.pound.PoundTemplateListFragment;
 import com.xing.weight.fragment.main.MainContract;
 import com.xing.weight.fragment.main.MainPresenter;
 
@@ -36,7 +37,7 @@ public class ManageFragment extends BaseFragment<MainPresenter> implements MainC
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_bill_custom:
-                startFragment(new WeightEditFragment());
+                startFragment(new PoundTemplateListFragment());
                 break;
             case R.id.bt_outbound_custom:
                 break;

@@ -128,6 +128,35 @@ public class ManagePresenter extends BasePresenter<ManageContract.View, ManageCo
                 });
     }
 
+    public void getStyle(int index,int type, boolean show) {
+        RequestList requestList = new RequestList();
+        requestList.pageIndex = index;
+        requestList.type = type;
+        requestList.pageSize = 50;
+        requestHttp(mModel.getMainApi().getStyle(requestList),
+                valueInfo -> {
+                    getView().onHttpResult(true, 0, valueInfo);
+                }, e -> {
+                    getView().onHttpResult(false, 0, null);
+                    onError(e);
+                    onComplete(show);
+                }, show);
+    }
+
+    public void getStyleMore(int index, int type) {
+        RequestList requestList = new RequestList();
+        requestList.pageIndex = index;
+        requestList.type = type;
+        requestList.pageSize = 50;
+        requestHttp(mModel.getMainApi().getStyle(requestList),
+                valueInfo -> {
+                    getView().onHttpResult(true, 1, valueInfo);
+                }, e -> {
+                    onError(e);
+                    getView().onHttpResult(false, 1, null);
+                }, false);
+    }
+
 
     private PublishSubject<CharSequence> searchObserver;
 

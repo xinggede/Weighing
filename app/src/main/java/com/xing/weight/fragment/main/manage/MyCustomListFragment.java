@@ -78,13 +78,6 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
                 } else if (pullAction.getPullEdge() == QMUIPullLayout.PULL_EDGE_BOTTOM) {
                     onLoadMore();
                 }
-
-                pullLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pullLayout.finishActionRun(pullAction);
-                    }
-                }, 3000);
             }
         });
 

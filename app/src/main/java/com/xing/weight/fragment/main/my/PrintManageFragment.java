@@ -15,22 +15,12 @@ import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
-import com.xing.weight.base.RecyclerViewHolder;
-import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PageList;
 import com.xing.weight.bean.PrinterInfo;
-import com.xing.weight.fragment.main.MainContract;
-import com.xing.weight.fragment.main.MainPresenter;
-import com.xing.weight.fragment.main.manage.MyGoodsAddFragment;
 import com.xing.weight.fragment.main.my.mode.MyContract;
 import com.xing.weight.fragment.main.my.mode.MyPresenter;
 import com.xing.weight.fragment.main.my.mode.PrintAdapter;
 import com.xing.weight.view.SpaceItemDecoration;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,7 +49,7 @@ public class PrintManageFragment extends BaseFragment<MyPresenter> implements My
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_print_manage;
+        return R.layout.fragment_list;
     }
 
     @Override

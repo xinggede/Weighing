@@ -7,14 +7,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
 import com.xing.weight.bean.PoundItemInfo;
+import com.xing.weight.bean.StyleInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
+import com.xing.weight.fragment.main.manage.MyCustomAddFragment;
+import com.xing.weight.fragment.main.manage.StyleChooseFragment;
 import com.xing.weight.view.CusTextView;
 
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -139,6 +144,9 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     TextView tvRemarks;
     @BindView(R.id.et_remarks)
     EditText etRemarks;
+    @BindView(R.id.tv_model_style)
+    TextView tvModelStyle;
+    private StyleInfo styleInfo;
 
     TemplateInfo templateInfo;
 
@@ -170,6 +178,28 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         });
     }
 
+    @OnClick(R.id.iv_choose_style)
+    public void onChooseStyle() {
+        callback();
+        startFragment(new StyleChooseFragment(1));
+    }
+
+    private void callback() {
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(StyleChooseFragment.class.getName()) != null;
+            }
+
+            @Override
+            public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
+                styleInfo = (StyleInfo) effect.getValue(StyleChooseFragment.class.getName());
+                if (styleInfo !=  null) {
+                    tvModelStyle.setText(styleInfo.name);
+                }
+            }
+        });
+    }
 
     @OnClick(R.id.bt_save)
     public void onViewClicked() {
@@ -325,10 +355,12 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             TemplateInfo info = new TemplateInfo();
             info.name = modelName;
             info.content = list;
+            info.id = styleInfo.id;
             mPresenter.addTemplate(info,true);
         } else {
             templateInfo.name = modelName;
             templateInfo.content = list;
+            templateInfo.id = styleInfo.id;
             mPresenter.addTemplate(templateInfo,false);
         }
     }

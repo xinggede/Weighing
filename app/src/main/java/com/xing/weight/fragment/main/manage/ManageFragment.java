@@ -51,6 +51,7 @@ public class ManageFragment extends BaseFragment<MainPresenter> implements MainC
                 startFragment(new MyCustomListFragment());
                 break;
             case R.id.bt_more:
+                startFragment(new StyleChooseFragment(1));
                 break;
         }
     }

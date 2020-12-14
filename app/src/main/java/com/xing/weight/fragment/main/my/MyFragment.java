@@ -12,6 +12,7 @@ import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.fragment.main.my.mode.MyContract;
 import com.xing.weight.fragment.main.my.mode.MyPresenter;
+import com.xing.weight.util.MyImageLoader;
 import com.xing.weight.view.CircleImageView;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     protected void initView(View view) {
         tvName.setText(mPresenter.getUserName());
-
+        MyImageLoader.loadHead(getContext(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1607934966243&di=9873d4c38b0ebb2aecb537d48da04798&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201508%2F18%2F20150818213048_vAdhz.jpeg", ivHead);
     }
 
     @OnClick({R.id.re_company_info,R.id.re_print_manage, R.id.re_term_of_validity, R.id.re_about, R.id.bt_exit})

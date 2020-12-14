@@ -41,6 +41,7 @@
     <string name="pls_input_company_phone">请输入联系方式</string>
     <string name="pls_input_company_address">请输入联系地址</string>
     <string name="pls_input_company_describe">请输入描述信息</string>
+    <string name="pls_choose_model_style">请选择模板样式</string>
 
     <string name="pls_input_goods_code">请输入货品编号</string>
     <string name="pls_input_goods_name">请输入货品名称</string>

@@ -9,8 +9,9 @@ public class TemplateInfo implements Parcelable {
 
     public int id;
     public int type;
+    public int styleid;
     public String name;
-    public List<PoundItemInfo> content;
+    public String content;
     public String remark;
     public String createDate;
     public String modifyDate;
@@ -24,9 +25,10 @@ public class TemplateInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeInt(this.styleid);
         dest.writeInt(this.type);
         dest.writeString(this.name);
-        dest.writeTypedList(this.content);
+        dest.writeString(this.content);
         dest.writeString(this.remark);
         dest.writeString(this.createDate);
         dest.writeString(this.modifyDate);
@@ -37,9 +39,10 @@ public class TemplateInfo implements Parcelable {
 
     protected TemplateInfo(Parcel in) {
         this.id = in.readInt();
+        this.styleid = in.readInt();
         this.type = in.readInt();
         this.name = in.readString();
-        this.content = in.createTypedArrayList(PoundItemInfo.CREATOR);
+        this.content = in.readString();
         this.remark = in.readString();
         this.createDate = in.readString();
         this.modifyDate = in.readString();

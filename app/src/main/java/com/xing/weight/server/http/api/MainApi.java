@@ -65,16 +65,16 @@ public interface MainApi {
     @POST("/api/company/update")
     Observable<BasicResponse<CompanyInfo>> updateCompanyInfo(@Body CompanyInfo companyInfo);
 
-    @POST("/api/tTempletCfg/getPageList")
+    @POST("/api/templetCfg/getPageList")
     Observable<BasicResponse<TemplateInfo>> getTemplate(@Body RequestList requestList);
 
-    @POST("/api/tTempletCfg/delete/{id}")
+    @POST("/api/templetCfg/delete/{id}")
     Observable<BasicResponse<Object>> deleteTemplate(@Path("id") int tId);
 
-    @POST("/api/tTempletCfg/add")
+    @POST("/api/templetCfg/add")
     Observable<BasicResponse<Object>> addTemplate(@Body TemplateInfo templateInfo);
 
-    @POST("/api/tTempletCfg/update")
+    @POST("/api/templetCfg/update")
     Observable<BasicResponse<Object>> updateTemplate(@Body TemplateInfo templateInfo);
 
     @POST("/api/bills/add")

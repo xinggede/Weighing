@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 import com.qmuiteam.qmui.arch.effect.MapEffect;
 import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -53,7 +55,7 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     @BindView(R.id.tv_company_charge)
     TextView tvCompanyCharge;
     @BindView(R.id.et_company_charge)
-    TextView etCompanyCharge;
+    EditText etCompanyCharge;
     @BindView(R.id.ck_company_phone)
     CheckBox ckCompanyPhone;
     @BindView(R.id.tv_company_phone)
@@ -351,16 +353,19 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             poundItemInfo.lenght = 100;
             list.add(poundItemInfo);
         }
+        String json = new Gson().toJson(list);
         if(templateInfo == null){
             TemplateInfo info = new TemplateInfo();
             info.name = modelName;
-            info.content = list;
-            info.id = styleInfo.id;
+            info.content = json;
+            info.styleid = styleInfo.id;
+            info.type = 1;
             mPresenter.addTemplate(info,true);
         } else {
             templateInfo.name = modelName;
-            templateInfo.content = list;
-            templateInfo.id = styleInfo.id;
+            templateInfo.content = json;
+            templateInfo.type = 1;
+            templateInfo.styleid = styleInfo.id;
             mPresenter.addTemplate(templateInfo,false);
         }
     }

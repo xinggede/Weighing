@@ -27,9 +27,49 @@ import static com.xing.weight.bean.PoundItemInfo.PoundType;
 
 public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
+    private int realWeight = -1,carWeight = -1, totalWeight, discount = -1, price = -1;
+
     public WeightInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
     }
+
+    @Override
+    public void setData(@Nullable List<PoundItemInfo> list) {
+        super.setData(list);
+        for (int i = 0; i < list.size(); i++) {
+            PoundItemInfo info = getItem(i);
+            if(info.type == PoundType.CARWEIGHT){
+                carWeight = i;
+                continue;
+            }
+            if(info.type == PoundType.TOTALWEIGHT){
+                totalWeight = i;
+                continue;
+            }
+            if(info.type == PoundType.REALWEIGHT){
+                realWeight = i;
+                continue;
+            }
+            if(info.type == PoundType.DISCOUNT){
+                discount = i;
+                continue;
+            }
+            if(info.type == PoundType.TOTALPRICE){
+                price = i;
+                continue;
+            }
+        }
+    }
+
+    public void updateWeight(){
+        String tw = getItem(totalWeight).value;
+        String cw = getItem(carWeight).value;
+        String dis = getItem(discount).value;
+
+    }
+
+    //净重=毛重-皮重-毛重*折损
+    //总价=净重*单价
 
     public void updateGoods(GoodsDetail detail){
         for (int i = 0; i < getData().size(); i++) {
@@ -64,9 +104,6 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         }
         notifyDataSetChanged();
     }
-
-    //净重=毛重-皮重-毛重*折损
-    //总价=净重*单价
 
     @Override
     public int getItemViewType(int position) {
@@ -152,7 +189,6 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             etValue.addTextChangedListener(cusTextChanged);
             etValue.setTag(R.string.change, cusTextChanged);
         }
-
     }
 
     class CusTextChanged implements TextWatcher {

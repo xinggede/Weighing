@@ -46,10 +46,11 @@ public class PoundItemInfo implements Parcelable {
         TOTALPRICE(13), //总价
         PERSON(14), //司磅员
         RECEIVENAME(15), //接收方
-        DRIVER(16), //司机
-        REMARKS(17), //备注
+        DRIVERCODE(16), //车牌
+        DRIVER(17), //司机
+        REMARKS(18), //备注
 
-        ADD(20); //按钮
+        ADD(100); //按钮
 
         private final int value;
 

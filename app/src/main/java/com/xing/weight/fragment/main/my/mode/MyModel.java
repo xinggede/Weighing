@@ -23,6 +23,18 @@ public class MyModel extends BaseModel implements MyContract.Model {
     }
 
     @Override
+    public CompanyInfo getCompanyInfo() {
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.id = prefs.getInt(Constants.COMPANY_ID, -1);
+        companyInfo.comcode = prefs.getString(Constants.COMPANY_CODE);
+        companyInfo.comname = prefs.getString(Constants.COMPANY_NAME);
+        companyInfo.boss = prefs.getString(Constants.COMPANY_BOSS);
+        companyInfo.phone = prefs.getString(Constants.COMPANY_PHONE);
+        companyInfo.address = prefs.getString(Constants.COMPANY_ADDRESS);
+        return companyInfo;
+    }
+
+    @Override
     public String getUserName() {
         return prefs.getString(Constants.USER_NAME);
     }

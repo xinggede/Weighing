@@ -107,7 +107,7 @@
                 <EditText
                     android:id="@+id/et_company_name"
                     style="@style/inputEtStyle"
-                    android:text="从客户中选择" />
+                    android:text="自动加载" />
 
             </LinearLayout>
 
@@ -126,23 +126,22 @@
                 <EditText
                     android:id="@+id/et_company_charge"
                     style="@style/inputEtStyle"
-                    android:hint="@string/text10" />
+                    android:text="自动加载" />
 
             </LinearLayout>
 
-            <LinearLayout style="@style/inputItemLayout">
+            <LinearLayout style="@style/inputItemLayout"
+                android:visibility="gone">
 
                 <CheckBox
                     android:id="@+id/ck_company_phone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:enabled="false" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tv_company_phone"
                     style="@style/inputTvStyle"
-                    android:text="联系电话：" />
+                    android:text="联系方式：" />
 
                 <EditText
                     android:id="@+id/et_company_phone"
@@ -151,7 +150,8 @@
 
             </LinearLayout>
 
-            <LinearLayout style="@style/inputItemLayout">
+            <LinearLayout style="@style/inputItemLayout"
+                android:visibility="gone">
 
                 <CheckBox
                     android:id="@+id/ck_company_address"
@@ -208,24 +208,6 @@
 
             </LinearLayout>
 
-            <LinearLayout style="@style/inputItemLayout">
-
-                <CheckBox
-                    android:id="@+id/ck_in_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_in_time"
-                    style="@style/inputTvStyle"
-                    android:text="入场时间：" />
-
-                <EditText
-                    android:id="@+id/et_in_time"
-                    style="@style/inputEtStyle"
-                    android:hint="@string/text10" />
-
-            </LinearLayout>
 
             <LinearLayout style="@style/inputItemLayout">
 
@@ -245,25 +227,6 @@
                     android:id="@+id/et_total_weight"
                     style="@style/inputEtStyle"
                     android:text="@string/text5" />
-
-            </LinearLayout>
-
-            <LinearLayout style="@style/inputItemLayout">
-
-                <CheckBox
-                    android:id="@+id/ck_out_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_out_time"
-                    style="@style/inputTvStyle"
-                    android:text="出场时间：" />
-
-                <EditText
-                    android:id="@+id/et_out_time"
-                    style="@style/inputEtStyle"
-                    android:hint="@string/text10" />
 
             </LinearLayout>
 
@@ -343,6 +306,45 @@
 
             </LinearLayout>
 
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_in_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_in_time"
+                    style="@style/inputTvStyle"
+                    android:text="入场时间：" />
+
+                <EditText
+                    android:id="@+id/et_in_time"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text10" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_out_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_out_time"
+                    style="@style/inputTvStyle"
+                    android:text="出场时间：" />
+
+                <EditText
+                    android:id="@+id/et_out_time"
+                    style="@style/inputEtStyle"
+                    android:hint="@string/text10" />
+
+            </LinearLayout>
+
             <LinearLayout style="@style/inputItemLayout">
 
                 <CheckBox
@@ -379,7 +381,28 @@
                 <EditText
                     android:id="@+id/et_receive_name"
                     style="@style/inputEtStyle"
-                    android:hint="@string/text10" />
+                    android:text="从我的客户中选择" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/inputItemLayout">
+
+                <CheckBox
+                    android:id="@+id/ck_driver_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:checked="true" />
+
+                <com.xing.weight.view.CusTextView
+                    android:id="@+id/tv_driver_code"
+                    style="@style/inputTvStyle"
+                    android:text="车辆编号：" />
+
+                <EditText
+                    android:id="@+id/et_driver_code"
+                    style="@style/inputEtStyle"
+                    android:hint="车牌号码" />
 
             </LinearLayout>
 

@@ -9,7 +9,7 @@ public class LoginResultInfo {
      */
 
     private String token;
-    private BdUserBean bdUser;
+    private BdUserBean orgUser;
     private ClientInfoBean clientInfo;
 
     public String getToken() {
@@ -21,11 +21,11 @@ public class LoginResultInfo {
     }
 
     public BdUserBean getBdUser() {
-        return bdUser;
+        return orgUser;
     }
 
     public void setBdUser(BdUserBean bdUser) {
-        this.bdUser = bdUser;
+        this.orgUser = bdUser;
     }
 
     public ClientInfoBean getClientInfo() {

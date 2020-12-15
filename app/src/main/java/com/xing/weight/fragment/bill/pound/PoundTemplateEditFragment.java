@@ -7,7 +7,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.qmuiteam.qmui.arch.effect.MapEffect;
 import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -19,7 +18,6 @@ import com.xing.weight.bean.StyleInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
-import com.xing.weight.fragment.main.manage.MyCustomAddFragment;
 import com.xing.weight.fragment.main.manage.StyleChooseFragment;
 import com.xing.weight.view.CusTextView;
 
@@ -140,6 +138,12 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     CusTextView tvDriver;
     @BindView(R.id.et_driver)
     EditText etDriver;
+    @BindView(R.id.ck_driver_code)
+    CheckBox ckDriverCode;
+    @BindView(R.id.tv_driver_code)
+    CusTextView tvDriverCode;
+    @BindView(R.id.et_driver_code)
+    EditText etDriverCode;
     @BindView(R.id.ck_remarks)
     CheckBox ckRemarks;
     @BindView(R.id.tv_remarks)
@@ -349,6 +353,13 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             poundItemInfo = new PoundItemInfo(tvReceiveName.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.RECEIVENAME;
             poundItemInfo.hint = etReceiveName.getText().toString();
+            list.add(poundItemInfo);
+        }
+
+        if (ckDriverCode.isChecked()) {
+            poundItemInfo = new PoundItemInfo(tvDriverCode.getText().toString());
+            poundItemInfo.type = PoundItemInfo.PoundType.DRIVERCODE;
+            poundItemInfo.hint = etDriverCode.getText().toString();
             list.add(poundItemInfo);
         }
 

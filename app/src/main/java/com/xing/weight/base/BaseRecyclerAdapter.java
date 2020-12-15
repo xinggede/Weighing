@@ -41,6 +41,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         notifyItemRemoved(pos);
     }
 
+    public List<T> getData(){
+        return mData;
+    }
+
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final RecyclerViewHolder holder = new RecyclerViewHolder(mContext,

@@ -48,4 +48,12 @@ public class PoundInfo {
 
     public String outdate;
 
+    public String remark;
+
+    public int templetid;
+
+    public int styleid;
+
+    public String url;
+
 }

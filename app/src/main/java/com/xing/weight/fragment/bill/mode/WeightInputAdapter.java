@@ -9,10 +9,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.base.RecyclerViewHolder;
+import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.GoodsDetail;
+import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PoundItemInfo;
 
 import java.util.List;
@@ -27,10 +31,44 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         super(ctx, list);
     }
 
+    public void updateGoods(GoodsDetail detail){
+        for (int i = 0; i < getData().size(); i++) {
+            PoundItemInfo info = getItem(i);
+            if(info.type == PoundType.GTYPE){
+                info.value = detail.name;
+                continue;
+            }
+            if(info.type == PoundType.PRICE){
+                info.value = String.valueOf(detail.pricebuy);
+                continue;
+            }
+            if(info.type == PoundType.REMARKS){
+                info.value = detail.remark;
+                continue;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void updateCustom(CustomerInfo customerInfo){
+        for (int i = 0; i < getData().size(); i++) {
+            PoundItemInfo info = getItem(i);
+            if(info.type == PoundType.RECEIVENAME){
+                info.value = customerInfo.comname;
+                continue;
+            }
+            if(info.type == PoundType.DRIVER){
+                info.value = customerInfo.name;
+                continue;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         PoundItemInfo poundItemInfo = getItem(position);
-        if (poundItemInfo.type == PoundType.CNAME || poundItemInfo.type == PoundType.GTYPE) {
+        if (poundItemInfo.type == PoundType.GTYPE || poundItemInfo.type == PoundType.RECEIVENAME) {
             return 1;
         }
         if (poundItemInfo.type == PoundType.ADD) {
@@ -55,19 +93,24 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         int t = getItemViewType(position);
         if (t == 2) {
             holder.setClickListener(R.id.bt_print, new CusClickListener(position));
-        } else {
-            holder.setText(R.id.tv_name, item.name + "：");
-            if (t == 1) {
-                holder.setClickListener(R.id.et_value, new CusClickListener(position));
+        } else if (t == 1){
+            holder.setText(R.id.tv_name, item.name);
+            holder.setClickListener(R.id.tv_value, new CusClickListener(position));
+            TextView tvValue = holder.getTextView(R.id.tv_value);
+            if (TextUtils.isEmpty(item.hint)) {
+                tvValue.setHint(String.format(mContext.getText(R.string.pls_input).toString(), item.name));
             } else {
-                holder.setClickListener(R.id.et_value, null);
+                tvValue.setHint(item.hint);
             }
+            tvValue.setText(item.value);
+        } else {
+            holder.setText(R.id.tv_name, item.name);
 
             EditText etValue = holder.getEditText(R.id.et_value);
             if (item.inputType == 0) {
                 etValue.setInputType(InputType.TYPE_CLASS_TEXT);
             } else if (item.inputType == 1) {
-                etValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                etValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             } else if (item.inputType == 2) {
                 etValue.setInputType(InputType.TYPE_CLASS_PHONE);
             } else {
@@ -97,11 +140,11 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             } else {
                 etValue.setHint(item.hint);
             }
-            etValue.setText(item.value);
 
             if (etValue.getTag(R.string.change) != null) {
                 etValue.removeTextChangedListener((TextWatcher) etValue.getTag(R.string.change));
             }
+            etValue.setText(item.value);
             CusTextChanged cusTextChanged = new CusTextChanged(position);
             etValue.addTextChangedListener(cusTextChanged);
             etValue.setTag(R.string.change, cusTextChanged);

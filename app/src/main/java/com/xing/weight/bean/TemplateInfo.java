@@ -23,6 +23,11 @@ public class TemplateInfo implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

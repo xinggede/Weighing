@@ -65,6 +65,9 @@ public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         notifyDataSetChanged();
     }
 
+    //净重=毛重-皮重-毛重*折损
+    //总价=净重*单价
+
     @Override
     public int getItemViewType(int position) {
         PoundItemInfo poundItemInfo = getItem(position);

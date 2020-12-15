@@ -302,7 +302,7 @@
                 <EditText
                     android:id="@+id/et_total_price"
                     style="@style/inputEtStyle"
-                    android:hint="@string/text10" />
+                    android:text="@string/text7" />
 
             </LinearLayout>
 

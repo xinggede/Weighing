@@ -11,11 +11,16 @@ public class TemplateInfo implements Parcelable {
     public int type;
     public int styleid;
     public String name;
+    public String stylename;
     public String content;
+    public List<PoundItemInfo> contList;
     public String remark;
     public String createDate;
     public String modifyDate;
 
+
+    public TemplateInfo() {
+    }
 
     @Override
     public int describeContents() {
@@ -25,30 +30,31 @@ public class TemplateInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
-        dest.writeInt(this.styleid);
         dest.writeInt(this.type);
+        dest.writeInt(this.styleid);
         dest.writeString(this.name);
+        dest.writeString(this.stylename);
         dest.writeString(this.content);
+        dest.writeTypedList(this.contList);
         dest.writeString(this.remark);
         dest.writeString(this.createDate);
         dest.writeString(this.modifyDate);
     }
 
-    public TemplateInfo() {
-    }
-
     protected TemplateInfo(Parcel in) {
         this.id = in.readInt();
-        this.styleid = in.readInt();
         this.type = in.readInt();
+        this.styleid = in.readInt();
         this.name = in.readString();
+        this.stylename = in.readString();
         this.content = in.readString();
+        this.contList = in.createTypedArrayList(PoundItemInfo.CREATOR);
         this.remark = in.readString();
         this.createDate = in.readString();
         this.modifyDate = in.readString();
     }
 
-    public static final Parcelable.Creator<TemplateInfo> CREATOR = new Parcelable.Creator<TemplateInfo>() {
+    public static final Creator<TemplateInfo> CREATOR = new Creator<TemplateInfo>() {
         @Override
         public TemplateInfo createFromParcel(Parcel source) {
             return new TemplateInfo(source);

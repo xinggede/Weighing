@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class WeightInputFragment1 extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
+public class PoundInputFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
@@ -45,7 +45,7 @@ public class WeightInputFragment1 extends BaseFragment<BillPresenter> implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_weight_input1;
+        return R.layout.fragment_pound_input;
     }
 
     @Override

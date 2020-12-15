@@ -66,7 +66,7 @@ public interface MainApi {
     Observable<BasicResponse<CompanyInfo>> updateCompanyInfo(@Body CompanyInfo companyInfo);
 
     @POST("/api/templetCfg/getPageList")
-    Observable<BasicResponse<TemplateInfo>> getTemplate(@Body RequestList requestList);
+    Observable<BasicResponse<PageList<TemplateInfo>>> getTemplate(@Body RequestList requestList);
 
     @POST("/api/templetCfg/delete/{id}")
     Observable<BasicResponse<Object>> deleteTemplate(@Path("id") int tId);

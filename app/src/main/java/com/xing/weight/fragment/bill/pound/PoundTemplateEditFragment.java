@@ -178,6 +178,15 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
                 popBackStack();
             }
         });
+        if(templateInfo != null){
+            etModelName.setText(templateInfo.name);
+            etModelName.setSelection(etModelName.length());
+            tvModelStyle.setText(templateInfo.stylename);
+
+            styleInfo = new StyleInfo();
+            styleInfo.id = templateInfo.styleid;
+            styleInfo.name = templateInfo.stylename;
+        }
     }
 
     @OnClick(R.id.iv_choose_style)
@@ -208,6 +217,11 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         String modelName = etModelName.getText().toString();
         if (TextUtils.isEmpty(modelName)) {
             showToast(R.string.pls_input_model_name);
+            return;
+        }
+
+        if (styleInfo == null) {
+            showToast(R.string.pls_choose_model_style);
             return;
         }
 
@@ -353,18 +367,19 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             poundItemInfo.lenght = 100;
             list.add(poundItemInfo);
         }
-        String json = new Gson().toJson(list);
         if(templateInfo == null){
             TemplateInfo info = new TemplateInfo();
             info.name = modelName;
-            info.content = json;
+            info.contList = list;
             info.styleid = styleInfo.id;
+            info.stylename = styleInfo.name;
             info.type = 1;
             mPresenter.addTemplate(info,true);
         } else {
             templateInfo.name = modelName;
-            templateInfo.content = json;
+            templateInfo.contList = list;
             templateInfo.type = 1;
+            templateInfo.stylename = styleInfo.name;
             templateInfo.styleid = styleInfo.id;
             mPresenter.addTemplate(templateInfo,false);
         }

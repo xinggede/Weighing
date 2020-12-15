@@ -7,7 +7,7 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.fragment.bill.bound.OutboundInputFragment;
-import com.xing.weight.fragment.bill.pound.WeightInputFragment1;
+import com.xing.weight.fragment.bill.pound.PoundInputFragment;
 import com.xing.weight.fragment.main.home.mode.HomeContract;
 import com.xing.weight.fragment.main.home.mode.HomePresenter;
 
@@ -43,7 +43,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_weight_print:
-                startFragment(new WeightInputFragment1());
+                startFragment(new PoundInputFragment());
                 break;
 
             case R.id.bt_outbound_print:

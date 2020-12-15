@@ -89,7 +89,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         TextView tvName = holder.itemView.findViewById(R.id.tv_name);
         tvName.setText(templateInfo.name);
         TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
-        tvDate.setText(templateInfo.createDate);
+        tvDate.setText(templateInfo.modifyDate);
     }
 
     @Override

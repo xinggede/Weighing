@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
@@ -22,11 +24,13 @@ import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
+import com.xing.weight.fragment.print.PrintPreviewFragment;
 import com.xing.weight.util.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,16 +89,16 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
         companyInfo = mPresenter.getCompanyInfo();
     }
 
-    private void setTemp(){
+    private void setTemp() {
         tvModel.setText(templateInfo.name);
         List<PoundItemInfo> data = new ArrayList<>();
         data.addAll(templateInfo.contList);
         for (PoundItemInfo itemInfo : data) {
-            if(itemInfo.type == PoundItemInfo.PoundType.CNAME){
+            if (itemInfo.type == PoundItemInfo.PoundType.CNAME) {
                 itemInfo.value = companyInfo.comname;
                 continue;
             }
-            if(itemInfo.type == PoundItemInfo.PoundType.CBOSS){
+            if (itemInfo.type == PoundItemInfo.PoundType.CBOSS) {
                 itemInfo.value = companyInfo.boss;
                 continue;
             }
@@ -215,12 +219,13 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     showToast("请先添加货品");
                 }
             } else if (code == 4) {
-                showToast("添加成功");
+                PoundInfo poundInfo = (PoundInfo) data;
+                startFragmentAndDestroyCurrent(new PrintPreviewFragment(poundInfo));
             }
         }
     }
 
-    @OnClick({R.id.tv_model})
+    @OnClick({R.id.tv_model, R.id.ib_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_model:
@@ -230,7 +235,29 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     showChooseModel(view);
                 }
                 break;
+
+            default:
+                callback();
+                startFragment(new PoundTemplateEditFragment(null));
+                break;
         }
+    }
+
+    private void callback() {
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(PoundTemplateEditFragment.class.getName()) != null;
+            }
+
+            @Override
+            public void handleEffect(@NonNull MapEffect effect) {
+                boolean value = (boolean) effect.getValue(PoundTemplateEditFragment.class.getName());
+                if (value) {
+                    mPresenter.getTemplateChoose(1, false);
+                }
+            }
+        });
     }
 
     private View gView, cView;
@@ -259,7 +286,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
 
     private void save() {
         PoundInfo info = checkPoundInfo(inputAdapter.getData());
-        if(info!= null){
+        if (info != null) {
             mPresenter.addPound(info);
         }
     }
@@ -267,7 +294,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
     private PoundInfo checkPoundInfo(List<PoundItemInfo> data) {
         PoundInfo poundInfo = new PoundInfo();
         for (PoundItemInfo info : data) {
-            if(TextUtils.isEmpty(info.value) && info.type != PoundItemInfo.PoundType.REMARKS && info.type != PoundItemInfo.PoundType.ADD){
+            if (TextUtils.isEmpty(info.value) && info.type != PoundItemInfo.PoundType.REMARKS && info.type != PoundItemInfo.PoundType.ADD) {
                 showToast(String.format(getText(R.string.pls_input).toString(), info.name));
                 return null;
             }

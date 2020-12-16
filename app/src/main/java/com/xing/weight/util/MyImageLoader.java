@@ -1,6 +1,7 @@
 package com.xing.weight.util;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
@@ -8,9 +9,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.ImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
 import com.xing.weight.CPApp;
 import com.xing.weight.R;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * @author 星哥的
@@ -60,6 +68,25 @@ public class MyImageLoader {
 
     public static void loadCusRoundImage(Context c, String fullPath, ImageView imageView, int id, int round) {
         Glide.with(c).load(fullPath).transform(new RoundedCorners(Tools.dip2px(c,round))).placeholder(id).error(id).into(imageView);
+    }
+
+    public static void downloadImg(Context context,String url){
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(new CustomTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
+            }
+        });
     }
 
     public static boolean clearCacheDiskSelf() {

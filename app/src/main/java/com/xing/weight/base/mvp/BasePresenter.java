@@ -75,6 +75,7 @@ public abstract class BasePresenter<V extends BaseContract.View, M extends BaseC
     }
 
 
+
     /**
      * 停止集合中正在执行的 RxJava 任务
      */

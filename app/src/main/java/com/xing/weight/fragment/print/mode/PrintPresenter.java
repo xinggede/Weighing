@@ -5,6 +5,7 @@ import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
+import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.bean.request.RequestList;
 import com.xing.weight.fragment.main.my.mode.MyModel;
@@ -14,12 +15,12 @@ import java.util.List;
 
 public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContract.Model> {
 
-    private List<GoodsDetail> goods = new ArrayList<>();
+    private List<PrinterInfo> prints = new ArrayList<>();
     private List<CustomerInfo> customer = new ArrayList<>();
     private List<TemplateInfo> temps = new ArrayList<>();
 
-    public List<GoodsDetail> getSaveGoods() {
-        return goods;
+    public List<PrinterInfo> getSavePrints() {
+        return prints;
     }
 
     public List<CustomerInfo> getSaveCustomer() {
@@ -37,89 +38,18 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
     }
 
 
-    public void getGoods() {
+    public void getPrints(boolean show) {
         RequestList requestList = new RequestList();
         requestList.pageIndex = 1;
         requestList.pageSize = 1000;
-        requestHttp(mModel.getMainApi().getGoods(requestList),
+        requestHttp(mModel.getMainApi().getPrinter(requestList),
                 valueInfo -> {
-                    goods.clear();
-                    goods.addAll(valueInfo.records);
-                    getView().onHttpResult(true, 3, valueInfo);
-                });
-    }
-
-    public void getCustom() {
-        RequestList requestList = new RequestList();
-        requestList.pageIndex = 1;
-        requestList.pageSize = 1000;
-        requestHttp(mModel.getMainApi().getCustomer(requestList),
-                valueInfo -> {
-                    customer.clear();
-                    customer.addAll(valueInfo.records);
-                    getView().onHttpResult(true, 2, valueInfo);
-                });
-    }
-
-
-    public void getTemplateChoose(int type, boolean show) {
-        RequestList requestList = new RequestList();
-        requestList.pageIndex = 1;
-        requestList.type = type;
-        requestList.pageSize = 1000;
-        requestHttp(mModel.getMainApi().getTemplate(requestList),
-                valueInfo -> {
-                    temps.clear();
-                    temps.addAll(valueInfo.records);
+                    prints.clear();
+                    prints.addAll(valueInfo.records);
                     getView().onHttpResult(true, show?1:0, valueInfo);
-                });
+                },false);
     }
 
-    /**
-     * 1磅单;2出库单
-     *
-     * @param type
-     */
-    public void getTemplate(int type, boolean show) {
-        RequestList requestList = new RequestList();
-        requestList.pageIndex = 1;
-        requestList.type = type;
-        requestHttp(mModel.getMainApi().getTemplate(requestList),
-                valueInfo -> {
-                    getView().onHttpResult(true, 0, valueInfo);
-                }, e -> {
-                    getView().onHttpResult(false, 0, null);
-                    onError(e);
-                    onComplete(show);
-                }, show);
-    }
-
-    public void getTemplateMore(int type, int index) {
-        RequestList requestList = new RequestList();
-        requestList.pageIndex = index;
-        requestList.type = type;
-        requestHttp(mModel.getMainApi().getTemplate(requestList),
-                valueInfo -> {
-                    getView().onHttpResult(true, 1, valueInfo);
-                }, e -> {
-                    getView().onHttpResult(false, 1, null);
-                    onError(e);
-                }, false);
-    }
-
-    public void deleteTemplate(int id) {
-        requestHttp(mModel.getMainApi().deleteTemplate(id),
-                valueInfo -> {
-                    getView().onHttpResult(true, 2, valueInfo);
-                });
-    }
-
-    public void addTemplate(TemplateInfo templateInfo, boolean isAdd) {
-        requestHttp(isAdd ? mModel.getMainApi().addTemplate(templateInfo) : mModel.getMainApi().updateTemplate(templateInfo),
-                valueInfo -> {
-                    getView().onHttpResult(true, 0, valueInfo);
-                });
-    }
 
     public void addPound(PoundInfo poundInfo) {
         requestHttp(mModel.getMainApi().addPound(poundInfo),
@@ -128,38 +58,4 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
                 });
     }
 
-    public void getPounds(int index, boolean show) {
-        RequestList requestList = new RequestList();
-        requestList.pageIndex = index;
-        requestHttp(mModel.getMainApi().getPounds(requestList),
-                valueInfo -> {
-                    getView().onHttpResult(true, 0, valueInfo);
-                }, e -> {
-                    getView().onHttpResult(false, 0, null);
-                    onError(e);
-                    onComplete(show);
-                }, show);
-    }
-
-    public void getPoundsMore(int index) {
-        RequestList requestList = new RequestList();
-        requestList.pageIndex = index;
-        requestHttp(mModel.getMainApi().getPounds(requestList),
-                valueInfo -> {
-                    getView().onHttpResult(true, 1, valueInfo);
-                }, e -> {
-                    getView().onHttpResult(false, 1, null);
-                    onError(e);
-                }, false);
-    }
-
-    public CompanyInfo getCompanyInfo() {
-        return new MyModel().getCompanyInfo();
-    }
-
-
-    @Override
-    public void detachView() {
-        super.detachView();
-    }
 }

@@ -15,6 +15,10 @@ public class PrinterInfo implements Parcelable {
     public String createDate;
     public String modifyDate;
 
+    @Override
+    public String toString() {
+        return name+":"+ devcode;
+    }
 
     @Override
     public int describeContents() {

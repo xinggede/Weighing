@@ -38,11 +38,19 @@
             <TextView
                 android:id="@+id/tv_print"
                 style="@style/inputEtStyle"
+                android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:drawableEnd="@mipmap/icon_arrow_down"
                 android:gravity="center"
                 android:hint="@string/pls_choose_print" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                android:id="@+id/ib_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@mipmap/icon_black_add" />
 
         </com.qmuiteam.qmui.layout.QMUILinearLayout>
 

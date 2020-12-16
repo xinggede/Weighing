@@ -1,10 +1,13 @@
 package com.xing.weight.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  *
  * 磅单信息
  */
-public class PoundInfo {
+public class PoundInfo implements Parcelable {
 
     public int id;
 
@@ -60,4 +63,35 @@ public class PoundInfo {
 
     public String modifyDate;
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.url);
+    }
+
+    public PoundInfo() {
+    }
+
+    protected PoundInfo(Parcel in) {
+        this.id = in.readInt();
+        this.url = in.readString();
+    }
+
+    public static final Parcelable.Creator<PoundInfo> CREATOR = new Parcelable.Creator<PoundInfo>() {
+        @Override
+        public PoundInfo createFromParcel(Parcel source) {
+            return new PoundInfo(source);
+        }
+
+        @Override
+        public PoundInfo[] newArray(int size) {
+            return new PoundInfo[size];
+        }
+    };
 }

@@ -1,9 +1,17 @@
 package com.xing.weight.fragment.main.my;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -13,9 +21,11 @@ import com.xing.weight.base.BaseFragment;
 import com.xing.weight.fragment.main.my.mode.MyContract;
 import com.xing.weight.fragment.main.my.mode.MyPresenter;
 import com.xing.weight.util.MyImageLoader;
+import com.xing.weight.util.Tools;
 import com.xing.weight.view.CircleImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 

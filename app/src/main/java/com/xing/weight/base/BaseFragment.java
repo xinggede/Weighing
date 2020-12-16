@@ -1,8 +1,10 @@
 package com.xing.weight.base;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment implements BaseContract.View {
+public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment implements BaseContract.View, DialogInterface.OnKeyListener {
 
     protected P mPresenter;
     protected Unbinder unbinder;
@@ -106,6 +108,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment
                     .setTipWord(msg);
             proDialog =  builder.create();
             proDialog.setBuilder(builder);
+            proDialog.setOnKeyListener(this);
         } else {
             proDialog.getBuilder().setTipWord(msg);
         }
@@ -150,4 +153,15 @@ public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment
     }
 
 
+    @Override
+    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            dialog.dismiss();
+            if(mPresenter != null){
+                mPresenter.unDispose();
+            }
+            return true;
+        }
+        return false;
+    }
 }

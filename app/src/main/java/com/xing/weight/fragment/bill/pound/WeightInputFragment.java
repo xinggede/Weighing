@@ -16,7 +16,7 @@ import com.xing.weight.base.BaseFragment;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
-import com.xing.weight.fragment.bill.BillRecordFragment;
+import com.xing.weight.fragment.bill.PoundRecordFragment;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.util.Tools;
@@ -89,7 +89,7 @@ public class WeightInputFragment extends BaseFragment<BillPresenter> implements 
 
             @Override
             public void onClick(View view) {
-                startFragment(new BillRecordFragment());
+                startFragment(new PoundRecordFragment());
             }
         });
     }

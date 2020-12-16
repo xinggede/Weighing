@@ -5,7 +5,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
@@ -14,16 +13,14 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.BillRecordFragment;
+import com.xing.weight.fragment.bill.PoundRecordFragment;
 import com.xing.weight.fragment.bill.mode.GoodsAdapter;
 import com.xing.weight.fragment.bill.mode.InputChangeListener;
 import com.xing.weight.fragment.main.MainContract;
 import com.xing.weight.fragment.main.MainPresenter;
 import com.xing.weight.fragment.main.manage.MyCustomAddFragment;
-import com.xing.weight.fragment.main.manage.MyGoodsAddFragment;
 import com.xing.weight.fragment.main.manage.MyGoodsListFragment;
 import com.xing.weight.view.NestRecyclerView;
 
@@ -87,7 +84,7 @@ public class OutboundInputFragment extends BaseFragment<MainPresenter> implement
 
             @Override
             public void onClick(View view) {
-                startFragment(new BillRecordFragment());
+                startFragment(new PoundRecordFragment());
             }
         });
 

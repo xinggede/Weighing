@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class BillRecordFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class PoundRecordFragment extends BaseFragment<MainPresenter> implements MainContract.View {
 
 
     @BindView(R.id.et_search)

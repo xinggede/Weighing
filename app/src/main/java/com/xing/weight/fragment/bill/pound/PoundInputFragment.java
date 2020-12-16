@@ -19,7 +19,7 @@ import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PoundItemInfo;
 import com.xing.weight.bean.TemplateInfo;
-import com.xing.weight.fragment.bill.BillRecordFragment;
+import com.xing.weight.fragment.bill.PoundRecordFragment;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
@@ -72,7 +72,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
 
             @Override
             public void onClick(View view) {
-                startFragment(new BillRecordFragment());
+                startFragment(new PoundRecordFragment());
             }
         });
 

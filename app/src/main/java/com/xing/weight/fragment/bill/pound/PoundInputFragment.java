@@ -22,7 +22,7 @@ import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.BillRecordFragment;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
-import com.xing.weight.fragment.bill.mode.WeightInputAdapter;
+import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
 import com.xing.weight.util.Tools;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
     TextView tvModel;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private WeightInputAdapter inputAdapter;
+    private PoundInputAdapter inputAdapter;
 
     private QMUIPopup chooseGoodsPopup, chooseCustomPopup, chooseModel;
     private TemplateInfo templateInfo;
@@ -77,7 +77,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        inputAdapter = new WeightInputAdapter(getContext(), new ArrayList<>());
+        inputAdapter = new PoundInputAdapter(getContext(), new ArrayList<>());
         recyclerView.setAdapter(inputAdapter);
         inputAdapter.setOnChildClickListener(this);
 

@@ -25,11 +25,11 @@ import androidx.annotation.Nullable;
 
 import static com.xing.weight.bean.PoundItemInfo.PoundType;
 
-public class WeightInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
+public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
     private int realWeight = -1, carWeight = -1, totalWeight, discount = -1, price = -1, totalPrice;
 
-    public WeightInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
+    public PoundInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
     }
 

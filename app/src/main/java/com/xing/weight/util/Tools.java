@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -246,6 +247,91 @@ public class Tools {
     }
 
 
+    /**
+     * 时间差
+     *
+     * @param date
+     * @return
+     */
+    public static String getTimeFormatText(String date) {
+        if (TextUtils.isEmpty(date)) {
+            return "刚刚";
+        }
+        long d = stringToDate(date);
+
+//        DateUtils.getRelativeTimeSpanString(d);
+
+        Calendar calendar = Calendar.getInstance();
+        int sysMonth = calendar.get(Calendar.MONTH)+ 1;
+        int sysYear = calendar.get(Calendar.YEAR);
+
+        long minute = 60 * 1000;// 1分钟
+        long hour = 60 * minute;// 1小时
+        long day = 24 * hour;// 1天
+        long month = calculationDaysOfMonth(sysYear, sysMonth) * day;// 月
+        long year = 12 * month;// 年
+
+        long diff = calendar.getTimeInMillis() - d;
+        long r = 0;
+        if (diff > year) {
+            r = (diff / year);
+            return r + "年前";
+        }
+        if (diff > month) {
+            r = (diff / month);
+            return r + "个月前";
+        }
+        if (diff > day) {
+            r = (diff / day);
+            return r + "天前";
+        }
+        if (diff > hour) {
+            r = (diff / hour);
+            return r + "小时前";
+        }
+        if (diff > minute) {
+            r = (diff / minute);
+            return r + "分钟前";
+        }
+        return "刚刚";
+    }
+
+    /**
+     * 计算月数
+     *
+     * @return
+     */
+    private static int calculationDaysOfMonth(int year, int month) {
+        int day = 0;
+        switch (month) {
+            // 31天
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                day = 31;
+                break;
+            // 30天
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                day = 30;
+                break;
+            // 计算2月天数
+            case 2:
+                day = year % 100 == 0 ? year % 400 == 0 ? 29 : 28
+                        : year % 4 == 0 ? 29 : 28;
+                break;
+        }
+
+        return day;
+    }
+
+
     public static String getSDCardPath() {
         if (Build.VERSION.SDK_INT >= 29) { //10.0
             File externalFilesDir = CPApp.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
@@ -300,7 +386,7 @@ public class Tools {
     }
 
     public static boolean stringIsMac(String val) {
-        if(TextUtils.isEmpty(val)){
+        if (TextUtils.isEmpty(val)) {
             return false;
         }
         String trueMacAddress = "([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}";

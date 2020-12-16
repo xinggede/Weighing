@@ -16,7 +16,6 @@ import com.xing.weight.base.BaseFragment;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
-import com.xing.weight.fragment.bill.PoundRecordFragment;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.util.Tools;

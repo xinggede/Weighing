@@ -19,7 +19,6 @@ import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PoundItemInfo;
 import com.xing.weight.bean.TemplateInfo;
-import com.xing.weight.fragment.bill.PoundRecordFragment;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
@@ -216,7 +215,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     showToast("请先添加货品");
                 }
             } else if (code == 4) {
-
+                showToast("添加成功");
             }
         }
     }

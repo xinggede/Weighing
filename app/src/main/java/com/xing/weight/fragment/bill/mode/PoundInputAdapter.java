@@ -87,6 +87,8 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         String value = result.toString();
         getItem(realWeight).value = value;
         notifyItemChanged(realWeight);
+
+        updatePrice();
     }
 
     public void updatePrice() {
@@ -169,7 +171,7 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
     public void bindData(RecyclerViewHolder holder, int position, PoundItemInfo item) {
         int t = getItemViewType(position);
         if (t == 2) {
-            holder.setClickListener(R.id.bt_print, new CusClickListener(position));
+            holder.setClickListener(R.id.bt_confirm, new CusClickListener(position));
         } else if (t == 1) {
             holder.setText(R.id.tv_name, item.name);
             holder.setClickListener(R.id.tv_value, new CusClickListener(position));

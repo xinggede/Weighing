@@ -81,7 +81,7 @@ public interface MainApi {
     Observable<BasicResponse<Object>> addPound(@Body PoundInfo poundInfo); //添加磅单
 
     @POST("/api/bills/getPageList")
-    Observable<BasicResponse<Object>> getPounds(@Body RequestList requestList); //获取磅单
+    Observable<BasicResponse<PageList<PoundInfo>>> getPounds(@Body RequestList requestList); //获取磅单
 
     @POST("/api/style/getPageList")
     Observable<BasicResponse<PageList<StyleInfo>>> getStyle(@Body RequestList requestList); //获取货品列表

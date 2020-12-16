@@ -19,8 +19,8 @@ import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.main.manage.StyleChooseFragment;
+import com.xing.weight.util.Tools;
 import com.xing.weight.view.CusTextView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -190,6 +190,108 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             styleInfo = new StyleInfo();
             styleInfo.id = templateInfo.styleid;
             styleInfo.name = templateInfo.stylename;
+
+            List<PoundItemInfo> list = templateInfo.contList;
+            for (PoundItemInfo itemInfo : list) {
+                switch (itemInfo.type) {
+                    case CODE:
+                        ckCode.setChecked(true);
+                        etCode.setText(itemInfo.hint);
+                        break;
+
+                    case CNAME:
+                        ckCompanyName.setChecked(true);
+                        etCompanyName.setText(itemInfo.hint);
+                        break;
+
+                    case CBOSS:
+                        ckCompanyCharge.setChecked(true);
+                        etCompanyCharge.setText(itemInfo.hint);
+                        break;
+
+                    case CPHONE:
+                        ckCompanyPhone.setChecked(true);
+                        etCompanyPhone.setText(itemInfo.hint);
+                        break;
+
+                    case CADDRESS:
+                        ckCompanyAddress.setChecked(true);
+                        etCompanyAddress.setText(itemInfo.hint);
+                        break;
+
+                    case GTYPE:
+                        ckGoodsType.setChecked(true);
+                        etGoodsType.setText(itemInfo.hint);
+                        break;
+
+                    case CARWEIGHT:
+                        ckCarWeight.setChecked(true);
+                        etCarWeight.setText(itemInfo.hint);
+                        break;
+
+                    case INTIME:
+                        ckInTime.setChecked(true);
+                        etInTime.setText(itemInfo.hint);
+                        break;
+
+                    case OUTTIME:
+                        ckOutTime.setChecked(true);
+                        etOutTime.setText(itemInfo.hint);
+                        break;
+
+                    case TOTALWEIGHT:
+                        ckTotalWeight.setChecked(true);
+                        etTotalWeight.setText(itemInfo.hint);
+                        break;
+
+                    case REALWEIGHT:
+                        ckRealWeight.setChecked(true);
+                        etRealWeight.setText(itemInfo.hint);
+                        break;
+
+                    case DISCOUNT:
+                        ckDiscount.setChecked(true);
+                        etDiscount.setText(itemInfo.hint);
+                        break;
+
+                    case PRICE:
+                        ckPrice.setChecked(true);
+                        etPrice.setText(itemInfo.hint);
+                        break;
+
+                    case TOTALPRICE:
+                        ckTotalPrice.setChecked(true);
+                        etTotalPrice.setText(itemInfo.hint);
+                        break;
+
+                    case PERSON:
+                        ckPersonWeigher.setChecked(true);
+                        etPersonWeigher.setText(itemInfo.hint);
+                        break;
+
+                    case RECEIVENAME:
+                        ckReceiveName.setChecked(true);
+                        etReceiveName.setText(itemInfo.hint);
+                        break;
+
+                    case DRIVERCODE:
+                        ckDriverCode.setChecked(true);
+                        etDriverCode.setText(itemInfo.hint);
+                        break;
+
+                    case DRIVER:
+                        ckDriver.setChecked(true);
+                        etDriver.setText(itemInfo.hint);
+                        break;
+
+                    case REMARKS:
+                        ckRemarks.setChecked(true);
+                        etRemarks.setText(itemInfo.hint);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 

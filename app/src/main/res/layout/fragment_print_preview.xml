@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_color_bj">
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" />
+
+
+    <com.qmuiteam.qmui.layout.QMUILinearLayout
+        android:id="@+id/lin_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:padding="10dp"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            style="@style/LinStyle"
+            android:background="@color/qmui_config_color_white">
+
+            <TextView
+                style="@style/DescriptionStyle"
+                android:layout_marginStart="10dp"
+                android:text="打&#8197;&#8197;印&#8197;&#8197;机" />
+
+            <TextView
+                android:id="@+id/tv_print"
+                style="@style/inputEtStyle"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:drawableEnd="@mipmap/icon_arrow_down"
+                android:gravity="center"
+                android:hint="@string/pls_choose_print" />
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            style="@style/LinStyle"
+            android:background="@color/qmui_config_color_white">
+
+            <TextView
+                style="@style/DescriptionStyle"
+                android:layout_marginStart="10dp"
+                android:text="打印方式" />
+
+            <TextView
+                android:id="@+id/tv_print_type"
+                style="@style/inputEtStyle"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:drawableEnd="@mipmap/icon_arrow_down"
+                android:gravity="center"
+                android:text="云打印" />
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/bt_print"
+            style="@style/RoundButtonStyle"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/print" />
+
+    </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

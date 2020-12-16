@@ -15,7 +15,7 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.PoundRecordFragment;
+import com.xing.weight.fragment.bill.pound.PoundRecordFragment;
 import com.xing.weight.fragment.bill.mode.GoodsAdapter;
 import com.xing.weight.fragment.bill.mode.InputChangeListener;
 import com.xing.weight.fragment.main.MainContract;

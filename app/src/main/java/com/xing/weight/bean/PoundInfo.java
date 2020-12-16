@@ -56,4 +56,8 @@ public class PoundInfo {
 
     public String url;
 
+    public String createDate;
+
+    public String modifyDate;
+
 }

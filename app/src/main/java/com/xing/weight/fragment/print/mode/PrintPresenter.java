@@ -1,4 +1,4 @@
-package com.xing.weight.fragment.bill.mode;
+package com.xing.weight.fragment.print.mode;
 
 import com.xing.weight.base.mvp.BasePresenter;
 import com.xing.weight.bean.CompanyInfo;
@@ -12,7 +12,7 @@ import com.xing.weight.fragment.main.my.mode.MyModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillPresenter extends BasePresenter<BillContract.View, BillContract.Model> {
+public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContract.Model> {
 
     private List<GoodsDetail> goods = new ArrayList<>();
     private List<CustomerInfo> customer = new ArrayList<>();
@@ -32,8 +32,8 @@ public class BillPresenter extends BasePresenter<BillContract.View, BillContract
 
 
     @Override
-    protected BillContract.Model createModel() {
-        return new BillModel();
+    protected PrintContract.Model createModel() {
+        return new PrintModel();
     }
 
 

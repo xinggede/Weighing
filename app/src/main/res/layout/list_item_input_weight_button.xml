@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/bt_print"
+        android:id="@+id/bt_confirm"
         style="@style/RoundButtonStyle"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:text="@string/print" />
+        android:text="@string/confirm" />
 
 </com.qmuiteam.qmui.layout.QMUILinearLayout>

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/app_content_bg_color"
-    android:clipChildren="false"
-    app:qmui_skin_background="?attr/app_skin_main_background">
+    android:clipChildren="false">
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
         android:id="@+id/topbar"
@@ -73,7 +72,7 @@
             <com.qmuiteam.qmui.widget.pullLayout.QMUIPullRefreshView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:qmui_action_view_init_offset="-20dp"
+                app:qmui_action_view_init_offset="-10dp"
                 app:qmui_can_over_pull="true"
                 app:qmui_need_receive_fling_from_target_view="false"
                 app:qmui_pull_edge="top"

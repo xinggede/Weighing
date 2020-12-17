@@ -15,6 +15,7 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.bean.AddPoundResultInfo;
 import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
@@ -26,6 +27,8 @@ import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
 import com.xing.weight.fragment.print.PrintPreviewFragment;
 import com.xing.weight.util.Tools;
+import com.xing.weight.view.datepicker.CustomDatePicker;
+import com.xing.weight.view.datepicker.DateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +54,8 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
     private QMUIPopup chooseGoodsPopup, chooseCustomPopup, chooseModel;
     private TemplateInfo templateInfo;
     private CompanyInfo companyInfo;
+
+    private CustomDatePicker mDatePicker;
 
     @Override
     protected BillPresenter onLoadPresenter() {
@@ -102,6 +107,9 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                 itemInfo.value = companyInfo.boss;
                 continue;
             }
+            if (itemInfo.type == PoundItemInfo.PoundType.INTIME || itemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
+                itemInfo.value = DateFormatUtils.getCurrentDate();
+            }
         }
         PoundItemInfo itemInfo = new PoundItemInfo("添加");
         itemInfo.type = PoundItemInfo.PoundType.ADD;
@@ -129,7 +137,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
@@ -157,7 +165,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
@@ -185,7 +193,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
@@ -219,8 +227,8 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
                     showToast("请先添加货品");
                 }
             } else if (code == 4) {
-                PoundInfo poundInfo = (PoundInfo) data;
-                startFragmentAndDestroyCurrent(new PrintPreviewFragment(poundInfo));
+                AddPoundResultInfo info = (AddPoundResultInfo) data;
+                startFragmentAndDestroyCurrent(new PrintPreviewFragment(info));
             }
         }
     }
@@ -260,6 +268,27 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
         });
     }
 
+    private void showDatePicker(String time, PoundItemInfo.PoundType type){
+        long beginTime = DateFormatUtils.getBeforeYear();
+        long endTime = DateFormatUtils.getLastWeek();
+        if(mDatePicker == null){
+            mDatePicker = new CustomDatePicker(getContext(), new CustomDatePicker.Callback() {
+                @Override
+                public void onTimeSelected(long timestamp) {
+                    inputAdapter.updateTime((PoundItemInfo.PoundType) mDatePicker.getTag(), DateFormatUtils.long2Str(timestamp, true));
+                }
+            }, beginTime, endTime);
+            mDatePicker.setCancelable(true);
+            // 显示时和分
+            mDatePicker.setCanShowPreciseTime(true);
+            // 允许循环滚动
+            mDatePicker.setScrollLoop(true);
+            mDatePicker.setCanShowAnim(true);
+        }
+        mDatePicker.setTag(type);
+        mDatePicker.show(time);
+    }
+
     private View gView, cView;
 
     @Override
@@ -279,6 +308,8 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
             } else {
                 showChooseGoods(v);
             }
+        } else if (poundItemInfo.type == PoundItemInfo.PoundType.INTIME || poundItemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
+            showDatePicker(poundItemInfo.value, poundItemInfo.type);
         } else if (poundItemInfo.type == PoundItemInfo.PoundType.ADD) {
             save();
         }

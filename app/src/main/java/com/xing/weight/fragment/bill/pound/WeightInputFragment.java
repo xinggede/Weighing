@@ -116,7 +116,7 @@ public class WeightInputFragment extends BaseFragment<BillPresenter> implements 
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
@@ -144,7 +144,7 @@ public class WeightInputFragment extends BaseFragment<BillPresenter> implements 
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }

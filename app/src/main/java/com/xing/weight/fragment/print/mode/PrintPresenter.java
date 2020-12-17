@@ -23,6 +23,13 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
         return prints;
     }
 
+    public void setSavePrints(List<PrinterInfo> list) {
+        if(list != null){
+            prints.clear();
+            prints.addAll(list);
+        }
+    }
+
     public List<CustomerInfo> getSaveCustomer() {
         return customer;
     }

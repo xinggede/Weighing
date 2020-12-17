@@ -95,11 +95,9 @@
                 <CheckBox
                     android:id="@+id/ck_company_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:enabled="false" />
+                    android:layout_height="wrap_content" />
 
-                <com.xing.weight.view.CusTextView
+                <TextView
                     android:id="@+id/tv_company_name"
                     style="@style/inputTvStyle"
                     android:text="公司名称：" />
@@ -331,9 +329,11 @@
                 <CheckBox
                     android:id="@+id/ck_out_time"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:enabled="false"/>
 
-                <TextView
+                <com.xing.weight.view.CusTextView
                     android:id="@+id/tv_out_time"
                     style="@style/inputTvStyle"
                     android:text="出场时间：" />

@@ -1,5 +1,6 @@
 package com.xing.weight.server.http.api;
 
+import com.xing.weight.bean.AddPoundResultInfo;
 import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
@@ -78,7 +79,7 @@ public interface MainApi {
     Observable<BasicResponse<Object>> updateTemplate(@Body TemplateInfo templateInfo);
 
     @POST("/api/bills/add")
-    Observable<BasicResponse<PoundInfo>> addPound(@Body PoundInfo poundInfo); //添加磅单
+    Observable<BasicResponse<AddPoundResultInfo>> addPound(@Body PoundInfo poundInfo); //添加磅单
 
     @POST("/api/bills/getPageList")
     Observable<BasicResponse<PageList<PoundInfo>>> getPounds(@Body RequestList requestList); //获取磅单

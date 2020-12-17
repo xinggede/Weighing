@@ -43,4 +43,8 @@
 
     <color name="gray_color_bj">#EFF3F5</color>
 
+    <color name="date_picker_bg">#FFFFFF</color>
+    <color name="date_picker_text_light">#59B29C</color>
+    <color name="date_picker_text_dark">#333333</color>
+
 </resources>

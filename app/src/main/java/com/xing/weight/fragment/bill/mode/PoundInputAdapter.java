@@ -27,7 +27,7 @@ import static com.xing.weight.bean.PoundItemInfo.PoundType;
 
 public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
-    private int realWeight = -1, carWeight = -1, totalWeight, discount = -1, price = -1, totalPrice;
+    private int realWeight = -1, carWeight = -1, totalWeight, discount = -1, price = -1, totalPrice = -1, inTime = -1, outTime = -1;
 
     public PoundInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
@@ -60,6 +60,14 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             }
             if (info.type == PoundType.PRICE) {
                 price = i;
+                continue;
+            }
+            if (info.type == PoundType.INTIME) {
+                inTime = i;
+                continue;
+            }
+            if (info.type == PoundType.OUTTIME) {
+                outTime = i;
                 continue;
             }
         }
@@ -144,10 +152,21 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         notifyDataSetChanged();
     }
 
+    public void updateTime(PoundType type, String value){
+        if(type == PoundType.INTIME){
+            getItem(inTime).value = value;
+            notifyItemChanged(inTime);
+        } else {
+            getItem(outTime).value = value;
+            notifyItemChanged(outTime);
+        }
+    }
+
     @Override
     public int getItemViewType(int position) {
         PoundItemInfo poundItemInfo = getItem(position);
-        if (poundItemInfo.type == PoundType.GTYPE || poundItemInfo.type == PoundType.RECEIVENAME) {
+        if (poundItemInfo.type == PoundType.GTYPE || poundItemInfo.type == PoundType.RECEIVENAME
+                || poundItemInfo.type == PoundType.INTIME || poundItemInfo.type == PoundType.OUTTIME) {
             return 1;
         }
         if (poundItemInfo.type == PoundType.ADD) {

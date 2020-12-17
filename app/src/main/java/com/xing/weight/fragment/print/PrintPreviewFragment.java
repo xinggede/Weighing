@@ -21,6 +21,7 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
+import com.xing.weight.bean.AddPoundResultInfo;
 import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.fragment.main.my.PrintAddFragment;
@@ -47,11 +48,11 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     private PrinterInfo printerInfo;
     private QMUIPopup choosePrint, choosePrintType;
     private int printType = 0;
-    private PoundInfo info;
+    private AddPoundResultInfo info;
 
-    public PrintPreviewFragment(PoundInfo poundInfo) {
+    public PrintPreviewFragment(AddPoundResultInfo addPoundResultInfo) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.DATA, poundInfo);
+        bundle.putParcelable(Constants.DATA, addPoundResultInfo);
         setArguments(bundle);
     }
 
@@ -78,29 +79,42 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
         });
 
         if (info != null) {
-            showLoading();
-            Glide.with(this).asBitmap().load(info.url).placeholder(R.mipmap.img_default).error(R.mipmap.img_default)
-                    .into(new CustomTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            ivPreview.setImageBitmap(resource);
-                            hideLoading();
-                        }
+            if(info.order != null){
+                showLoading();
+                Glide.with(this).asBitmap().load(info.order.url).placeholder(R.mipmap.img_default).error(R.mipmap.img_default)
+                        .into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                ivPreview.setImageBitmap(resource);
+                                hideLoading();
+                            }
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-                            ivPreview.setImageDrawable(placeholder);
-                        }
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+                                ivPreview.setImageDrawable(placeholder);
+                            }
 
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            ivPreview.setImageDrawable(errorDrawable);
-                            hideLoading();
-                        }
-                    });
+                            @Override
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                ivPreview.setImageDrawable(errorDrawable);
+                                hideLoading();
+                            }
+                        });
+            }
+            if(info.printList != null){
+                mPresenter.setSavePrints(info.printList);
+                setPrint();
+            }
         }
+    }
 
-        mPresenter.getPrints(false);
+    private void setPrint(){
+        if (!mPresenter.getSavePrints().isEmpty()) {
+            printerInfo = mPresenter.getSavePrints().get(0);
+            tvPrint.setText(printerInfo.name + ":" + printerInfo.devcode);
+        } else {
+            tvPrint.setText("请先添加一个打印机");
+        }
     }
 
     @OnClick({R.id.tv_print, R.id.tv_print_type, R.id.bt_print, R.id.ib_add})
@@ -166,7 +180,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
@@ -194,7 +208,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     onItemClickListener)
                     .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
                     .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_TOP)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
@@ -205,10 +219,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     public void onHttpResult(boolean success, int code, Object data) {
         if (success) {
             if (code == 0) {
-                if (!mPresenter.getSavePrints().isEmpty()) {
-                    printerInfo = mPresenter.getSavePrints().get(0);
-                    tvPrint.setText(printerInfo.name + ":" + printerInfo.devcode);
-                }
+                setPrint();
             } else if (code == 1) {
                 if (!mPresenter.getSavePrints().isEmpty()) {
                     showChoosePrint(tvPrint);

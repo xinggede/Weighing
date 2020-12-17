@@ -19,8 +19,6 @@ import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.main.manage.StyleChooseFragment;
-import com.xing.weight.util.Tools;
-import com.xing.weight.view.CusTextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +43,7 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     @BindView(R.id.ck_company_name)
     CheckBox ckCompanyName;
     @BindView(R.id.tv_company_name)
-    CusTextView tvCompanyName;
+    TextView tvCompanyName;
     @BindView(R.id.et_company_name)
     EditText etCompanyName;
     @BindView(R.id.ck_company_charge)
@@ -87,7 +85,7 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     @BindView(R.id.ck_total_weight)
     CheckBox ckTotalWeight;
     @BindView(R.id.tv_total_weight)
-    CusTextView tvTotalWeight;
+    TextView tvTotalWeight;
     @BindView(R.id.et_total_weight)
     EditText etTotalWeight;
     @BindView(R.id.ck_out_time)
@@ -123,7 +121,7 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     @BindView(R.id.ck_person_weigher)
     CheckBox ckPersonWeigher;
     @BindView(R.id.tv_person_weigher)
-    CusTextView tvPersonWeigher;
+    TextView tvPersonWeigher;
     @BindView(R.id.et_person_weigher)
     EditText etPersonWeigher;
     @BindView(R.id.ck_receive_name)
@@ -135,13 +133,13 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
     @BindView(R.id.ck_driver)
     CheckBox ckDriver;
     @BindView(R.id.tv_driver)
-    CusTextView tvDriver;
+    TextView tvDriver;
     @BindView(R.id.et_driver)
     EditText etDriver;
     @BindView(R.id.ck_driver_code)
     CheckBox ckDriverCode;
     @BindView(R.id.tv_driver_code)
-    CusTextView tvDriverCode;
+    TextView tvDriverCode;
     @BindView(R.id.et_driver_code)
     EditText etDriverCode;
     @BindView(R.id.ck_remarks)

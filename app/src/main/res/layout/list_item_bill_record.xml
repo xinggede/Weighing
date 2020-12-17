@@ -40,13 +40,6 @@
 
         <TextView
             style="@style/TabTVStyle"
-            android:text="收货方"/>
-
-        <TextView
-            style="@style/TabTVStyle"
-            android:text="货号"/>
-        <TextView
-            style="@style/TabTVStyle"
             android:text="总量"/>
 
         <TextView
@@ -55,7 +48,11 @@
 
         <TextView
             style="@style/TabTVStyle"
-            android:text="出场时间"/>
+            android:text="司磅员"/>
+
+        <TextView
+            style="@style/TabTVStyle"
+            android:text="打单日期"/>
 
     </com.qmuiteam.qmui.layout.QMUILinearLayout>
 
@@ -71,15 +68,6 @@
         app:qmui_borderWidth="1px">
 
         <TextView
-            android:id="@+id/tv_receive_name"
-            style="@style/TabTVStyle"
-            android:text="万科*名称"/>
-
-        <TextView
-            android:id="@+id/tv_art_name"
-            style="@style/TabTVStyle"
-            android:text="水泥"/>
-        <TextView
             android:id="@+id/tv_total_weight"
             style="@style/TabTVStyle"
             android:text="47吨"/>
@@ -88,6 +76,11 @@
             android:id="@+id/tv_drive_name"
             style="@style/TabTVStyle"
             android:text="小赵"/>
+
+        <TextView
+            android:id="@+id/tv_send_name"
+            style="@style/TabTVStyle"
+            android:text="万科*名称"/>
 
         <TextView
             android:id="@+id/tv_out_time"

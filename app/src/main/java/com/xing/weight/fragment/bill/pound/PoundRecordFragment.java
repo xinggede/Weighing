@@ -14,9 +14,11 @@ import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.util.Tools;
+import com.xing.weight.view.CusItemDecoration;
 import com.xing.weight.view.CusSearchText;
 import com.xing.weight.view.CustomRootView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -83,12 +85,11 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
             public void bindData(RecyclerViewHolder holder, int position, PoundInfo item) {
                 holder.setText(R.id.tv_drive_number, item.truckno);
                 holder.setText(R.id.tv_time, Tools.getTimeFormatText(item.createDate));
-                holder.setText(R.id.tv_receive_name, item.receiver);
-                holder.setText(R.id.tv_art_name, item.cargotype);
+                holder.setText(R.id.tv_send_name, item.weighman);
                 holder.setText(R.id.tv_total_weight, String.valueOf(item.allupweight));
                 holder.setText(R.id.tv_drive_name, item.driver);
                 holder.setText(R.id.tv_out_time, item.outdate);
-                holder.setText(R.id.tv_describe, "该车载重"+item.cargoweight + "吨,"+item.indate+"首次入场");
+                holder.setText(R.id.tv_describe, "该车载重"+item.cargoweight + "吨,"+ item.indate+"首次入场");
             }
         };
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -97,6 +98,7 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
 
             }
         });
+        recyclerView.addItemDecoration(new CusItemDecoration(ContextCompat.getColor(getContext(),R.color.divider_color)));
         recyclerView.setAdapter(mAdapter);
         onDataLoaded();
     }

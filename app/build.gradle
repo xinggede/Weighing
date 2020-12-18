@@ -23,20 +23,17 @@ android {
 }
 def qmui_arch_version = '2.0.0-alpha10'
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "androidx.preference:preference:1.1.1"
-
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'com.squareup.okhttp3:okhttp:4.0.0'
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'pub.devrel:easypermissions:3.0.0'
-
     implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
     implementation "com.qmuiteam:arch:$qmui_arch_version"
     annotationProcessor "com.qmuiteam:arch-compiler:$qmui_arch_version"
     implementation project(path: ':ScanCode')
-
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
     // RxJava
@@ -47,6 +44,6 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
     // json串转换
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation files('libs/JolimarkPrintV1.1.6.jar')
 }

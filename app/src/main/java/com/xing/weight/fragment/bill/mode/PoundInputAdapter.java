@@ -17,6 +17,7 @@ import com.xing.weight.base.RecyclerViewHolder;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundItemInfo;
+import com.xing.weight.util.KeyBoardUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,9 +29,14 @@ import static com.xing.weight.bean.PoundItemInfo.PoundType;
 public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
     private int realWeight = -1, carWeight = -1, totalWeight, discount = -1, price = -1, totalPrice = -1, inTime = -1, outTime = -1;
+    private KeyBoardUtil keyBoardUtil;
 
     public PoundInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
+    }
+
+    public void setKeyboard(KeyBoardUtil keyboard){
+        keyBoardUtil = keyboard;
     }
 
     @Override
@@ -74,7 +80,7 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
     }
 
     public void updateWeight() {
-        if (realWeight == -1 || totalWeight == -1 || carWeight == -1 || discount == -1) {
+        if (realWeight == -1 || totalWeight == -1 || carWeight == -1) {
             return;
         }
         String tw = getItem(totalWeight).value;
@@ -85,7 +91,10 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         if (TextUtils.isEmpty(cw)) {
             cw = "0";
         }
-        String dis = getItem(discount).value;
+        String dis = "0";
+        if(discount != -1){
+            dis = getItem(discount).value;
+        }
         if (TextUtils.isEmpty(dis)) {
             dis = "0";
         }
@@ -246,6 +255,15 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             CusTextChanged cusTextChanged = new CusTextChanged(position);
             etValue.addTextChangedListener(cusTextChanged);
             etValue.setTag(R.string.change, cusTextChanged);
+
+            /*if(item.type == PoundType.DRIVERCODE){
+                if(keyBoardUtil != null){
+                    etValue.setTag(R.string.attach, true);
+                    keyBoardUtil.attachTo(etValue, true);
+                }
+            } else {
+                etValue.setTag(R.string.attach, null);
+            }*/
         }
     }
 

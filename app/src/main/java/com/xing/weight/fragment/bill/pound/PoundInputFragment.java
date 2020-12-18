@@ -1,6 +1,7 @@
 package com.xing.weight.fragment.bill.pound;
 
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
 import com.xing.weight.fragment.print.PrintPreviewFragment;
+import com.xing.weight.util.KeyBoardUtil;
 import com.xing.weight.util.Tools;
 import com.xing.weight.view.datepicker.CustomDatePicker;
 import com.xing.weight.view.datepicker.DateFormatUtils;
@@ -57,6 +59,8 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
 
     private CustomDatePicker mDatePicker;
 
+    KeyBoardUtil keyBoardUtil;
+
     @Override
     protected BillPresenter onLoadPresenter() {
         return new BillPresenter();
@@ -84,11 +88,13 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
             }
         });
 
+        keyBoardUtil = new KeyBoardUtil(getActivity());
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         inputAdapter = new PoundInputAdapter(getContext(), new ArrayList<>());
         recyclerView.setAdapter(inputAdapter);
         inputAdapter.setOnChildClickListener(this);
-
+        inputAdapter.setKeyboard(keyBoardUtil);
         mPresenter.getTemplateChoose(1, false);
 
         companyInfo = mPresenter.getCompanyInfo();
@@ -414,5 +420,16 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
         poundInfo.templetid = templateInfo.id;
         poundInfo.styleid = templateInfo.styleid;
         return poundInfo;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            if(keyBoardUtil != null && keyBoardUtil.isShow()){
+                keyBoardUtil.hideKeyboard();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

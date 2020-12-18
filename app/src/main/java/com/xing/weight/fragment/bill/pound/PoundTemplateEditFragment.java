@@ -460,6 +460,7 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             poundItemInfo = new PoundItemInfo(tvDriverCode.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.DRIVERCODE;
             poundItemInfo.hint = etDriverCode.getText().toString();
+            poundItemInfo.lenght = 8;
             list.add(poundItemInfo);
         }
 

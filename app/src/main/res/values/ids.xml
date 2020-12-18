@@ -4,5 +4,6 @@
 
     <item name="topbar_right_menu_button" type="id"/>
     <item name="topbar_right_add_button" type="id"/>
+    <item name="keyboard_view_move_height" type="id"/>
 
 </resources>

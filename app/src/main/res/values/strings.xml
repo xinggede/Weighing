@@ -70,6 +70,7 @@
     <string name="pls_input">请输入%1$s</string>
 
     <string name="change">change</string>
+    <string name="attach">attach</string>
     <string name="focus">focus</string>
 
     <string name="number_or_words">0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>

@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="#999999"
+    android:background="#E2E3E6"
+    android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:keyBackground="@drawable/list_item_touch_bg"
-    android:keyTextColor="#000"
+    android:keyTextColor="#2B2F33"
     android:keyTextSize="16sp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp" />
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"/>

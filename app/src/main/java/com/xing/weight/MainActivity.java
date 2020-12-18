@@ -8,6 +8,8 @@ import com.xing.weight.base.BaseActivity;
 import com.xing.weight.base.EmptyPresenter;
 import com.xing.weight.base.mvp.BaseContract;
 import com.xing.weight.fragment.main.MainFragment;
+import com.xing.weight.util.Tools;
+import com.yingmei.printsdk.JolimarkPrint;
 
 @FirstFragments(
         value = {
@@ -31,5 +33,10 @@ public class MainActivity extends BaseActivity<EmptyPresenter> implements BaseCo
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        Tools.loge("main destroy");
+        JolimarkPrint.release();
+        super.onDestroy();
+    }
 }

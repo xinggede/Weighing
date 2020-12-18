@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -187,6 +188,16 @@ public class Tools {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean isLocationEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager == null) {
+            return true;
+        }
+        boolean networkProvider = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean gpsProvider = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return networkProvider || gpsProvider;
     }
 
     public static float calcTemp(double temp) {

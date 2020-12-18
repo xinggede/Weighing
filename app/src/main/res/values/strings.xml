@@ -5,6 +5,7 @@
     <string name="loading">加载中&#8230;</string>
     <string name="perm_write">应用需要存储权限才能正常工作。</string>
     <string name="perm_camera">扫码功能需要摄像头权限才能正常工作。</string>
+    <string name="perm_location">蓝牙打印功能需要授予位置权限才能正常使用。</string>
 
     <string name="logo_name">速印</string>
 

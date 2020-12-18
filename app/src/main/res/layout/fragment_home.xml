@@ -98,4 +98,5 @@
             app:qmui_radius="10dp" />
 
     </LinearLayout>
+
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

@@ -13,9 +13,9 @@ android {
     signingConfigs {
         signing {
             storeFile file("../swkj.jks") // debug keystore路径。
-            storePassword 'swk123456' // 默认debug keystore的密码。
-            keyAlias 'swkl' // 默认debug keystore的alias。
-            keyPassword 'swk123456' // 默认debug keystore的alias的密码。
+            storePassword 'swkj123' // 默认debug keystore的密码。
+            keyAlias 'weight' // 默认debug keystore的alias。
+            keyPassword 'swkj123' // 默认debug keystore的alias的密码。
         }
     }
 

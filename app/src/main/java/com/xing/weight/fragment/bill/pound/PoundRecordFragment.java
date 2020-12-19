@@ -85,7 +85,7 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
             public void bindData(RecyclerViewHolder holder, int position, PoundInfo item) {
                 holder.setText(R.id.tv_drive_number, item.truckno);
                 holder.setText(R.id.tv_time, Tools.getTimeFormatText(item.createDate));
-                holder.setText(R.id.tv_send_name, item.weighman);
+                holder.setText(R.id.tv_weight_man, item.weighman);
                 holder.setText(R.id.tv_total_weight, String.valueOf(item.allupweight));
                 holder.setText(R.id.tv_drive_name, item.driver);
                 holder.setText(R.id.tv_out_time, item.outdate);

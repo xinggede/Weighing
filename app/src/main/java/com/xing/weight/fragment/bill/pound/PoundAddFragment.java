@@ -43,7 +43,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class PoundInputFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
+public class PoundAddFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
@@ -68,7 +68,7 @@ public class PoundInputFragment extends BaseFragment<BillPresenter> implements B
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_pound_input;
+        return R.layout.fragment_pound_add;
     }
 
     @Override

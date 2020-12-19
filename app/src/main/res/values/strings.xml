@@ -7,7 +7,7 @@
     <string name="perm_camera">扫码功能需要摄像头权限才能正常工作。</string>
     <string name="perm_location">蓝牙打印功能需要授予位置权限才能正常使用。</string>
 
-    <string name="logo_name">速印</string>
+    <string name="logo_name">51打印</string>
 
     <string name="login">登&#8195;录</string>
     <string name="register">注&#8195;册</string>

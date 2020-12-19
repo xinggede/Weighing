@@ -43,9 +43,9 @@ android {
             variant.outputs.all { output ->  // each 改为 all
                 def fileName
                 if (variant.buildType.name.equals('release')) {
-                    fileName = "TWJ_v${variant.versionName}_${releaseTime()}.apk"
+                    fileName = "weight_v${variant.versionName}_${releaseTime()}.apk"
                 } else {
-                    fileName = "TWJ_v${variant.versionName}_${releaseTime()}_t.apk"
+                    fileName = "weight_v${variant.versionName}_${releaseTime()}_t.apk"
                 }
 
                 def outFile = output.outputFile

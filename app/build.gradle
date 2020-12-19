@@ -10,10 +10,49 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
+    signingConfigs {
+        signing {
+            storeFile file("../swkj.jks") // debug keystore路径。
+            storePassword 'swk123456' // 默认debug keystore的密码。
+            keyAlias 'swkl' // 默认debug keystore的alias。
+            keyPassword 'swk123456' // 默认debug keystore的alias的密码。
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
+            debuggable true
+
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.signing
+        }
+
+        release {
+            debuggable false
+
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signing
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->  // each 改为 all
+                def fileName
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "TWJ_v${variant.versionName}_${releaseTime()}.apk"
+                } else {
+                    fileName = "TWJ_v${variant.versionName}_${releaseTime()}_t.apk"
+                }
+
+                def outFile = output.outputFile
+                if (outFile != null && outFile.name.endsWith('.apk')) {
+                    outputFileName = fileName
+                }
+            }
         }
     }
     compileOptions {
@@ -21,6 +60,10 @@ android {
         targetCompatibility = 1.8
     }
 }
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 def qmui_arch_version = '2.0.0-alpha10'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

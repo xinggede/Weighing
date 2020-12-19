@@ -23,11 +23,12 @@
         <ImageView
             android:id="@+id/iv_preview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:src="@mipmap/ic_launcher"/>
 
         <com.qmuiteam.qmui.layout.QMUILinearLayout
             style="@style/LinStyle"
+            android:layout_marginTop="20dp"
             android:background="@color/qmui_config_color_white">
 
             <TextView

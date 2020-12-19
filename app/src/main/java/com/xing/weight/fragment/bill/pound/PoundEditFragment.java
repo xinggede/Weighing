@@ -1,14 +1,12 @@
 package com.xing.weight.fragment.bill.pound;
 
+import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.qmuiteam.qmui.arch.effect.MapEffect;
-import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
@@ -16,8 +14,8 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.base.Constants;
 import com.xing.weight.bean.AddPoundResultInfo;
-import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
@@ -27,11 +25,9 @@ import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
 import com.xing.weight.fragment.print.PrintPreviewFragment;
-import com.xing.weight.util.KeyBoardUtil;
 import com.xing.weight.util.Tools;
 import com.xing.weight.view.datepicker.CustomDatePicker;
 import com.xing.weight.view.datepicker.DateFormatUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
-public class PoundAddFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
+public class PoundEditFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
@@ -53,13 +48,17 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
     RecyclerView recyclerView;
     private PoundInputAdapter inputAdapter;
 
-    private QMUIPopup chooseGoodsPopup, chooseCustomPopup, chooseModel;
+    private QMUIPopup chooseGoodsPopup, chooseCustomPopup;
     private TemplateInfo templateInfo;
-    private CompanyInfo companyInfo;
 
     private CustomDatePicker mDatePicker;
+    private PoundInfo poundInfo;
 
-    KeyBoardUtil keyBoardUtil;
+    public PoundEditFragment(PoundInfo poundInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.DATA, poundInfo);
+        setArguments(bundle);
+    }
 
     @Override
     protected BillPresenter onLoadPresenter() {
@@ -68,57 +67,122 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_pound_add;
+        return R.layout.fragment_pound_edit;
     }
 
     @Override
     protected void initView(View view) {
-        topbar.setTitle("入场录单");
+        poundInfo = getArguments().getParcelable(Constants.DATA);
+        topbar.setTitle("磅单编辑");
         topbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popBackStack();
             }
         });
-        topbar.addRightImageButton(R.mipmap.icon_menu, R.id.topbar_right_menu_button).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startFragment(new PoundRecordFragment());
-            }
-        });
-
-        keyBoardUtil = new KeyBoardUtil(getActivity());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         inputAdapter = new PoundInputAdapter(getContext(), new ArrayList<>());
         recyclerView.setAdapter(inputAdapter);
         inputAdapter.setOnChildClickListener(this);
-        inputAdapter.setKeyboard(keyBoardUtil);
-        mPresenter.getTemplateChoose(1, false);
 
-        companyInfo = mPresenter.getCompanyInfo();
+        if (poundInfo != null) {
+            mPresenter.getTemplateChoose(1, false);
+        } else {
+            showToast("模版异常,无法编辑");
+            popBackStack();
+        }
     }
 
     private void setTemp() {
+        if (!mPresenter.getSaveTemps().isEmpty()) {
+            for (TemplateInfo saveTemp : mPresenter.getSaveTemps()) {
+                if (saveTemp.id == poundInfo.templetid) {
+                    templateInfo = saveTemp;
+                    break;
+                }
+            }
+        }
+        if (templateInfo == null) {
+            showToast("模版异常,无法编辑");
+            popBackStack();
+            return;
+        }
         tvModel.setText(templateInfo.name);
         List<PoundItemInfo> data = new ArrayList<>();
         data.addAll(templateInfo.contList);
-        for (PoundItemInfo itemInfo : data) {
-            if (itemInfo.type == PoundItemInfo.PoundType.CODE) {
-                itemInfo.value = String.valueOf(System.currentTimeMillis());
-                continue;
-            }
-            if (itemInfo.type == PoundItemInfo.PoundType.CNAME) {
-                itemInfo.value = companyInfo.comname;
-                continue;
-            }
-            if (itemInfo.type == PoundItemInfo.PoundType.CBOSS) {
-                itemInfo.value = companyInfo.boss;
-                continue;
-            }
-            if (itemInfo.type == PoundItemInfo.PoundType.INTIME || itemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
-                itemInfo.value = DateFormatUtils.getCurrentDate();
+        for (PoundItemInfo info : data) {
+            switch (info.type) {
+                case CODE:
+                    info.value = poundInfo.code;
+                    break;
+
+                case CNAME:
+                    info.value = poundInfo.title;
+                    break;
+
+                case CBOSS:
+                    info.value = poundInfo.shipper;
+                    break;
+
+                case GTYPE:
+                    info.value = poundInfo.cargotype;
+                    break;
+
+                case CARWEIGHT:
+                    info.value = String.valueOf(poundInfo.truckweight);
+                    break;
+
+                case INTIME:
+                    info.value = poundInfo.indate;
+                    break;
+
+                case OUTTIME:
+                    info.value = poundInfo.outdate;
+                    break;
+
+                case TOTALWEIGHT:
+                    info.value = String.valueOf(poundInfo.allupweight);
+                    break;
+
+                case REALWEIGHT:
+                    info.value = String.valueOf(poundInfo.cargoweight);
+                    break;
+
+                case DISCOUNT:
+                    info.value = String.valueOf(poundInfo.percent);
+                    break;
+
+                case PRICE:
+                    info.value = String.valueOf(poundInfo.price);
+                    break;
+
+                case TOTALPRICE:
+                    info.value = String.valueOf(poundInfo.total);
+                    break;
+
+                case PERSON:
+                    info.value = poundInfo.weighman;
+                    break;
+
+                case RECEIVENAME:
+                    info.value = poundInfo.receiver;
+                    break;
+
+                case DRIVERCODE:
+                    info.value = poundInfo.truckno;
+                    break;
+
+                case DRIVER:
+                    info.value = poundInfo.driver;
+                    break;
+
+                case REMARKS:
+                    info.value = poundInfo.remark;
+                    break;
+
+                default:
+                    break;
             }
         }
         PoundItemInfo itemInfo = new PoundItemInfo("添加");
@@ -126,34 +190,6 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
         data.add(itemInfo);
         inputAdapter.setData(data);
     }
-
-    private void showChooseModel(View v) {
-        if (chooseModel == null) {
-            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getSaveTemps());
-            AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    if (chooseModel != null) {
-                        chooseModel.dismiss();
-                    }
-                    templateInfo = (TemplateInfo) adapterView.getItemAtPosition(i);
-                    setTemp();
-                }
-            };
-            chooseModel = QMUIPopups.listPopup(getContext(),
-                    QMUIDisplayHelper.dp2px(getContext(), 200),
-                    QMUIDisplayHelper.dp2px(getContext(), 300),
-                    adapter,
-                    onItemClickListener)
-                    .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
-                    .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
-                    .shadow(true)
-                    .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
-        }
-        chooseModel.show(v);
-    }
-
 
     private void showChooseGoods(View v) {
         if (chooseGoodsPopup == null) {
@@ -214,16 +250,7 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
     public void onHttpResult(boolean success, int code, Object data) {
         if (success) {
             if (code == 0) {
-                if (!mPresenter.getSaveTemps().isEmpty()) {
-                    templateInfo = mPresenter.getSaveTemps().get(0);
-                    setTemp();
-                }
-            } else if (code == 1) {
-                if (!mPresenter.getSaveTemps().isEmpty()) {
-                    showChooseModel(tvModel);
-                } else {
-                    showToast("请先添加模板");
-                }
+                setTemp();
             } else if (code == 2) {
                 if (!mPresenter.getSaveCustomer().isEmpty()) {
                     showChooseCustom(cView);
@@ -243,45 +270,10 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
         }
     }
 
-    @OnClick({R.id.tv_model, R.id.ib_add})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_model:
-                if (mPresenter.getSaveTemps().isEmpty()) {
-                    mPresenter.getTemplateChoose(1, true);
-                } else {
-                    showChooseModel(view);
-                }
-                break;
-
-            default:
-                callback();
-                startFragment(new PoundTemplateEditFragment(null));
-                break;
-        }
-    }
-
-    private void callback() {
-        registerEffect(this, new QMUIFragmentMapEffectHandler() {
-            @Override
-            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
-                return effect.getValue(PoundTemplateEditFragment.class.getName()) != null;
-            }
-
-            @Override
-            public void handleEffect(@NonNull MapEffect effect) {
-                boolean value = (boolean) effect.getValue(PoundTemplateEditFragment.class.getName());
-                if (value) {
-                    mPresenter.getTemplateChoose(1, false);
-                }
-            }
-        });
-    }
-
-    private void showDatePicker(String time, PoundItemInfo.PoundType type){
+    private void showDatePicker(String time, PoundItemInfo.PoundType type) {
         long beginTime = DateFormatUtils.getBeforeYear();
         long endTime = DateFormatUtils.getLastWeek();
-        if(mDatePicker == null){
+        if (mDatePicker == null) {
             mDatePicker = new CustomDatePicker(getContext(), new CustomDatePicker.Callback() {
                 @Override
                 public void onTimeSelected(long timestamp) {
@@ -328,7 +320,7 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
     private void save() {
         PoundInfo info = checkPoundInfo(inputAdapter.getData());
         if (info != null) {
-            mPresenter.addPound(info);
+            mPresenter.editPound(info);
         }
     }
 
@@ -424,16 +416,5 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
         poundInfo.templetid = templateInfo.id;
         poundInfo.styleid = templateInfo.styleid;
         return poundInfo;
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
-            if(keyBoardUtil != null && keyBoardUtil.isShow()){
-                keyBoardUtil.hideKeyboard();
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

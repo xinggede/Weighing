@@ -1,5 +1,6 @@
 package com.xing.weight.fragment.bill.pound;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -8,7 +9,6 @@ import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.base.RecyclerViewHolder;
-import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PageList;
 import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
@@ -17,8 +17,12 @@ import com.xing.weight.util.Tools;
 import com.xing.weight.view.CusItemDecoration;
 import com.xing.weight.view.CusSearchText;
 import com.xing.weight.view.CustomRootView;
+import com.xing.weight.view.SpaceItemDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -28,7 +32,6 @@ import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_BOTTO
 import static com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout.PULL_EDGE_TOP;
 
 public class PoundRecordFragment extends BaseFragment<BillPresenter> implements BillContract.View {
-
 
     @BindView(R.id.et_search)
     CusSearchText etSearch;
@@ -41,6 +44,7 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
     private int page = 1;
     private QMUIPullLayout.PullAction mPullAction;
     private BaseRecyclerAdapter<PoundInfo> mAdapter;
+    private List<PoundInfo> saveData = new ArrayList<>();
 
     @Override
     protected BillPresenter onLoadPresenter() {
@@ -89,18 +93,19 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
                 holder.setText(R.id.tv_total_weight, String.valueOf(item.allupweight));
                 holder.setText(R.id.tv_drive_name, item.driver);
                 holder.setText(R.id.tv_out_time, item.outdate);
-                holder.setText(R.id.tv_describe, "该车载重"+item.cargoweight + "吨,"+ item.indate+"首次入场");
+//                holder.setText(R.id.tv_describe, "该车载重"+item.cargoweight + "吨,"+ item.indate+"首次入场");
             }
         };
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
-
+                startFragment(new PoundEditFragment(mAdapter.getItem(pos)));
             }
         });
-        recyclerView.addItemDecoration(new CusItemDecoration(ContextCompat.getColor(getContext(),R.color.divider_color)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(Tools.dip2px(getContext(),10),2));
         recyclerView.setAdapter(mAdapter);
         onDataLoaded();
+        mPresenter.searchPoundRecord(etSearch);
     }
 
     @OnClick(R.id.ib_back)
@@ -138,6 +143,8 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
                 } else {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
                 }
+                saveData.clear();
+                saveData.addAll(pageList.records);
             }
         } else if (code == 1) {
             if (success) {
@@ -148,6 +155,23 @@ public class PoundRecordFragment extends BaseFragment<BillPresenter> implements 
                 } else {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
                 }
+                saveData.addAll(pageList.records);
+            }
+        }else if (code == 10) {
+            if (success) {
+                if (TextUtils.isEmpty(etSearch.getText())) {
+                    mAdapter.setData(saveData);
+                    return;
+                }
+                PageList<PoundInfo> pageList = (PageList<PoundInfo>) data;
+                mAdapter.setData(pageList.records);
+                if (mAdapter.getItemCount() >= pageList.total) {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP);
+                } else {
+                    pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+            } else {
+                mAdapter.setData(saveData);
             }
         }
     }

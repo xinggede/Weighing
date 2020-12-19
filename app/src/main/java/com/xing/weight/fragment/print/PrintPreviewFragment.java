@@ -57,7 +57,6 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.xing.weight.base.Constants.RC_LOCATION_PERM;
-import static com.xing.weight.base.Constants.RC_WRITE_PERM;
 
 public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implements PrintContract.View, SearchCallback, PrintCallback {
 

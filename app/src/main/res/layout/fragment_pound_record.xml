@@ -45,7 +45,7 @@
                 android:background="@drawable/et_search_bg"
                 android:drawableStart="@mipmap/icon_search"
                 android:drawablePadding="5dp"
-                android:hint="车牌号、司机、收货人"
+                android:hint="车牌号、司机、司磅员"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:maxLength="50"

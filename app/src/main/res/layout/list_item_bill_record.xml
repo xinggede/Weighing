@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/list_item_touch_bg"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,12 +88,6 @@
             android:text="12:05"/>
 
     </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-    <TextView
-        android:id="@+id/tv_describe"
-        style="@style/DescriptionStyle"
-        android:layout_marginTop="10dp"
-        android:text="该车载重15吨，2020年10月12日首次入场"/>
 
 
 </LinearLayout>

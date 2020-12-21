@@ -214,6 +214,8 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             holder.setText(R.id.tv_name, item.name);
 
             EditText etValue = holder.getEditText(R.id.et_value);
+            etValue.setMinLines(0);
+            etValue.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             if (item.inputType == 0) {
                 etValue.setInputType(InputType.TYPE_CLASS_TEXT);
             } else if (item.inputType == 1) {

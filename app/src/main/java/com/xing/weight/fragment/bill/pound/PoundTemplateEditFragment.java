@@ -334,28 +334,32 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckCode.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvCode.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.CODE;
-            poundItemInfo.hint = etCode.getText().toString();
+            poundItemInfo.hint = etCode.getHint().toString();
+            poundItemInfo.value = etCode.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckCompanyName.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvCompanyName.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.CNAME;
-            poundItemInfo.hint = etCompanyName.getText().toString();
+            poundItemInfo.hint = etCompanyName.getHint().toString();
+            poundItemInfo.value = etCompanyName.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckCompanyCharge.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvCompanyCharge.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.CBOSS;
-            poundItemInfo.hint = etCompanyCharge.getText().toString();
+            poundItemInfo.hint = etCompanyCharge.getHint().toString();
+            poundItemInfo.value = etCompanyCharge.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckCompanyPhone.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvCompanyPhone.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.CPHONE;
-            poundItemInfo.hint = etCompanyPhone.getText().toString();
+            poundItemInfo.hint = etCompanyPhone.getHint().toString();
+            poundItemInfo.value = etCompanyPhone.getText().toString();
             poundItemInfo.inputType = 2;
             list.add(poundItemInfo);
         }
@@ -363,21 +367,24 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckCompanyAddress.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvCompanyAddress.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.CADDRESS;
-            poundItemInfo.hint = etCompanyAddress.getText().toString();
+            poundItemInfo.hint = etCompanyAddress.getHint().toString();
+            poundItemInfo.value = etCompanyAddress.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckGoodsType.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvGoodsType.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.GTYPE;
-            poundItemInfo.hint = etGoodsType.getText().toString();
+            poundItemInfo.hint = etGoodsType.getHint().toString();
+            poundItemInfo.value = etGoodsType.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckCarWeight.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvCarWeight.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.CARWEIGHT;
-            poundItemInfo.hint = etCarWeight.getText().toString();
+            poundItemInfo.hint = etCarWeight.getHint().toString();
+            poundItemInfo.value = etCarWeight.getText().toString();
             poundItemInfo.inputType = 1;
             poundItemInfo.lenght = 10;
             list.add(poundItemInfo);
@@ -386,14 +393,16 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckInTime.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvInTime.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.INTIME;
-            poundItemInfo.hint = etInTime.getText().toString();
+            poundItemInfo.hint = etInTime.getHint().toString();
+            poundItemInfo.value = etInTime.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckTotalWeight.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvTotalWeight.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.TOTALWEIGHT;
-            poundItemInfo.hint = etTotalWeight.getText().toString();
+            poundItemInfo.hint = etTotalWeight.getHint().toString();
+            poundItemInfo.value = etTotalWeight.getText().toString();
             poundItemInfo.inputType = 1;
             poundItemInfo.lenght = 10;
             list.add(poundItemInfo);
@@ -402,14 +411,16 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckOutTime.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvOutTime.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.OUTTIME;
-            poundItemInfo.hint = etOutTime.getText().toString();
+            poundItemInfo.hint = etOutTime.getHint().toString();
+            poundItemInfo.value = etOutTime.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckRealWeight.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvRealWeight.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.REALWEIGHT;
-            poundItemInfo.hint = etRealWeight.getText().toString();
+            poundItemInfo.hint = etRealWeight.getHint().toString();
+            poundItemInfo.value = etRealWeight.getText().toString();
             poundItemInfo.inputType = 1;
             poundItemInfo.lenght = 10;
             list.add(poundItemInfo);
@@ -418,7 +429,8 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckDiscount.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvDiscount.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.DISCOUNT;
-            poundItemInfo.hint = etDiscount.getText().toString();
+            poundItemInfo.hint = etDiscount.getHint().toString();
+            poundItemInfo.value = etDiscount.getText().toString();
             poundItemInfo.inputType = 1;
             poundItemInfo.lenght = 10;
             list.add(poundItemInfo);
@@ -427,7 +439,8 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckPrice.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvPrice.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.PRICE;
-            poundItemInfo.hint = etPrice.getText().toString();
+            poundItemInfo.hint = etPrice.getHint().toString();
+            poundItemInfo.value = etPrice.getText().toString();
             poundItemInfo.inputType = 1;
             poundItemInfo.lenght = 10;
             list.add(poundItemInfo);
@@ -436,7 +449,8 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckTotalPrice.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvTotalPrice.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.TOTALPRICE;
-            poundItemInfo.hint = etTotalPrice.getText().toString();
+            poundItemInfo.hint = etTotalPrice.getHint().toString();
+            poundItemInfo.value = etTotalPrice.getText().toString();
             poundItemInfo.inputType = 1;
             poundItemInfo.lenght = 10;
             list.add(poundItemInfo);
@@ -445,21 +459,24 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckPersonWeigher.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvPersonWeigher.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.PERSON;
-            poundItemInfo.hint = etPersonWeigher.getText().toString();
+            poundItemInfo.hint = etPersonWeigher.getHint().toString();
+            poundItemInfo.value = etPersonWeigher.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckReceiveName.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvReceiveName.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.RECEIVENAME;
-            poundItemInfo.hint = etReceiveName.getText().toString();
+            poundItemInfo.hint = etReceiveName.getHint().toString();
+            poundItemInfo.value = etReceiveName.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckDriverCode.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvDriverCode.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.DRIVERCODE;
-            poundItemInfo.hint = etDriverCode.getText().toString();
+            poundItemInfo.hint = etDriverCode.getHint().toString();
+            poundItemInfo.value = etDriverCode.getText().toString();
             poundItemInfo.lenght = 8;
             list.add(poundItemInfo);
         }
@@ -467,14 +484,16 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
         if (ckDriver.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvDriver.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.DRIVER;
-            poundItemInfo.hint = etDriver.getText().toString();
+            poundItemInfo.hint = etDriver.getHint().toString();
+            poundItemInfo.value = etDriver.getText().toString();
             list.add(poundItemInfo);
         }
 
         if (ckRemarks.isChecked()) {
             poundItemInfo = new PoundItemInfo(tvRemarks.getText().toString());
             poundItemInfo.type = PoundItemInfo.PoundType.REMARKS;
-            poundItemInfo.hint = etRemarks.getText().toString();
+            poundItemInfo.hint = etRemarks.getHint().toString();
+            poundItemInfo.value = etRemarks.getText().toString();
             poundItemInfo.inputType = 3;
             poundItemInfo.lenght = 100;
             list.add(poundItemInfo);

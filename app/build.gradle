@@ -39,6 +39,16 @@ android {
             signingConfig signingConfigs.signing
         }
 
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                if (variant.buildType.name.equals('release')) {
+                    outputFileName = "weight_v${variant.versionName}_${releaseTime()}.apk"
+                } else {
+                    outputFileName = "weight_v${variant.versionName}_${releaseTime()}_t.apk"
+                }
+            }
+        }
+/*
         applicationVariants.all { variant ->
             variant.outputs.all { output ->  // each 改为 all
                 def fileName
@@ -53,7 +63,7 @@ android {
                     outputFileName = fileName
                 }
             }
-        }
+        }*/
     }
     compileOptions {
         sourceCompatibility = 1.8

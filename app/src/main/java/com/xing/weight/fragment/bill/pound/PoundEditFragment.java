@@ -415,6 +415,7 @@ public class PoundEditFragment extends BaseFragment<BillPresenter> implements Bi
         }
         poundInfo.templetid = templateInfo.id;
         poundInfo.styleid = templateInfo.styleid;
+        poundInfo.id = this.poundInfo.id;
         return poundInfo;
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">称磅单</string>
+    <string name="app_name">51打印</string>
     <string name="perm_title">申请权限</string>
     <string name="perm_content">权限申请失败，应用程序可能无法正常工作，请打开应用程序设置修改应用程序权限。</string>
     <string name="loading">加载中&#8230;</string>

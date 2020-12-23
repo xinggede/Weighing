@@ -5,6 +5,7 @@ import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundInfo;
+import com.xing.weight.bean.PrintFile;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.bean.request.RequestList;
@@ -58,10 +59,10 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
     }
 
 
-    public void addPound(PoundInfo poundInfo) {
-        requestHttp(mModel.getMainApi().addPound(poundInfo),
-                valueInfo -> {
-                    getView().onHttpResult(true, 4, valueInfo);
+    public void print(PrintFile printFile) {
+        requestHttp(mModel.getMainApi().printFile(printFile),
+                o -> {
+                    getView().onHttpResult(true, 4, o);
                 });
     }
 

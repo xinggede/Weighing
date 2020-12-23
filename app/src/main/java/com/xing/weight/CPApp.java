@@ -6,6 +6,7 @@ import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.xing.weight.base.CrashHandler;
 import com.xing.weight.util.Tools;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -21,6 +22,8 @@ public class CPApp extends Application {
         CrashHandler.getInstance().init(this);
         setRxJavaErrorHandler();
         QMUISwipeBackActivityManager.init(this);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //关闭暗黑模式
     }
 
     public static CPApp getInstance() {

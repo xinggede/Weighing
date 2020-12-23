@@ -30,6 +30,7 @@ import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
 import com.xing.weight.bean.AddPoundResultInfo;
 import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.PrintFile;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.fragment.bill.pound.PoundRecordFragment;
 import com.xing.weight.fragment.main.my.PrintAddFragment;
@@ -158,12 +159,24 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                 break;
 
             case R.id.bt_print:
+                if(printerInfo == null){
+                    showToast("请先添加一个打印机");
+                    return;
+                }
                 if (printType == 1) {
                     if(printBitmap == null){
                         showToast("打印文件异常");
                         return;
                     }
                     writeTask();
+                } else {
+                    PrintFile printFile = new PrintFile();
+                    printFile.id = printerInfo.id;
+                    printFile.orderId = String.valueOf(System.currentTimeMillis());
+                    printFile.type = 1;
+                    printFile.url = info.order.url;
+                    printFile.norms = "a4";
+                    mPresenter.print(printFile);
                 }
                 break;
 
@@ -368,6 +381,8 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                 } else {
                     tvPrint.setText("请先添加一个打印机");
                 }
+            } else if(code == 4){
+
             }
         }
     }

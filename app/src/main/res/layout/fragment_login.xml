@@ -59,7 +59,7 @@
                     android:id="@+id/et_phone"
                     style="@style/ETStyle"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLength="11" />
 
             </com.google.android.material.textfield.TextInputLayout>

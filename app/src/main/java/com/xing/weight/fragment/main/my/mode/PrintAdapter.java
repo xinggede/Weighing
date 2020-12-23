@@ -26,17 +26,17 @@ public class PrintAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
 
     private List<PrinterInfo> mData = new ArrayList<>();
     public final QMUISwipeAction mDeleteAction;
-    final QMUISwipeAction mSetDefaultAction;
+//    final QMUISwipeAction mSetDefaultAction;
     private BaseRecyclerAdapter.OnItemClickListener mClickListener;
 
     public PrintAdapter(Context context) {
         QMUISwipeAction.ActionBuilder builder = new QMUISwipeAction.ActionBuilder()
                 .textSize(QMUIDisplayHelper.sp2px(context, 14))
                 .textColor(Color.WHITE)
-                .paddingStartEnd(QMUIDisplayHelper.dp2px(context, 14));
+                .paddingStartEnd(QMUIDisplayHelper.dp2px(context, 20));
 
         mDeleteAction = builder.text("删除").backgroundColor(Color.RED).build();
-        mSetDefaultAction = builder.text("设为默认").backgroundColor(ContextCompat.getColor(context, R.color.colorAccent)).build();
+//        mSetDefaultAction = builder.text("设为默认").backgroundColor(ContextCompat.getColor(context, R.color.colorAccent)).build();
     }
 
     public void setData(@Nullable List<PrinterInfo> list) {
@@ -77,7 +77,7 @@ public class PrintAdapter extends RecyclerView.Adapter<QMUISwipeViewHolder> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_print, parent, false);
         final QMUISwipeViewHolder vh = new QMUISwipeViewHolder(view);
         vh.addSwipeAction(mDeleteAction);
-        vh.addSwipeAction(mSetDefaultAction);
+//        vh.addSwipeAction(mSetDefaultAction);
         if (mClickListener != null) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

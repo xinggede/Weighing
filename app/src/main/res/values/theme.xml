@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- skin attr define-->
     <attr name="app_primary_color" format="color" /> <!-- topbar -->
     <attr name="app_content_bg_color" format="color" /> <!-- content-->
@@ -30,6 +30,7 @@
         <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
         <item name="colorControlNormal">?android:attr/textColorSecondary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">true</item>
         <!--<item name="colorControlActivated">?attr/colorAccent</item>-->
 
         <!-- 配置qmui提供的theme -->

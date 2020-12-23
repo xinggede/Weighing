@@ -6,6 +6,7 @@ import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PageList;
 import com.xing.weight.bean.PoundInfo;
+import com.xing.weight.bean.PrintFile;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.StyleInfo;
 import com.xing.weight.bean.TemplateInfo;
@@ -89,5 +90,8 @@ public interface MainApi {
 
     @POST("/api/style/getPageList")
     Observable<BasicResponse<PageList<StyleInfo>>> getStyle(@Body RequestList requestList); //获取货品列表
+
+    @POST("/api/printer/print")
+    Observable<BasicResponse<Object>> printFile(@Body PrintFile printFile); //添加磅单
 
 }

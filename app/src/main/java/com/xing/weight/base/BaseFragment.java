@@ -110,7 +110,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment
             proDialog.setBuilder(builder);
             proDialog.setOnKeyListener(this);
         } else {
-            proDialog.getBuilder().setTipWord(msg);
+            proDialog.getBuilder().setShowText(msg);
         }
         if(!proDialog.isShowing()){
             proDialog.show();

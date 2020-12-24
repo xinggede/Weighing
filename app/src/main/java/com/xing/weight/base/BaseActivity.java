@@ -115,7 +115,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends EasyPermissi
             proDialog =  builder.create();
             proDialog.setBuilder(builder);
         } else {
-            proDialog.getBuilder().setTipWord(msg);
+            proDialog.getBuilder().setShowText(msg);
         }
         if(!proDialog.isShowing()){
             proDialog.show();

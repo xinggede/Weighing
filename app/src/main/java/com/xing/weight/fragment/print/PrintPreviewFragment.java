@@ -179,6 +179,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     printFile.id = printerInfo.id;
                     printFile.orderId = String.valueOf(System.currentTimeMillis());
                     printFile.type = 1;
+                    printFile.ordertype = 1;
                     printFile.url = info.order.url;
                     printFile.norms = paperInfo.width+"*"+paperInfo.heigh;
                     mPresenter.print(printFile);
@@ -445,14 +446,16 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
 
     @Override
     public void startDevices() {
+        Tools.logd("开始搜索打印机");
         showLoading("正在搜索蓝牙打印机");
     }
 
     @Override
     public void stopDevices(List<DeviceInfo> list) {
+        Tools.logd("搜索结束");
         if(deviceInfo == null){
             for (DeviceInfo deviceInfo : list) {
-                if(deviceInfo.getDid().equalsIgnoreCase(printerInfo.devcode)){
+                if(deviceInfo.getDid().contains(printerInfo.devcode)){
                     this.deviceInfo = deviceInfo;
                     print();
                     break;
@@ -475,7 +478,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
         if(deviceInfo != null){
             return;
         }
-        if(deviceInfo.getDid().equalsIgnoreCase(printerInfo.devcode)){
+        if(deviceInfo.getDid().contains(printerInfo.devcode)){
             this.deviceInfo = deviceInfo;
             JolimarkPrint.stopSearch(false);
             print();

@@ -35,13 +35,25 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         super(ctx, list);
     }
 
-    public void setKeyboard(KeyBoardUtil keyboard){
+    public void setKeyboard(KeyBoardUtil keyboard) {
         keyBoardUtil = keyboard;
+    }
+
+    public void reset() {
+        realWeight = -1;
+        carWeight = -1;
+        totalWeight = -1;
+        discount = -1;
+        price = -1;
+        totalPrice = -1;
+        inTime = -1;
+        outTime = -1;
     }
 
     @Override
     public void setData(@Nullable List<PoundItemInfo> list) {
         super.setData(list);
+        reset();
         for (int i = 0; i < list.size(); i++) {
             PoundItemInfo info = getItem(i);
             if (info.type == PoundType.CARWEIGHT) {
@@ -92,7 +104,7 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             cw = "0";
         }
         String dis = "0";
-        if(discount != -1){
+        if (discount != -1) {
             dis = getItem(discount).value;
         }
         if (TextUtils.isEmpty(dis)) {
@@ -161,8 +173,8 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         notifyDataSetChanged();
     }
 
-    public void updateTime(PoundType type, String value){
-        if(type == PoundType.INTIME){
+    public void updateTime(PoundType type, String value) {
+        if (type == PoundType.INTIME) {
             getItem(inTime).value = value;
             notifyItemChanged(inTime);
         } else {

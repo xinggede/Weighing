@@ -96,8 +96,17 @@ public class TipDialog extends QMUIBaseDialog  {
 
         private QMUISkinManager mSkinManager;
 
+        private TextView tipView;
+
         public Builder(Context context) {
             mContext = context;
+        }
+
+        public void setShowText(String msg){
+            mTipWord = msg;
+            if(tipView != null){
+                tipView.setText(msg);
+            }
         }
 
         /**
@@ -183,7 +192,7 @@ public class TipDialog extends QMUIBaseDialog  {
             }
 
             if (mTipWord != null && mTipWord.length() > 0) {
-                TextView tipView = new QMUISpanTouchFixTextView(dialogContext);
+                tipView = new QMUISpanTouchFixTextView(dialogContext);
                 tipView.setEllipsize(TextUtils.TruncateAt.END);
                 tipView.setGravity(Gravity.CENTER);
                 tipView.setTextSize(TypedValue.COMPLEX_UNIT_PX,

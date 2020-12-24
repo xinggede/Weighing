@@ -158,6 +158,11 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
             etPrintCheckCode.requestFocus();
             return;
         }
+        if(checkCode.length() < 4){
+            showToast("校验码不正确");
+            etPrintCheckCode.requestFocus();
+            etPrintCheckCode.setSelection(etPrintCheckCode.length());
+        }
         String name = etName.getText().toString();
         if (TextUtils.isEmpty(name)) {
             showToast(R.string.pls_input_print_name);
@@ -200,13 +205,20 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
 
                                       @Override
                                       public String parseResult(int resultCode, @Nullable Intent intent) {
-                                          return null;
+                                          if (resultCode == RESULT_OK && intent != null) {
+                                              String data = intent.getStringExtra(Constants.DATA);
+                                              return data;
+                                          }
+                                          return "";
                                       }
                                   }, this::parseResult
         ).launch(ScanCodeActivity.class);
     }
 
     private void parseResult(String result) {
+        if (TextUtils.isEmpty(result)) {
+            return;
+        }
         String[] str = result.split("-");
         if (str.length == 2) {
             etPrintCode.setText(str[0]);

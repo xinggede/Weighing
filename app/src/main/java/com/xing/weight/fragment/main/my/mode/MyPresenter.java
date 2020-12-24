@@ -1,13 +1,21 @@
 package com.xing.weight.fragment.main.my.mode;
 
-import com.xing.weight.base.Constants;
 import com.xing.weight.base.mvp.BasePresenter;
 import com.xing.weight.bean.CompanyInfo;
-import com.xing.weight.bean.GoodsDetail;
+import com.xing.weight.bean.PaperInfo;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.request.RequestList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyPresenter extends BasePresenter<MyContract.View, MyContract.Model> {
+
+    private List<PaperInfo> papers = new ArrayList<>();
+
+    public List<PaperInfo> getPaperList(){
+        return papers;
+    }
 
     @Override
     protected MyContract.Model createModel() {
@@ -73,6 +81,25 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyContract.Model
                     onError(e);
                     onComplete(show);
                 }, show);
+    }
+
+    public void getPaper(boolean show){
+        RequestList requestList = new RequestList();
+        requestList.pageIndex = 1;
+        requestList.pageSize = 1000;
+        requestHttp(mModel.getMainApi().getPaper(requestList),
+                o -> {
+                    papers.clear();
+                    papers.addAll(o.records);
+                    if(papers.isEmpty()){
+                        PaperInfo a4 = new PaperInfo();
+                        a4.name = "A4";
+                        a4.width = "210";
+                        a4.heigh = "290";
+                        papers.add(a4);
+                    }
+                    getView().onHttpResult(true, show?5:4, o);
+                });
     }
 
     public void deletePrinter(int id){

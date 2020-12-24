@@ -5,6 +5,7 @@ import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PageList;
+import com.xing.weight.bean.PaperInfo;
 import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PrintFile;
 import com.xing.weight.bean.PrinterInfo;
@@ -47,7 +48,10 @@ public interface MainApi {
     Observable<BasicResponse<Object>> updateCustomer(@Body CustomerInfo requestBody); //更新商品
 
     @POST("/api/printer/getPageList")
-    Observable<BasicResponse<PageList<PrinterInfo>>> getPrinter(@Body RequestList requestList); //添加商品
+    Observable<BasicResponse<PageList<PrinterInfo>>> getPrinter(@Body RequestList requestList);
+
+    @POST("/api/paperNorms/getPageList")
+    Observable<BasicResponse<PageList<PaperInfo>>> getPaper(@Body RequestList requestList); //添加商品
 
     @POST("/api/printer/add")
     Observable<BasicResponse<Object>> addPrinter(@Body PrinterInfo requestBody); //添加商品

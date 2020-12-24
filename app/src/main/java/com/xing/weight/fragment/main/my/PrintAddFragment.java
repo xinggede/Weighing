@@ -15,18 +15,16 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.activity.ScanCodeActivity;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
+import com.xing.weight.bean.PaperInfo;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.fragment.main.my.mode.MyContract;
 import com.xing.weight.fragment.main.my.mode.MyPresenter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidx.activity.result.contract.ActivityResultContract;
@@ -53,6 +51,7 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
     EditText etRemarks;
 
     private PrinterInfo printerInfo;
+    private PaperInfo paperInfo;
 
     public PrintAddFragment(PrinterInfo info) {
         Bundle bundle = new Bundle();
@@ -73,10 +72,10 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
     @Override
     protected void initView(View view) {
         printerInfo = getArguments().getParcelable(Constants.DATA);
-        topbar.addLeftBackImageButton().setOnClickListener((v)->
-            popBackStack()
+        topbar.addLeftBackImageButton().setOnClickListener((v) ->
+                popBackStack()
         );
-        if(printerInfo == null){
+        if (printerInfo == null) {
             topbar.setTitle("添加打印机");
         } else {
             topbar.setTitle("编辑打印机");
@@ -86,22 +85,18 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
             tvPaperType.setText(printerInfo.norms);
             etRemarks.setText(printerInfo.remark);
         }
+        mPresenter.getPaper(false);
     }
 
     private QMUIPopup choosePopup;
 
     private void showChoosePaper(View v) {
-        List<String> data = new ArrayList<>();
-        data.add("A4");
-        data.add("A5");
-        data.add("B5");
-
-        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, data);
-
+        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getPaperList());
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                tvPaperType.setText(adapterView.getItemAtPosition(i).toString());
+                paperInfo = (PaperInfo) adapterView.getItemAtPosition(i);
+                setPaper();
                 if (choosePopup != null) {
                     choosePopup.dismiss();
                 }
@@ -123,6 +118,12 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
         choosePopup.show(v);
     }
 
+    private void setPaper() {
+        if (paperInfo != null) {
+            tvPaperType.setText(paperInfo.toString());
+        }
+    }
+
     @OnClick({R.id.iv_scan, R.id.tv_paper_type, R.id.bt_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -131,7 +132,11 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
                 break;
 
             case R.id.tv_paper_type:
-                showChoosePaper(view);
+                if (mPresenter.getPaperList().isEmpty()) {
+                    mPresenter.getPaper(true);
+                } else {
+                    showChoosePaper(view);
+                }
                 break;
 
             case R.id.bt_save:
@@ -140,33 +145,33 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
         }
     }
 
-    private void save(){
+    private void save() {
         String code = etPrintCode.getText().toString();
-        if(TextUtils.isEmpty(code)){
+        if (TextUtils.isEmpty(code)) {
             showToast(R.string.pls_input_print_code);
             etPrintCode.requestFocus();
             return;
         }
         String checkCode = etPrintCheckCode.getText().toString();
-        if(TextUtils.isEmpty(checkCode)){
+        if (TextUtils.isEmpty(checkCode)) {
             showToast(R.string.pls_input_print_check_code);
             etPrintCheckCode.requestFocus();
             return;
         }
         String name = etName.getText().toString();
-        if(TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             showToast(R.string.pls_input_print_name);
             etName.requestFocus();
             return;
         }
         String paper = tvPaperType.getText().toString();
-        if(TextUtils.isEmpty(paper)){
+        if (TextUtils.isEmpty(paper)) {
             showToast(R.string.pls_input_print_paper);
             return;
         }
         String remarks = etRemarks.getText().toString();
 
-        if(printerInfo == null){
+        if (printerInfo == null) {
             PrinterInfo info = new PrinterInfo();
             info.devcode = code;
             info.verfycode = checkCode;
@@ -187,23 +192,23 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
 
     private void startScan() {
         registerForActivityResult(new ActivityResultContract<Class<?>, String>() {
-            @NonNull
-            @Override
-            public Intent createIntent(@NonNull Context context, Class<?> input) {
-                return new Intent(context, input);
-            }
+                                      @NonNull
+                                      @Override
+                                      public Intent createIntent(@NonNull Context context, Class<?> input) {
+                                          return new Intent(context, input);
+                                      }
 
-            @Override
-            public String parseResult(int resultCode, @Nullable Intent intent) {
-                return null;
-            }
-        }, this::parseResult
+                                      @Override
+                                      public String parseResult(int resultCode, @Nullable Intent intent) {
+                                          return null;
+                                      }
+                                  }, this::parseResult
         ).launch(ScanCodeActivity.class);
     }
 
-    private void parseResult(String result){
+    private void parseResult(String result) {
         String[] str = result.split("-");
-        if(str.length == 2){
+        if (str.length == 2) {
             etPrintCode.setText(str[0]);
             etPrintCheckCode.setText(str[1]);
             etName.requestFocus();
@@ -212,12 +217,17 @@ public class PrintAddFragment extends BaseFragment<MyPresenter> implements MyCon
 
     @Override
     public void onHttpResult(boolean success, int code, Object data) {
-        if(success){
-            if(code == 3){
-                Map<String,Object> map = new HashMap<>();
+        if (success) {
+            if (code == 3) {
+                Map<String, Object> map = new HashMap<>();
                 map.put(getClass().getName(), true);
                 notifyEffect(new MapEffect(map));
                 popBackStack();
+            } else if (code == 4) {
+                paperInfo = mPresenter.getPaperList().get(0);
+                setPaper();
+            } else if (code == 5) {
+                showChoosePaper(tvPaperType);
             }
         }
     }

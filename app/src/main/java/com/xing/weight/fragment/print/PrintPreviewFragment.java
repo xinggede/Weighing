@@ -29,7 +29,7 @@ import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.Constants;
 import com.xing.weight.bean.AddPoundResultInfo;
-import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.PaperInfo;
 import com.xing.weight.bean.PrintFile;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.fragment.bill.pound.PoundRecordFragment;
@@ -69,11 +69,14 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     TextView tvPrint;
     @BindView(R.id.tv_print_type)
     TextView tvPrintType;
+    @BindView(R.id.tv_paper_type)
+    TextView tvPaperType;
     private PrinterInfo printerInfo;
     private QMUIPopup choosePrint, choosePrintType;
     private int printType = 0;
     private AddPoundResultInfo info;
     private Bitmap printBitmap;
+    private PaperInfo paperInfo;
 
     public PrintPreviewFragment(AddPoundResultInfo addPoundResultInfo) {
         Bundle bundle = new Bundle();
@@ -102,6 +105,8 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                 popBackStack();
             }
         });
+
+        mPresenter.getPaper(false);
 
         if (info != null) {
             if (info.order != null) {
@@ -143,7 +148,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
         }
     }
 
-    @OnClick({R.id.tv_print, R.id.tv_print_type, R.id.bt_print, R.id.ib_add})
+    @OnClick({R.id.tv_print, R.id.tv_print_type, R.id.bt_print, R.id.ib_add, R.id.tv_paper_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_print:
@@ -175,8 +180,16 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     printFile.orderId = String.valueOf(System.currentTimeMillis());
                     printFile.type = 1;
                     printFile.url = info.order.url;
-                    printFile.norms = "a4";
+                    printFile.norms = paperInfo.width+"*"+paperInfo.heigh;
                     mPresenter.print(printFile);
+                }
+                break;
+
+            case R.id.tv_paper_type:
+                if (mPresenter.getPaperList().isEmpty()) {
+                    mPresenter.getPaper(true);
+                } else {
+                    showChoosePaper(view);
                 }
                 break;
 
@@ -370,6 +383,42 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
         }
     }
 
+    private QMUIPopup choosePopup;
+
+    private void showChoosePaper(View v) {
+        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getPaperList());
+        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                paperInfo = (PaperInfo) adapterView.getItemAtPosition(i);
+                setPaper();
+                if (choosePopup != null) {
+                    choosePopup.dismiss();
+                }
+            }
+        };
+
+        if (choosePopup == null) {
+            choosePopup = QMUIPopups.listPopup(getContext(),
+                    QMUIDisplayHelper.dp2px(getContext(), 200),
+                    QMUIDisplayHelper.dp2px(getContext(), 300),
+                    adapter,
+                    onItemClickListener)
+                    .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
+                    .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
+                    .shadow(true)
+                    .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
+        }
+        choosePopup.show(v);
+    }
+
+    private void setPaper() {
+        if (paperInfo != null) {
+            tvPaperType.setText(paperInfo.toString());
+        }
+    }
+
     @Override
     public void onHttpResult(boolean success, int code, Object data) {
         if (success) {
@@ -381,7 +430,12 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                 } else {
                     tvPrint.setText("请先添加一个打印机");
                 }
-            } else if(code == 4){
+            } else if (code == 4) {
+                paperInfo = mPresenter.getPaperList().get(0);
+                setPaper();
+            } else if (code == 5) {
+                showChoosePaper(tvPaperType);
+            } else if(code == 6){
 
             }
         }

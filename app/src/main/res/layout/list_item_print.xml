@@ -28,7 +28,8 @@
         android:scaleType="centerCrop"
         android:layout_toStartOf="@+id/iv1"
         android:layout_centerVertical="true"
-        android:src="@mipmap/icon_print_default" />
+        android:src="@mipmap/icon_print_default"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/iv1"
@@ -36,7 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/icon_arrow_right"
-        android:visibility="gone"/>
+        android:src="@mipmap/icon_arrow_right" />
 
 </RelativeLayout>

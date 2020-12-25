@@ -9,6 +9,10 @@ public class PrintContract {
 
         void onHttpResult(boolean success, int code, Object data);
 
+        void findError();
+
+        void onPrintResult(int state, String taskId, String msg);
+
     }
 
     interface Model extends BaseContract.Model {

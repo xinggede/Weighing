@@ -59,7 +59,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.xing.weight.base.Constants.RC_LOCATION_PERM;
 
-public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implements PrintContract.View, SearchCallback, PrintCallback {
+public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implements PrintContract.View {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
@@ -168,6 +168,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     showToast("请先添加一个打印机");
                     return;
                 }
+
                 if (printType == 1) {
                     if(printBitmap == null){
                         showToast("打印文件异常");
@@ -176,9 +177,9 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     writeTask();
                 } else {
                     PrintFile printFile = new PrintFile();
-                    printFile.id = printerInfo.id;
+                    printFile.printerid = printerInfo.id;
                     printFile.orderId = String.valueOf(System.currentTimeMillis());
-                    printFile.type = 1;
+                    printFile.type = printType;
                     printFile.ordertype = 1;
                     printFile.url = info.order.url;
                     printFile.norms = paperInfo.width+"*"+paperInfo.heigh;
@@ -209,11 +210,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
         if (!JolimarkPrint.isBluetoothOpen(getContext())) {
             openBle();
         } else {
-            if(deviceInfo == null){
-                searchDevice(true);
-            } else {
-                print();
-            }
+            mPresenter.startPrint(getContext(), printerInfo.devcode, printBitmap, paperInfo);
         }
     }
 
@@ -236,20 +233,14 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
 
                                           @Override
                                           public Boolean parseResult(int resultCode, @Nullable Intent intent) {
-                                              return JolimarkPrint.isBluetoothOpen(getContext());
+//                                              return JolimarkPrint.isBluetoothOpen(getContext());
+                                              return true;
                                           }
 
-                                      }, this::searchDevice
+                                      }, b -> startBle()
             ).launch(BluetoothAdapter.ACTION_REQUEST_ENABLE);
     }
 
-    private void searchDevice(boolean b){
-        if(!b){
-            openBle();
-        } else {
-            JolimarkPrint.searchDevices(getContext(),20*1000, TransType.TRANS_BLE,this);
-        }
-    }
 
     private void callback() {
         registerEffect(this, new QMUIFragmentMapEffectHandler() {
@@ -279,9 +270,9 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     }
                     printerInfo = (PrinterInfo) adapterView.getItemAtPosition(i);
                     tvPrint.setText(printerInfo.name + ":" + printerInfo.devcode);
-                    if(deviceInfo != null){
-                        if(!deviceInfo.getDid().equalsIgnoreCase(printerInfo.devcode)){
-                            deviceInfo = null;
+                    if(mPresenter.getCurrentDevice() != null){
+                        if(!mPresenter.getCurrentDevice().getDid().contains(printerInfo.devcode)){
+                            mPresenter.resetDevice();
                         }
                     }
                 }
@@ -310,7 +301,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     if (choosePrintType != null) {
                         choosePrintType.dismiss();
                     }
-                    printType = i;
+                    printType = (i == 0)?2:1;
                     tvPrintType.setText(adapterView.getItemAtPosition(i).toString());
                 }
             };
@@ -362,7 +353,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
 
                                   }, result -> {
             if(result){
-                searchDevice(true);
+                mPresenter.startPrint(getContext(), printerInfo.devcode, printBitmap, paperInfo);
             } else {
                 showToast("定位功能未开启");
             }
@@ -437,73 +428,42 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
             } else if (code == 5) {
                 showChoosePaper(tvPaperType);
             } else if(code == 6){
+                startFragmentAndDestroyCurrent(new PoundRecordFragment());
+            } else if(code == 7){ //本地打印向服务器添加记录
 
             }
         }
     }
 
-    DeviceInfo deviceInfo;
-
     @Override
-    public void startDevices() {
-        Tools.logd("开始搜索打印机");
-        showLoading("正在搜索蓝牙打印机");
-    }
-
-    @Override
-    public void stopDevices(List<DeviceInfo> list) {
-        Tools.logd("搜索结束");
-        if(deviceInfo == null){
-            for (DeviceInfo deviceInfo : list) {
-                if(deviceInfo.getDid().contains(printerInfo.devcode)){
-                    this.deviceInfo = deviceInfo;
-                    print();
-                    break;
-                }
-            }
-        }
-
-        if(deviceInfo == null){
-            hideLoading();
-            if(!Tools.isLocationEnable(getContext())){
-                showLocationDialog();
-            } else {
-                showToast("未找到蓝牙打印机，请确认打印机是否正常");
-            }
+    public void findError() {
+        if(!Tools.isLocationEnable(getContext())){
+            showLocationDialog();
+        } else {
+            showToast("未找到蓝牙打印机，请确认打印机是否正常");
         }
     }
 
-    @Override
-    public void findDevices(DeviceInfo deviceInfo) {
-        if(deviceInfo != null){
-            return;
-        }
-        if(deviceInfo.getDid().contains(printerInfo.devcode)){
-            this.deviceInfo = deviceInfo;
-            JolimarkPrint.stopSearch(false);
-            print();
-        }
-    }
 
-    private void print(){
-        showLoading("打印中...");
-        PrintParameters printParameters = PrintParameters.createBitmapPrint(printBitmap, PrintParameters.PT_DOT24);
-        printParameters.paper_height = 0;
-        JolimarkPrint.sendToData(getContext(),deviceInfo,printParameters,this);
-    }
 
     @Override
-    public void printResult(int state, String taskId, String msg) {
+    public void onPrintResult(int state, String taskId, String msg) {
         hideLoading();
         showToast(msg);
         if(state == States.OK){
+            //提交本地打印记录
+            PrintFile printFile = new PrintFile();
+            printFile.printerid = printerInfo.id;
+            printFile.orderId = String.valueOf(System.currentTimeMillis());
+            printFile.type = printType;
+            printFile.ordertype = 1;
+            printFile.url = info.order.url;
+            printFile.norms = paperInfo.width+"*"+paperInfo.heigh;
+            mPresenter.printLocal(printFile);
+
             startFragmentAndDestroyCurrent(new PoundRecordFragment());
         }
 
     }
 
-    @Override
-    public void onReceiveData(int cmd, byte[] data) {
-
-    }
 }

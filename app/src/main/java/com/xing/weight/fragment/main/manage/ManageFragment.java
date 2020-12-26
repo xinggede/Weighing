@@ -5,7 +5,6 @@ import android.view.View;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.pound.PoundTemplateEditFragment;
 import com.xing.weight.fragment.bill.pound.PoundTemplateListFragment;
 import com.xing.weight.fragment.main.MainContract;
 import com.xing.weight.fragment.main.MainPresenter;
@@ -43,7 +42,8 @@ public class ManageFragment extends BaseFragment<MainPresenter> implements MainC
                 showToast("该功能正在开发中");
                 break;
             case R.id.bt_my_order:
-                startFragment(new MyOrderFragment());
+                showToast("该功能正在开发中");
+//                startFragment(new MyOrderFragment());
                 break;
             case R.id.bt_my_goods:
                 startFragment(new MyGoodsListFragment());

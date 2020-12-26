@@ -1,7 +1,6 @@
 package com.xing.weight.fragment.main.manage;
 
 import android.view.View;
-
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;

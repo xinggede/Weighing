@@ -125,6 +125,9 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             return;
         }
         String tw = getItem(realWeight).value;
+        if (TextUtils.isEmpty(tw)) {
+            tw = "0";
+        }
         String p = getItem(price).value;
         if (TextUtils.isEmpty(p)) {
             p = "0";

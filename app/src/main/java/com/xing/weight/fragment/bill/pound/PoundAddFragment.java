@@ -105,6 +105,9 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
         List<PoundItemInfo> data = new ArrayList<>();
         data.addAll(templateInfo.contList);
         for (PoundItemInfo itemInfo : data) {
+            if(!TextUtils.isEmpty(itemInfo.value)){
+                continue;
+            }
             if (itemInfo.type == PoundItemInfo.PoundType.CODE) {
                 itemInfo.value = String.valueOf(System.currentTimeMillis());
                 continue;
@@ -136,8 +139,11 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
                     if (chooseModel != null) {
                         chooseModel.dismiss();
                     }
-                    templateInfo = (TemplateInfo) adapterView.getItemAtPosition(i);
-                    setTemp();
+                    TemplateInfo temp = (TemplateInfo) adapterView.getItemAtPosition(i);
+                    if(templateInfo == null || templateInfo.id != temp.id){
+                        templateInfo = temp;
+                        setTemp();
+                    }
                 }
             };
             chooseModel = QMUIPopups.listPopup(getContext(),

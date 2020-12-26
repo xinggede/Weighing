@@ -87,7 +87,8 @@
                 android:id="@+id/re_term_of_validity"
                 style="@style/LinStyle"
                 android:layout_height="@dimen/layout_item_height"
-                android:background="@drawable/app_touch_bg">
+                android:background="@drawable/app_touch_bg"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/DescriptionStyle"

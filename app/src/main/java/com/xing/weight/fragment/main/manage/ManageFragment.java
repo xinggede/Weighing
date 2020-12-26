@@ -40,6 +40,7 @@ public class ManageFragment extends BaseFragment<MainPresenter> implements MainC
                 startFragment(new PoundTemplateListFragment());
                 break;
             case R.id.bt_outbound_custom:
+                showToast("该功能正在开发中");
                 break;
             case R.id.bt_my_order:
                 startFragment(new MyOrderFragment());

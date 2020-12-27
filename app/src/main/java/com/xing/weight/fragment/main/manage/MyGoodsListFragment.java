@@ -217,6 +217,9 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
                 } else {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
                 }
+                if(mAdapter.getItemCount()== 0){
+                    startFragment(new MyGoodsAddFragment(null));
+                }
             }
         } else if (code == 1) {
             if (success) {

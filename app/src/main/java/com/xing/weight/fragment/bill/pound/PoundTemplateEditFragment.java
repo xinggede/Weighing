@@ -194,97 +194,116 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
                 switch (itemInfo.type) {
                     case CODE:
                         ckCode.setChecked(true);
-                        etCode.setText(itemInfo.hint);
+                        etCode.setHint(itemInfo.hint);
+                        etCode.setText(itemInfo.value);
                         break;
 
                     case CNAME:
                         ckCompanyName.setChecked(true);
-                        etCompanyName.setText(itemInfo.hint);
+                        etCompanyName.setHint(itemInfo.hint);
+                        etCompanyName.setText(itemInfo.value);
                         break;
 
                     case CBOSS:
                         ckCompanyCharge.setChecked(true);
-                        etCompanyCharge.setText(itemInfo.hint);
+                        etCompanyCharge.setHint(itemInfo.hint);
+                        etCompanyCharge.setText(itemInfo.value);
                         break;
 
                     case CPHONE:
                         ckCompanyPhone.setChecked(true);
-                        etCompanyPhone.setText(itemInfo.hint);
+                        etCompanyPhone.setHint(itemInfo.hint);
+                        etCompanyPhone.setText(itemInfo.value);
                         break;
 
                     case CADDRESS:
                         ckCompanyAddress.setChecked(true);
-                        etCompanyAddress.setText(itemInfo.hint);
+                        etCompanyAddress.setHint(itemInfo.hint);
+                        etCompanyAddress.setText(itemInfo.value);
                         break;
 
                     case GTYPE:
                         ckGoodsType.setChecked(true);
-                        etGoodsType.setText(itemInfo.hint);
+                        etGoodsType.setHint(itemInfo.hint);
+                        etGoodsType.setText(itemInfo.value);
                         break;
 
                     case CARWEIGHT:
                         ckCarWeight.setChecked(true);
-                        etCarWeight.setText(itemInfo.hint);
+                        etCarWeight.setHint(itemInfo.hint);
+                        etCarWeight.setText(itemInfo.value);
                         break;
 
                     case INTIME:
                         ckInTime.setChecked(true);
-                        etInTime.setText(itemInfo.hint);
+                        etInTime.setHint(itemInfo.hint);
+                        etInTime.setText(itemInfo.value);
                         break;
 
                     case OUTTIME:
                         ckOutTime.setChecked(true);
-                        etOutTime.setText(itemInfo.hint);
+                        etOutTime.setHint(itemInfo.hint);
+                        etOutTime.setText(itemInfo.value);
                         break;
 
                     case TOTALWEIGHT:
                         ckTotalWeight.setChecked(true);
-                        etTotalWeight.setText(itemInfo.hint);
+                        etTotalWeight.setHint(itemInfo.hint);
+                        etTotalWeight.setText(itemInfo.value);
                         break;
 
                     case REALWEIGHT:
                         ckRealWeight.setChecked(true);
-                        etRealWeight.setText(itemInfo.hint);
+                        etRealWeight.setHint(itemInfo.hint);
+                        etRealWeight.setText(itemInfo.value);
                         break;
 
                     case DISCOUNT:
                         ckDiscount.setChecked(true);
-                        etDiscount.setText(itemInfo.hint);
+                        etDiscount.setHint(itemInfo.hint);
+                        etDiscount.setText(itemInfo.value);
                         break;
 
                     case PRICE:
                         ckPrice.setChecked(true);
-                        etPrice.setText(itemInfo.hint);
+                        etPrice.setHint(itemInfo.hint);
+                        etPrice.setText(itemInfo.value);
                         break;
 
                     case TOTALPRICE:
                         ckTotalPrice.setChecked(true);
-                        etTotalPrice.setText(itemInfo.hint);
+                        etTotalPrice.setHint(itemInfo.hint);
+                        etTotalPrice.setText(itemInfo.value);
                         break;
 
                     case PERSON:
                         ckPersonWeigher.setChecked(true);
-                        etPersonWeigher.setText(itemInfo.hint);
+                        etPersonWeigher.setHint(itemInfo.hint);
+                        etPersonWeigher.setText(itemInfo.value);
                         break;
 
                     case RECEIVENAME:
                         ckReceiveName.setChecked(true);
-                        etReceiveName.setText(itemInfo.hint);
+                        etReceiveName.setHint(itemInfo.hint);
+                        etReceiveName.setText(itemInfo.value);
                         break;
 
                     case DRIVERCODE:
                         ckDriverCode.setChecked(true);
-                        etDriverCode.setText(itemInfo.hint);
+                        etDriverCode.setHint(itemInfo.hint);
+                        etDriverCode.setText(itemInfo.value);
                         break;
 
                     case DRIVER:
                         ckDriver.setChecked(true);
-                        etDriver.setText(itemInfo.hint);
+                        etDriver.setHint(itemInfo.hint);
+                        etDriver.setText(itemInfo.value);
                         break;
 
                     case REMARKS:
                         ckRemarks.setChecked(true);
-                        etRemarks.setText(itemInfo.hint);
+                        etRemarks.setHint(itemInfo.hint);
+                        etRemarks.setText(itemInfo.value);
                         break;
                     default:
                         break;
@@ -495,7 +514,7 @@ public class PoundTemplateEditFragment extends BaseFragment<BillPresenter> imple
             poundItemInfo.hint = etRemarks.getHint().toString();
             poundItemInfo.value = etRemarks.getText().toString();
             poundItemInfo.inputType = 3;
-            poundItemInfo.lenght = 100;
+            poundItemInfo.lenght = 200;
             list.add(poundItemInfo);
         }
         if(templateInfo == null){

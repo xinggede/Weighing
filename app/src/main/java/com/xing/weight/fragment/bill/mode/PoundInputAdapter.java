@@ -149,6 +149,9 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
                 info.value = detail.name;
                 continue;
             }
+            if(!TextUtils.isEmpty(info.value)){
+                continue;
+            }
             if (info.type == PoundType.PRICE) {
                 info.value = String.valueOf(detail.pricebuy);
                 continue;

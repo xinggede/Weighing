@@ -449,6 +449,7 @@
                     android:id="@+id/et_remarks"
                     style="@style/inputEtStyle"
                     android:hint="@string/text10"
+                    android:maxLength="200"
                     android:imeOptions="actionDone" />
             </LinearLayout>
 

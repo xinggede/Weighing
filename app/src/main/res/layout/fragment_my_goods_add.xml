@@ -146,7 +146,7 @@
                     android:hint="@string/pls_input_goods_describe"
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
-                    android:maxLength="50"
+                    android:maxLength="200"
                     android:maxLines="3"
                     android:padding="10dp" />
 

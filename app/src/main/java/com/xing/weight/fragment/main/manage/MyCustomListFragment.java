@@ -165,7 +165,6 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
                 popBackStack();
                 break;
             case R.id.ib_add:
-                callback();
                 startFragment(new MyCustomAddFragment(null));
                 break;
         }
@@ -201,6 +200,9 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP);
                 } else {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+                if(mAdapter.getItemCount()== 0){
+                    startFragment(new MyCustomAddFragment(null));
                 }
             } else if (code == 1) {
                 PageList<CustomerInfo> pageList = (PageList<CustomerInfo>) data;

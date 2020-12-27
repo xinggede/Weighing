@@ -177,6 +177,9 @@ public class PrintManageFragment extends BaseFragment<MyPresenter> implements My
             if(code == 0){
                 PageList<PrinterInfo> pageList = (PageList<PrinterInfo>) data;
                 mAdapter.setData(pageList.records);
+                if(mAdapter.getItemCount()== 0){
+                    startFragment(new PrintAddFragment(null));
+                }
             } else if(code == 1){
                 mAdapter.remove(deleteIndex);
             }

@@ -62,11 +62,11 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
             @Override
             public void onSpanClick(View widget) {
-                callback();
                 startFragment(new RegisterFragment());
             }
         }, 5, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tvRegister.setText(sp);
+        callback();
     }
 
     private void callback(){

@@ -7,4 +7,7 @@ public class RequestLogin {
 
     public String phoneno;
     public String code;
+
+    public String newPassword;
+    public String confirmPassword;
 }

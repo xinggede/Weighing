@@ -25,6 +25,9 @@ public interface LoginApi {
     @POST("/api/register")
     Observable<BasicResponse<LoginResultInfo>> register(@Body RequestLogin requestBody);
 
+    @POST("/api/findPwd")
+    Observable<BasicResponse<LoginResultInfo>> findPwd(@Body RequestLogin requestBody);
+
     @GET("/api/verifyCode/getPhoneCode")
     Observable<BasicResponse<Object>> getSmsCode(@Query("phone") String phone);
 

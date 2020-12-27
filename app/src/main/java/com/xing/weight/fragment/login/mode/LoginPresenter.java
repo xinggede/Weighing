@@ -78,6 +78,18 @@ public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContr
                 });
     }
 
+    public void resetPwd(String phone, String code, String pwd) {
+        RequestLogin requestLogin = new RequestLogin();
+        requestLogin.phoneno = phone;
+        requestLogin.code = code;
+        requestLogin.newPassword = pwd;
+        requestLogin.confirmPassword = pwd;
+        requestHttp(mModel.getLoginApi().findPwd(requestLogin),
+                o -> {
+                    getView().onHttpResult(true, 0, o);
+                });
+    }
+
     public void getSmsCode(String phone) {
         requestHttp(mModel.getLoginApi().getSmsCode(phone),
                 o -> {

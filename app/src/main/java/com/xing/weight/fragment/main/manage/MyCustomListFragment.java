@@ -201,7 +201,7 @@ public class MyCustomListFragment extends BaseFragment<ManagePresenter> implemen
                 } else {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
                 }
-                if(mAdapter.getItemCount()== 0){
+                if(mAdapter.getItemCount()== 0 && mPullAction == null){
                     startFragment(new MyCustomAddFragment(null));
                 }
             } else if (code == 1) {

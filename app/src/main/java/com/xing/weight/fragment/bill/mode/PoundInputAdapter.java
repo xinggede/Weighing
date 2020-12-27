@@ -241,7 +241,7 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             } else if (item.inputType == 2) {
                 etValue.setInputType(InputType.TYPE_CLASS_PHONE);
             } else {
-                etValue.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                etValue.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_CLASS_TEXT);
                 etValue.setMinLines(3);
                 etValue.setImeOptions(EditorInfo.IME_ACTION_DONE);
             }

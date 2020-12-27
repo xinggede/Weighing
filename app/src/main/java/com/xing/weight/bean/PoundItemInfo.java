@@ -11,7 +11,7 @@ public class PoundItemInfo implements Parcelable {
 
     public PoundType type; //字段类型
 
-    public int inputType = 0; // 0:文本  1:数字  2：电话  3:多好输入
+    public int inputType = 0; // 0:文本  1:数字  2：电话  3:多行输入
 
     public int lenght = 20; //输入内容长度限制
 

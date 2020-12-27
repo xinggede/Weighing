@@ -19,6 +19,7 @@ import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.TemplateAdapter;
+import com.xing.weight.fragment.main.manage.MyGoodsAddFragment;
 import com.xing.weight.fragment.main.my.PrintAddFragment;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -185,6 +186,9 @@ public class PoundTemplateListFragment extends BaseFragment<BillPresenter> imple
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP);
                 } else {
                     pullLayout.setEnabledEdges(PULL_EDGE_TOP | PULL_EDGE_BOTTOM);
+                }
+                if(mAdapter.getItemCount()== 0 && mPullAction == null){
+                    startFragment(new PoundTemplateEditFragment(null));
                 }
             }
         } else if (code == 1) {

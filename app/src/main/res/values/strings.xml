@@ -24,7 +24,7 @@
     <string name="bill_text3">我的订单</string>
     <string name="bill_text4">我的货品</string>
     <string name="bill_text5">我的客户</string>
-    <string name="bill_text6">更多</string>
+    <string name="bill_text6">打印模板</string>
 
 
     <string name="pls_input_phone">请输入手机号</string>

@@ -65,7 +65,7 @@ public class StyleChooseFragment extends BaseFragment<ManagePresenter> implement
     protected void initView(View view) {
         type = getArguments().getInt(Constants.UI_TYPE);
         topbar.addLeftBackImageButton().setOnClickListener(v->{popBackStack();});
-        topbar.setTitle("模板选择");
+        topbar.setTitle(R.string.bill_text6);
         pullLayout.setActionListener(new QMUIPullLayout.ActionListener() {
             @Override
             public void onActionTriggered(@NonNull QMUIPullLayout.PullAction pullAction) {

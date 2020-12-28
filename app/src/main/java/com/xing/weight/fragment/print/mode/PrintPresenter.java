@@ -81,17 +81,32 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
         requestHttp(mModel.getMainApi().printFile(printFile),
                 o -> {
                     getView().onHttpResult(true, 6, o);
-                });
+                },false);
     }
 
-    public void printLocal(PrintFile printFile) {
-        requestHttp(mModel.getMainApi().printFile(printFile),
+    public void queryPrintResult(String orderId){
+        PrintFile printFile = new PrintFile();
+        printFile.ordertype = 1;
+        printFile.type = 2;
+        printFile.orderid = orderId;
+
+        requestHttp(mModel.getMainApi().printResult(printFile),
                 o -> {
                     getView().onHttpResult(true, 7, o);
                 },false);
     }
 
-    public void getPaper(boolean show){
+    public void printLocal(PrintFile printFile) {
+        requestHttp(mModel.getMainApi().printFile(printFile),
+                o -> {
+                    Tools.logd("打印同步成功");
+//                    getView().onHttpResult(true, 8, o);
+                },false);
+    }
+
+
+
+   public void getPaper(boolean show){
         RequestList requestList = new RequestList();
         requestList.pageIndex = 1;
         requestList.pageSize = 1000;

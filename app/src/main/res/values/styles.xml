@@ -92,14 +92,17 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="button_wrapper_style">
-        <item name="android:layout_width">match_parent</item>
+    <style name="button_img_style">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
-        <item name="qmui_bottomDividerHeight">1px</item>
-        <item name="qmui_bottomDividerColor">?attr/qmui_skin_support_color_separator</item>
-        <item name="qmui_skin_separator_bottom">?attr/qmui_skin_support_color_separator</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="qmui_backgroundColor">@color/btn_gray</item>
+        <item name="qmui_borderWidth">0px</item>
+        <item name="qmui_radius">5dp</item>
     </style>
 
     <style name="DialogTheme2" parent="QMUI.Dialog">

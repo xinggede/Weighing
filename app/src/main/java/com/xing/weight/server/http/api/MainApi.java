@@ -98,4 +98,7 @@ public interface MainApi {
     @POST("/api/printer/print")
     Observable<BasicResponse<Object>> printFile(@Body PrintFile printFile); //添加磅单
 
+    @POST("/api/printer/printResult")
+    Observable<BasicResponse<Object>> printResult(@Body PrintFile printFile);
+
 }

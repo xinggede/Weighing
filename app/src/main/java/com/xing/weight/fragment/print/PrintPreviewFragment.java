@@ -77,6 +77,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     private AddPoundResultInfo info;
     private Bitmap printBitmap;
     private PaperInfo paperInfo;
+    private String orderid;
 
     public PrintPreviewFragment(AddPoundResultInfo addPoundResultInfo) {
         Bundle bundle = new Bundle();
@@ -169,6 +170,8 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     return;
                 }
 
+                orderid = String.valueOf(System.currentTimeMillis());
+
                 if (printType == 1) {
                     if(printBitmap == null){
                         showToast("打印文件异常");
@@ -176,9 +179,10 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     }
                     writeTask();
                 } else {
+                    showLoading("任务发送中...");
                     PrintFile printFile = new PrintFile();
                     printFile.printerid = printerInfo.id;
-                    printFile.orderId = String.valueOf(System.currentTimeMillis());
+                    printFile.orderid = orderid;
                     printFile.type = printType;
                     printFile.ordertype = 1;
                     printFile.url = info.order.url;
@@ -428,8 +432,12 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
             } else if (code == 5) {
                 showChoosePaper(tvPaperType);
             } else if(code == 6){
-                startFragmentAndDestroyCurrent(new PoundRecordFragment());
-            } else if(code == 7){ //本地打印向服务器添加记录
+                showLoading("打印中...");
+                mPresenter.queryPrintResult(orderid);
+//                startFragmentAndDestroyCurrent(new PoundRecordFragment());
+            } else if(code == 7){
+
+            } else if(code == 8){ //本地打印向服务器添加记录
 
             }
         }
@@ -454,7 +462,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
             //提交本地打印记录
             PrintFile printFile = new PrintFile();
             printFile.printerid = printerInfo.id;
-            printFile.orderId = String.valueOf(System.currentTimeMillis());
+            printFile.orderid = orderid;
             printFile.type = printType;
             printFile.ordertype = 1;
             printFile.url = info.order.url;

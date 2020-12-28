@@ -79,7 +79,7 @@
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/bt_my_user"
                 style="@style/button_img_style"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:drawableTop="@mipmap/icon_m_custom"
                 android:text="@string/bill_text5" />
 
@@ -87,6 +87,7 @@
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/bt_my_order"
                 style="@style/button_img_style"
+                android:layout_marginStart="10dp"
                 android:drawableTop="@mipmap/icon_m_order"
                 android:text="@string/bill_text3"
                 />
@@ -108,7 +109,7 @@
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/bt_outbound_custom"
                 style="@style/button_img_style"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/bill_text2"
                 android:drawableTop="@mipmap/icon_m_outbound_custom" />
 
@@ -116,6 +117,7 @@
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/bt_more"
                 style="@style/button_img_style"
+                android:layout_marginStart="10dp"
                 android:text="@string/bill_text6"
                 android:drawableTop="@mipmap/icon_m_print_model" />
 

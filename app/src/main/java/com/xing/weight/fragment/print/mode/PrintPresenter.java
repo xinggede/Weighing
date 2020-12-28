@@ -84,10 +84,11 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
                 },false);
     }
 
-    public void queryPrintResult(String orderId){
+    public void queryPrintResult(int printId, String orderId){
         PrintFile printFile = new PrintFile();
         printFile.ordertype = 1;
         printFile.type = 2;
+        printFile.printerid = printId;
         printFile.orderid = orderId;
 
         requestHttp(mModel.getMainApi().printResult(printFile),

@@ -53,6 +53,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -433,7 +434,12 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                 showChoosePaper(tvPaperType);
             } else if(code == 6){
                 showLoading("打印中...");
-                mPresenter.queryPrintResult(orderid);
+                mPresenter.setTimer(5, new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        mPresenter.queryPrintResult(printerInfo.id, orderid);
+                    }
+                });
 //                startFragmentAndDestroyCurrent(new PoundRecordFragment());
             } else if(code == 7){
 

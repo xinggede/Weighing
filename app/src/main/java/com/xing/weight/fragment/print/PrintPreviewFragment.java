@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,18 +32,15 @@ import com.xing.weight.base.Constants;
 import com.xing.weight.bean.AddPoundResultInfo;
 import com.xing.weight.bean.PaperInfo;
 import com.xing.weight.bean.PrintFile;
+import com.xing.weight.bean.PrintImgResult;
 import com.xing.weight.bean.PrinterInfo;
+import com.xing.weight.bean.QueryPrintResult;
 import com.xing.weight.fragment.bill.pound.PoundRecordFragment;
 import com.xing.weight.fragment.main.my.PrintAddFragment;
 import com.xing.weight.fragment.print.mode.PrintContract;
 import com.xing.weight.fragment.print.mode.PrintPresenter;
 import com.xing.weight.util.Tools;
 import com.yingmei.printsdk.JolimarkPrint;
-import com.yingmei.printsdk.bean.DeviceInfo;
-import com.yingmei.printsdk.bean.PrintCallback;
-import com.yingmei.printsdk.bean.PrintParameters;
-import com.yingmei.printsdk.bean.SearchCallback;
-import com.yingmei.printsdk.bean.TransType;
 import com.yingmei.printsdk.core.States;
 
 import java.util.List;
@@ -78,7 +76,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     private AddPoundResultInfo info;
     private Bitmap printBitmap;
     private PaperInfo paperInfo;
-    private String orderid;
+    private int poundId;
 
     public PrintPreviewFragment(AddPoundResultInfo addPoundResultInfo) {
         Bundle bundle = new Bundle();
@@ -112,6 +110,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
 
         if (info != null) {
             if (info.order != null) {
+                poundId = info.order.id;
                 showLoading();
                 Glide.with(this).asBitmap().load(info.order.url).placeholder(R.mipmap.img_default).error(R.mipmap.img_default)
                         .into(new CustomTarget<Bitmap>() {
@@ -171,7 +170,6 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     return;
                 }
 
-                orderid = String.valueOf(System.currentTimeMillis());
 
                 if (printType == 1) {
                     if(printBitmap == null){
@@ -183,7 +181,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                     showLoading("任务发送中...");
                     PrintFile printFile = new PrintFile();
                     printFile.printerid = printerInfo.id;
-                    printFile.orderid = orderid;
+                    printFile.pordid = poundId;
                     printFile.type = printType;
                     printFile.ordertype = 1;
                     printFile.url = info.order.url;
@@ -416,6 +414,18 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
         }
     }
 
+    private String orderId;
+
+    private void queryResult(){
+        showLoading("打印中...");
+        mPresenter.setTimer(5, new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                mPresenter.queryPrintResult(printerInfo.id, orderId);
+            }
+        });
+    }
+
     @Override
     public void onHttpResult(boolean success, int code, Object data) {
         if (success) {
@@ -433,18 +443,52 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
             } else if (code == 5) {
                 showChoosePaper(tvPaperType);
             } else if(code == 6){
-                showLoading("打印中...");
-                mPresenter.setTimer(5, new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        mPresenter.queryPrintResult(printerInfo.id, orderid);
+                PrintImgResult printImgResult = (PrintImgResult) data;
+                orderId = printImgResult.pordid;
+                if(printImgResult.return_code == 0){
+                    List<PrintImgResult.PrinterState> list = printImgResult.printer_state;
+                    if(list != null && !list.isEmpty()){
+                        PrintImgResult.PrinterState printerState = list.get(0);
+                        if(printerState.status_code == 1){
+                            queryResult();
+                        } else {
+                            hideLoading();
+                            String detail = printerState.status_msg;
+                            String msg =  TextUtils.isEmpty(detail)?printImgResult.return_data:printImgResult.return_data+"\n"+detail;
+                            showToast(msg);
+                        }
+                    } else {
+                        queryResult();
                     }
-                });
-//                startFragmentAndDestroyCurrent(new PoundRecordFragment());
-            } else if(code == 7){
+                } else {
+                    hideLoading();
+                    showToast(printImgResult.return_msg);
+                }
 
+            } else if(code == 7){ //打印结果
+                QueryPrintResult printResult = (QueryPrintResult) data;
+                if (printResult.return_code == 0) {
+                    QueryPrintResult.PrintBean dataBean = printResult.return_data.get(0);
+                    if (dataBean.order_status == 0) {
+                        queryResult();
+                    } else {
+                        hideLoading();
+                        showToast(dataBean.result_msg);
+
+                        startFragmentAndDestroyCurrent(new PoundRecordFragment());
+                    }
+                } else {
+                    hideLoading();
+                    showToast(printResult.return_msg);
+                }
             } else if(code == 8){ //本地打印向服务器添加记录
 
+            }
+        } else {
+            if(code == 6){
+                hideLoading();
+            } else if(code == 7){
+                hideLoading();
             }
         }
     }
@@ -468,7 +512,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
             //提交本地打印记录
             PrintFile printFile = new PrintFile();
             printFile.printerid = printerInfo.id;
-            printFile.orderid = orderid;
+            printFile.pordid = poundId;
             printFile.type = printType;
             printFile.ordertype = 1;
             printFile.url = info.order.url;

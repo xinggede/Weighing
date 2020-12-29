@@ -4,17 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.xing.weight.base.mvp.BasePresenter;
-import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
-import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PaperInfo;
-import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PrintFile;
 import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.bean.request.RequestList;
-import com.xing.weight.fragment.bill.pound.PoundRecordFragment;
-import com.xing.weight.fragment.main.my.mode.MyModel;
 import com.xing.weight.util.Tools;
 import com.yingmei.printsdk.JolimarkPrint;
 import com.yingmei.printsdk.bean.DeviceInfo;
@@ -22,7 +17,6 @@ import com.yingmei.printsdk.bean.PrintCallback;
 import com.yingmei.printsdk.bean.PrintParameters;
 import com.yingmei.printsdk.bean.SearchCallback;
 import com.yingmei.printsdk.bean.TransType;
-import com.yingmei.printsdk.core.States;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +75,10 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
         requestHttp(mModel.getMainApi().printFile(printFile),
                 o -> {
                     getView().onHttpResult(true, 6, o);
-                },false);
+                }, e-> {
+                    onError(e);
+                    getView().onHttpResult(false, 6, null);
+                }, false);
     }
 
     public void queryPrintResult(int printId, String orderId){
@@ -89,12 +86,15 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
         printFile.ordertype = 1;
         printFile.type = 2;
         printFile.printerid = printId;
-        printFile.orderid = orderId;
+        printFile.id = orderId;
 
         requestHttp(mModel.getMainApi().printResult(printFile),
                 o -> {
                     getView().onHttpResult(true, 7, o);
-                },false);
+                }, e->{
+                    onError(e);
+                    getView().onHttpResult(false, 7, null);
+                }, false);
     }
 
     public void printLocal(PrintFile printFile) {

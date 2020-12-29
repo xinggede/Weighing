@@ -8,7 +8,9 @@ import com.xing.weight.bean.PageList;
 import com.xing.weight.bean.PaperInfo;
 import com.xing.weight.bean.PoundInfo;
 import com.xing.weight.bean.PrintFile;
+import com.xing.weight.bean.PrintImgResult;
 import com.xing.weight.bean.PrinterInfo;
+import com.xing.weight.bean.QueryPrintResult;
 import com.xing.weight.bean.StyleInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.bean.request.RequestList;
@@ -16,7 +18,6 @@ import com.xing.weight.server.http.response.BasicResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -96,9 +97,9 @@ public interface MainApi {
     Observable<BasicResponse<PageList<StyleInfo>>> getStyle(@Body RequestList requestList); //获取货品列表
 
     @POST("/api/printer/print")
-    Observable<BasicResponse<Object>> printFile(@Body PrintFile printFile); //添加磅单
+    Observable<BasicResponse<PrintImgResult>> printFile(@Body PrintFile printFile); //添加磅单
 
     @POST("/api/printer/printResult")
-    Observable<BasicResponse<Object>> printResult(@Body PrintFile printFile);
+    Observable<BasicResponse<QueryPrintResult>> printResult(@Body PrintFile printFile);
 
 }

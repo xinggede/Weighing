@@ -454,7 +454,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                         } else {
                             hideLoading();
                             String detail = printerState.status_msg;
-                            String msg =  TextUtils.isEmpty(detail)?printImgResult.return_data:printImgResult.return_data+"\n"+detail;
+                            String msg =  TextUtils.isEmpty(detail)?printImgResult.return_data:printImgResult.return_data+"："+detail;
                             showToast(msg);
                         }
                     } else {

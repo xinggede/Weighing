@@ -157,7 +157,7 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
     }
 
     private void print(){
-        getView().showMessage("打印中...");
+        getView().showLoading("打印中...");
         JolimarkPrint.sendToData(context, deviceInfo,printParameters,this);
     }
 
@@ -191,11 +191,11 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
 
     @Override
     public void findDevices(DeviceInfo deviceInfo) {
-        if(deviceInfo != null){
+        if(this.deviceInfo != null){
             return;
         }
         if(deviceInfo.getDid().contains(devCode)){
-            Tools.logd("找到设备："+ deviceInfo.getDid());
+            Tools.loge("找到设备："+ deviceInfo.getDid());
             this.deviceInfo = deviceInfo;
             JolimarkPrint.stopSearch(false);
             print();
@@ -207,7 +207,6 @@ public class PrintPresenter extends BasePresenter<PrintContract.View, PrintContr
         if(getView() == null){
             return;
         }
-        getView().hideLoading();
         getView().onPrintResult(state,taskId,msg);
     }
 

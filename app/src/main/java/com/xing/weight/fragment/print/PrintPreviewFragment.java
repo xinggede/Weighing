@@ -77,10 +77,12 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     private Bitmap printBitmap;
     private PaperInfo paperInfo;
     private int poundId;
+    private int uiType = 0;
 
-    public PrintPreviewFragment(AddPoundResultInfo addPoundResultInfo) {
+    public PrintPreviewFragment(AddPoundResultInfo addPoundResultInfo, int type) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.DATA, addPoundResultInfo);
+        bundle.putInt(Constants.UI_TYPE, type);
         setArguments(bundle);
     }
 
@@ -97,6 +99,7 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
     @Override
     protected void initView(View view) {
         info = getArguments().getParcelable(Constants.DATA);
+        uiType = getArguments().getInt(Constants.UI_TYPE,0);
 
         topbar.setTitle("打印预览");
         topbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
@@ -475,7 +478,11 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
                         hideLoading();
                         showToast(dataBean.result_msg);
 
-                        startFragmentAndDestroyCurrent(new PoundRecordFragment());
+                        if(uiType == 0){
+                            startFragmentAndDestroyCurrent(new PoundRecordFragment());
+                        } else {
+                            popBackStack(PoundRecordFragment.class);
+                        }
                     }
                 } else {
                     hideLoading();
@@ -506,8 +513,6 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
 
     @Override
     public void onPrintResult(int state, String taskId, String msg) {
-        hideLoading();
-        showToast(msg);
         if(state == States.OK){
             //提交本地打印记录
             PrintFile printFile = new PrintFile();
@@ -519,7 +524,19 @@ public class PrintPreviewFragment extends BaseFragment<PrintPresenter> implement
             printFile.norms = paperInfo.width+"*"+paperInfo.heigh;
             mPresenter.printLocal(printFile);
 
-            startFragmentAndDestroyCurrent(new PoundRecordFragment());
+            mPresenter.setTimer(8, aLong -> {
+                hideLoading();
+                showToast(msg);
+                if(uiType == 0){
+                    startFragmentAndDestroyCurrent(new PoundRecordFragment());
+                } else {
+                    popBackStack(PoundRecordFragment.class);
+                }
+            });
+
+        } else {
+            hideLoading();
+            showToast(msg);
         }
 
     }

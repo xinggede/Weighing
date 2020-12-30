@@ -265,7 +265,7 @@ public class PoundEditFragment extends BaseFragment<BillPresenter> implements Bi
                 }
             } else if (code == 4) {
                 AddPoundResultInfo info = (AddPoundResultInfo) data;
-                startFragmentAndDestroyCurrent(new PrintPreviewFragment(info));
+                startFragmentAndDestroyCurrent(new PrintPreviewFragment(info,1));
             }
         }
     }

@@ -34,9 +34,13 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyContract.Model
         return mModel.getCompanyId();
     }
 
+    public String getDueDate() {
+        return mModel.getDueDate();
+    }
+
     public void getCompanyInfo(){
         int id = getCompanyId();
-        if(id == 0){
+        if(id == -1){
             return;
         }
         requestHttp(mModel.getMainApi().getCompanyInfo(id),

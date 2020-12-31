@@ -23,6 +23,8 @@ public class MyContract {
         String getUserName();
 
         String getUserHead();
+
+        String getDueDate();
     }
 
 }

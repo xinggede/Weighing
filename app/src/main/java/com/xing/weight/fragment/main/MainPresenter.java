@@ -9,5 +9,7 @@ public class MainPresenter extends BasePresenter<MainContract.View, MainContract
         return new MainModel();
     }
 
-
+    public boolean isCompany(){
+        return mModel.isCompany();
+    }
 }

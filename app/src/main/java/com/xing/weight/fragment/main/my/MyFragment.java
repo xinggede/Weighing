@@ -3,6 +3,7 @@ package com.xing.weight.fragment.main.my;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -54,6 +55,11 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     protected void initView(View view) {
         tvName.setText(mPresenter.getUserName());
         MyImageLoader.loadHead(getContext(), mPresenter.getUserHead(), ivHead);
+        String dueDate = mPresenter.getDueDate();
+        if(!TextUtils.isEmpty(dueDate)){
+            tvDays.setText(dueDate.split(" ")[0]);
+        }
+
     }
 
     @OnClick({R.id.re_company_info,R.id.re_print_manage, R.id.re_term_of_validity, R.id.re_about, R.id.bt_exit})

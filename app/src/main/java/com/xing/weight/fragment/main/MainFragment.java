@@ -9,13 +9,17 @@ import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
 import com.qmuiteam.qmui.arch.SwipeBackLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.tab.QMUITab;
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder;
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
+import com.xing.weight.bean.CustomerInfo;
 import com.xing.weight.fragment.main.home.HomeFragment;
 import com.xing.weight.fragment.main.manage.ManageFragment;
+import com.xing.weight.fragment.main.my.CompanyInfoFragment;
 import com.xing.weight.fragment.main.my.MyFragment;
 
 import androidx.annotation.NonNull;
@@ -77,6 +81,11 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
                 .addTab(lab);
         initPagers();
 
+
+        if(!mPresenter.isCompany()){
+            showCompany();
+        }
+
     }
 
     private void initPagers() {
@@ -107,6 +116,25 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager, false);
+    }
+
+    private void showCompany() {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("提示")
+                .setMessage("部分功能需要完善公司信息才能正常使用!")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                        startFragment(new CompanyInfoFragment());
+                    }
+                }).create(R.style.DialogTheme2).show();
     }
 
 

@@ -76,6 +76,7 @@ public class LoginResultInfo {
         private String delflag;
         private String createdate;
         private String modifydate;
+        private String duedate;
 
         public int getId() {
             return id;
@@ -219,6 +220,14 @@ public class LoginResultInfo {
 
         public void setModifydate(String modifydate) {
             this.modifydate = modifydate;
+        }
+
+        public String getDuedate() {
+            return duedate;
+        }
+
+        public void setDuedate(String duedate) {
+            this.duedate = duedate;
         }
     }
 

@@ -88,7 +88,7 @@
                 style="@style/LinStyle"
                 android:layout_height="@dimen/layout_item_height"
                 android:background="@drawable/app_touch_bg"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     style="@style/DescriptionStyle"
@@ -109,7 +109,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/iv2"
                     android:textColor="#f00"
-                    android:text="续期" />
+                    android:text="到期" />
 
                 <ImageView
                     android:id="@+id/iv2"

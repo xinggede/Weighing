@@ -18,6 +18,7 @@ import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
 import com.xing.weight.MainActivity;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
+import com.xing.weight.base.Constants;
 import com.xing.weight.fragment.login.mode.LoginContract;
 import com.xing.weight.fragment.login.mode.LoginPresenter;
 import com.xing.weight.fragment.main.manage.MyGoodsAddFragment;
@@ -73,12 +74,12 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         registerEffect(this, new QMUIFragmentMapEffectHandler() {
             @Override
             public boolean shouldHandleEffect(@NonNull MapEffect effect) {
-                return effect.getValue(RegisterFragment.class.getName()) != null;
+                return effect.getValue(Constants.PHONE_NUMBER) != null;
             }
 
             @Override
             public void handleEffect(@NonNull MapEffect effect) {  //该方法只会在界面显示的时候才调用（主线程）
-                String value = (String) effect.getValue(RegisterFragment.class.getName());
+                String value = (String) effect.getValue(Constants.PHONE_NUMBER);
                 etPhone.setText(value);
                 layoutPhone.setErrorEnabled(false);
                 layoutPwd.setErrorEnabled(false);

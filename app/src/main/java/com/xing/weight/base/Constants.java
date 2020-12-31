@@ -19,6 +19,7 @@ public class Constants {
     public static final String COMPANY_BOSS = "companyBoss";
     public static final String COMPANY_PHONE = "companyPhone";
     public static final String COMPANY_ADDRESS = "companyAddress";
+    public static final String DUE_DATE = "dueDate";
 
     public static final String TERMINAL_ID = "terminalId";
     public static final String ADDRESS = "address";

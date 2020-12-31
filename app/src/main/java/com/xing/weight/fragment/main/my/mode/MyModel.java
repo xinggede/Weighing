@@ -9,7 +9,7 @@ public class MyModel extends BaseModel implements MyContract.Model {
 
     @Override
     public int getCompanyId() {
-        return prefs.getInt(Constants.COMPANY_ID, 0);
+        return prefs.getInt(Constants.COMPANY_ID, -1);
     }
 
     @Override
@@ -42,5 +42,10 @@ public class MyModel extends BaseModel implements MyContract.Model {
     @Override
     public String getUserHead() {
         return prefs.getString(Constants.USER_HEAD);
+    }
+
+    @Override
+    public String getDueDate() {
+        return prefs.getString(Constants.DUE_DATE);
     }
 }

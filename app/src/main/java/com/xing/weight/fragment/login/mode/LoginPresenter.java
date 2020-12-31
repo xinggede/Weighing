@@ -96,6 +96,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View, LoginContr
                     getView().onHttpResult(true, 1, o);
                 }, e->{
                     getView().onHttpResult(false, 1, null);
+                    onError(e);
                     onComplete(true);
                 },true);
     }

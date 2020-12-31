@@ -12,6 +12,7 @@ public class MainContract {
 
     interface Model extends BaseContract.Model {
 
+        boolean isCompany();
 
     }
 

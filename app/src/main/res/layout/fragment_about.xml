@@ -79,7 +79,8 @@
                 android:id="@+id/re_phone"
                 style="@style/LinStyle"
                 android:layout_height="@dimen/layout_item_height"
-                android:background="@drawable/list_item_touch_bg">
+                android:background="@drawable/list_item_touch_bg"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/DescriptionStyle"
@@ -121,7 +122,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/img_kfwx" />
 
             </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
 

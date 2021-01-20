@@ -45,5 +45,36 @@
   *** rewind();
 }
 
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
+# Gson
+#-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
+
+-keep class com.xing.weight.bean.**{*;}
+-keep class com.xing.weight.bean.server.http.response.BasicResponse {*;}
+
+#okhttp
+-keep class okhttp3.** {*;}
+-dontwarn okhttp3.**
+-keep class okio.** {*;}
+-dontwarn okio.**
+
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions

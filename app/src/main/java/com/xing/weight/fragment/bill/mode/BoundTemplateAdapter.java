@@ -8,18 +8,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.base.RecyclerViewHolder;
-import com.xing.weight.bean.CustomerInfo;
-import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundItemInfo;
-import com.xing.weight.util.KeyBoardUtil;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -28,171 +23,20 @@ import static com.xing.weight.bean.PoundItemInfo.PoundType;
 
 public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
-    private int realWeight = -1, carWeight = -1, totalWeight, discount = -1, price = -1, totalPrice = -1, inTime = -1, outTime = -1;
-
     public BoundTemplateAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
-    }
-
-    public void reset() {
-        realWeight = -1;
-        carWeight = -1;
-        totalWeight = -1;
-        discount = -1;
-        price = -1;
-        totalPrice = -1;
-        inTime = -1;
-        outTime = -1;
     }
 
     @Override
     public void setData(@Nullable List<PoundItemInfo> list) {
         super.setData(list);
-        reset();
-        for (int i = 0; i < list.size(); i++) {
-            PoundItemInfo info = getItem(i);
-            if (info.type == PoundType.CARWEIGHT) {
-                carWeight = i;
-                continue;
-            }
-            if (info.type == PoundType.TOTALWEIGHT) {
-                totalWeight = i;
-                continue;
-            }
-            if (info.type == PoundType.REALWEIGHT) {
-                realWeight = i;
-                continue;
-            }
-            if (info.type == PoundType.DISCOUNT) {
-                discount = i;
-                continue;
-            }
-            if (info.type == PoundType.TOTALPRICE) {
-                totalPrice = i;
-                continue;
-            }
-            if (info.type == PoundType.PRICE) {
-                price = i;
-                continue;
-            }
-            if (info.type == PoundType.INTIME) {
-                inTime = i;
-                continue;
-            }
-            if (info.type == PoundType.OUTTIME) {
-                outTime = i;
-                continue;
-            }
-        }
-    }
-
-    public void updateWeight() {
-        if (realWeight == -1 || totalWeight == -1 || carWeight == -1) {
-            return;
-        }
-        String tw = getItem(totalWeight).value;
-        if (TextUtils.isEmpty(tw)) {
-            tw = "0";
-        }
-        String cw = getItem(carWeight).value;
-        if (TextUtils.isEmpty(cw)) {
-            cw = "0";
-        }
-        String dis = "0";
-        if (discount != -1) {
-            dis = getItem(discount).value;
-        }
-        if (TextUtils.isEmpty(dis)) {
-            dis = "0";
-        }
-        BigDecimal bigDecimal = new BigDecimal(tw);
-        BigDecimal result = bigDecimal.subtract(new BigDecimal(cw)).subtract(bigDecimal.multiply(new BigDecimal(dis)))
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
-        String value = result.toString();
-        getItem(realWeight).value = value;
-        notifyItemChanged(realWeight);
-
-        updatePrice();
-    }
-
-    public void updatePrice() {
-        if (realWeight == -1 || totalPrice == -1 || price == -1) {
-            return;
-        }
-        String tw = getItem(realWeight).value;
-        if (TextUtils.isEmpty(tw)) {
-            tw = "0";
-        }
-        String p = getItem(price).value;
-        if (TextUtils.isEmpty(p)) {
-            p = "0";
-        }
-        BigDecimal bigDecimal = new BigDecimal(tw);
-        BigDecimal total = bigDecimal.multiply(new BigDecimal(p)).setScale(2, BigDecimal.ROUND_HALF_UP);
-        String t = total.toString();
-        getItem(totalPrice).value = t;
-        notifyItemChanged(totalPrice);
-    }
-
-    //净重=毛重-皮重-毛重*折损
-    //总价=净重*单价
-
-    public void updateGoods(GoodsDetail detail) {
-        for (int i = 0; i < getData().size(); i++) {
-            PoundItemInfo info = getItem(i);
-            if (info.type == PoundType.GTYPE) {
-                info.value = detail.name;
-                continue;
-            }
-            if(!TextUtils.isEmpty(info.value)){
-                continue;
-            }
-            if (info.type == PoundType.PRICE) {
-                info.value = String.valueOf(detail.pricebuy);
-                continue;
-            }
-            if (info.type == PoundType.REMARKS) {
-                info.value = detail.remark;
-                continue;
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    public void updateCustom(CustomerInfo customerInfo) {
-        for (int i = 0; i < getData().size(); i++) {
-            PoundItemInfo info = getItem(i);
-            if (info.type == PoundType.RECEIVENAME) {
-                info.value = customerInfo.comname;
-                continue;
-            }
-            if (info.type == PoundType.DRIVER) {
-                info.value = customerInfo.name;
-                continue;
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    public void updateTime(PoundType type, String value) {
-        if (type == PoundType.INTIME) {
-            getItem(inTime).value = value;
-            notifyItemChanged(inTime);
-        } else {
-            getItem(outTime).value = value;
-            notifyItemChanged(outTime);
-        }
     }
 
     @Override
     public int getItemViewType(int position) {
         PoundItemInfo poundItemInfo = getItem(position);
-        if (poundItemInfo.type == PoundType.GTYPE || poundItemInfo.type == PoundType.RECEIVENAME
-                || poundItemInfo.type == PoundType.INTIME || poundItemInfo.type == PoundType.OUTTIME) {
-            return 1;
-        }
         if (poundItemInfo.type == PoundType.ADD) {
-            return 2;
+            return 1;
         }
         return 0;
     }
@@ -200,30 +44,18 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
     @Override
     public int getItemLayoutId(int viewType) {
         if (viewType == 1) {
-            return R.layout.list_item_input_weight2;
-        }
-        if (viewType == 2) {
             return R.layout.list_item_input_weight_button;
         }
-        return R.layout.list_item_input_weight1;
+        return R.layout.list_item_template_outbound;
     }
 
     @Override
     public void bindData(RecyclerViewHolder holder, int position, PoundItemInfo item) {
         int t = getItemViewType(position);
-        if (t == 2) {
+        if (t == 1) {
             holder.setClickListener(R.id.bt_confirm, new CusClickListener(position));
-        } else if (t == 1) {
-            holder.setText(R.id.tv_name, item.name);
-            holder.setClickListener(R.id.tv_value, new CusClickListener(position));
-            TextView tvValue = holder.getTextView(R.id.tv_value);
-            if (TextUtils.isEmpty(item.hint)) {
-                tvValue.setHint(String.format(mContext.getText(R.string.pls_input).toString(), item.name));
-            } else {
-                tvValue.setHint(item.hint);
-            }
-            tvValue.setText(item.value);
         } else {
+            holder.setVisibility(R.id.checkbox, item.type == PoundType.MODELNAME?View.INVISIBLE: View.VISIBLE);
             holder.setText(R.id.tv_name, item.name);
 
             EditText etValue = holder.getEditText(R.id.et_value);
@@ -263,6 +95,10 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
                 etValue.setHint(item.hint);
             }
 
+            CheckBox checkBox =  holder.getCheckBox(R.id.checkbox);
+            checkBox.setChecked(item.isChecked);
+            checkBox.setOnCheckedChangeListener(new CusCheckListener(position));
+
             if (etValue.getTag(R.string.change) != null) {
                 etValue.removeTextChangedListener((TextWatcher) etValue.getTag(R.string.change));
             }
@@ -270,15 +106,6 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             CusTextChanged cusTextChanged = new CusTextChanged(position);
             etValue.addTextChangedListener(cusTextChanged);
             etValue.setTag(R.string.change, cusTextChanged);
-
-            /*if(item.type == PoundType.DRIVERCODE){
-                if(keyBoardUtil != null){
-                    etValue.setTag(R.string.attach, true);
-                    keyBoardUtil.attachTo(etValue, true);
-                }
-            } else {
-                etValue.setTag(R.string.attach, null);
-            }*/
         }
     }
 
@@ -302,16 +129,28 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
                 return;
             }
             item.value = s.toString();
-            if (item.type == PoundType.CARWEIGHT || item.type == PoundType.TOTALWEIGHT || item.type == PoundType.DISCOUNT) {
-                updateWeight();
-            }
-            if (item.type == PoundType.REALWEIGHT || item.type == PoundType.PRICE) {
-                updatePrice();
-            }
         }
 
         @Override
         public void afterTextChanged(Editable s) {
+        }
+    }
+
+    class CusCheckListener implements CompoundButton.OnCheckedChangeListener {
+
+        int position;
+
+        public CusCheckListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            PoundItemInfo item = getItem(position);
+            if (item == null) {
+                return;
+            }
+            item.isChecked = isChecked;
         }
     }
 

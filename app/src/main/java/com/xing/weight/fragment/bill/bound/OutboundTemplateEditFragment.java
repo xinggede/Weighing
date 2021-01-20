@@ -156,6 +156,10 @@ public class OutboundTemplateEditFragment extends BaseFragment<BillPresenter> im
         itemInfo.type = PoundItemInfo.PoundType.REMARKS;
         data.add(itemInfo);
 
+        itemInfo = new PoundItemInfo("保存");
+        itemInfo.type = PoundItemInfo.PoundType.ADD;
+        data.add(itemInfo);
+
         return data;
     }
 

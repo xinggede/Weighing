@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,6 +52,10 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public EditText getEditText(int viewId) {
         return (EditText) getView(viewId);
+    }
+
+    public CheckBox getCheckBox(int viewId) {
+        return (CheckBox) getView(viewId);
     }
 
     public RecyclerViewHolder setText(int viewId, String value) {

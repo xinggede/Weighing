@@ -21,6 +21,8 @@ public class PoundItemInfo implements Parcelable {
 
     public String hint; //提示信息
 
+    public boolean isChecked = false;
+
     public PoundItemInfo(String name) {
         this.name = name;
     }

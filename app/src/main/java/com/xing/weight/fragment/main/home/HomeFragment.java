@@ -48,8 +48,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 break;
 
             case R.id.bt_outbound_print:
-                showToast("该功能正在开发中");
-//                startFragment(new OutboundInputFragment());
+                startFragment(new OutboundInputFragment());
                 break;
         }
     }

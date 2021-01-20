@@ -38,7 +38,7 @@ public class PoundItemInfo implements Parcelable {
         GTYPE(5), //货物类型
         CARWEIGHT(6), //车重
         INTIME(7), //入场时间
-        OUTTIME(8), //出场时间
+        OUTTIME(8), //出场时间 | 录单日期
         TOTALWEIGHT(9), //总重
         REALWEIGHT(10), //净重
         DISCOUNT(11), //折扣
@@ -49,6 +49,16 @@ public class PoundItemInfo implements Parcelable {
         DRIVERCODE(16), //车牌
         DRIVER(17), //司机
         REMARKS(18), //备注
+        MODELNAME(19),//模板名称
+        JSR(19),//经手人
+        ORDERNUMBER(20),//订单号
+        SERIALNUMBER(21),//序号
+        RECEIVECONTACTS(22), //接收方联系人
+        RECEIVEPHONE(23), //接收方电话
+        RECEIVEADDRESS(24), //接收方地址
+        QSR(25), //签收
+        SHFS(25), //送货方式
+
 
         ADD(100); //按钮
 

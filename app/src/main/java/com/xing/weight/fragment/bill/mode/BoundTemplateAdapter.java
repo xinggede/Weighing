@@ -44,9 +44,10 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
     public List<PoundItemInfo> getChooseItem(){
         List<PoundItemInfo> list = new ArrayList<>();
-        for (PoundItemInfo itemInfo : getData()) {
-            if(itemInfo.isChecked){
-                list.add(itemInfo);
+        for (int i = 2; i < getData().size(); i++) {
+            PoundItemInfo item = getItem(i);
+            if(item.isChecked){
+                list.add(item);
             }
         }
         return list;

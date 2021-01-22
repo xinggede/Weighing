@@ -6,7 +6,7 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.bound.OutboundInputFragment;
+import com.xing.weight.fragment.bill.bound.OutboundAddFragment;
 import com.xing.weight.fragment.bill.pound.PoundAddFragment;
 import com.xing.weight.fragment.main.home.mode.HomeContract;
 import com.xing.weight.fragment.main.home.mode.HomePresenter;
@@ -48,7 +48,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 break;
 
             case R.id.bt_outbound_print:
-                startFragment(new OutboundInputFragment());
+                startFragment(new OutboundAddFragment());
                 break;
         }
     }

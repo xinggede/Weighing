@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OutboundInputFragment extends BaseFragment<MainPresenter> implements MainContract.View, InputChangeListener {
+public class OutboundAddFragment extends BaseFragment<MainPresenter> implements MainContract.View, InputChangeListener {
 
 
     @BindView(R.id.topbar)
@@ -68,7 +68,7 @@ public class OutboundInputFragment extends BaseFragment<MainPresenter> implement
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_outbound_input;
+        return R.layout.fragment_outbound_add;
     }
 
     @Override

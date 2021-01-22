@@ -6,6 +6,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.qmuiteam.qmui.arch.effect.MapEffect;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentEffectHandler;
+import com.qmuiteam.qmui.arch.effect.QMUIFragmentMapEffectHandler;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
@@ -15,6 +18,7 @@ import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.bean.CompanyInfo;
 import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.GoodsDetail;
 import com.xing.weight.bean.PoundItemInfo;
 import com.xing.weight.bean.TemplateInfo;
 import com.xing.weight.fragment.bill.mode.BillContract;
@@ -22,16 +26,19 @@ import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.BoundInputAdapter;
 import com.xing.weight.fragment.bill.mode.GoodsAdapter;
 import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
+import com.xing.weight.fragment.main.manage.MyGoodsListFragment;
 import com.xing.weight.view.datepicker.CustomDatePicker;
 import com.xing.weight.view.datepicker.DateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class OutboundAddFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
 
@@ -83,6 +90,9 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
 
         mPresenter.getTemplateChoose(2, false);
         companyInfo = mPresenter.getCompanyInfo();
+
+        callbackTemplate();
+        callbackAddGoods();
     }
 
     private void setTemp() {
@@ -232,5 +242,53 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
         }  else if (poundItemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
             showDatePicker(poundItemInfo.value, poundItemInfo.type);
         }
+    }
+
+    @OnClick({R.id.ib_add, R.id.lin_add_goods, R.id.bt_ok})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ib_add:
+                startFragment(new OutboundTemplateEditFragment(null));
+                break;
+
+            case R.id.lin_add_goods:
+                startFragment(new MyGoodsListFragment(true));
+                break;
+
+            case R.id.bt_ok:
+
+                break;
+        }
+    }
+
+    private void callbackTemplate() {
+        registerEffect(this, new QMUIFragmentMapEffectHandler() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull MapEffect effect) {
+                return effect.getValue(OutboundTemplateEditFragment.class.getName()) != null;
+            }
+
+            @Override
+            public void handleEffect(@NonNull MapEffect effect) {
+                boolean value = (boolean) effect.getValue(OutboundTemplateEditFragment.class.getName());
+                if (value) {
+                    mPresenter.getTemplateChoose(2, false);
+                }
+            }
+        });
+    }
+
+    private void callbackAddGoods() {
+        registerEffect(this, new QMUIFragmentEffectHandler<GoodsDetail>() {
+            @Override
+            public boolean shouldHandleEffect(@NonNull GoodsDetail effect) {
+                return false;
+            }
+
+            @Override
+            public void handleEffect(@NonNull GoodsDetail effect) {
+
+            }
+        });
     }
 }

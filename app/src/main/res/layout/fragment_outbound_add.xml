@@ -221,7 +221,7 @@
 
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/bt_print"
+                android:id="@+id/bt_ok"
                 style="@style/RoundButtonStyle"
                 android:layout_margin="20dp"
                 android:text="@string/print" />

@@ -123,12 +123,12 @@ public class OutboundTemplateListFragment extends BaseFragment<BillPresenter> im
         registerEffect(this, new QMUIFragmentMapEffectHandler() {
             @Override
             public boolean shouldHandleEffect(@NonNull MapEffect effect) {
-                return effect.getValue(PoundTemplateEditFragment.class.getName()) != null;
+                return effect.getValue(OutboundTemplateEditFragment.class.getName()) != null;
             }
 
             @Override
             public void handleEffect(@NonNull MapEffect effect) {
-                boolean value = (boolean) effect.getValue(PoundTemplateEditFragment.class.getName());
+                boolean value = (boolean) effect.getValue(OutboundTemplateEditFragment.class.getName());
                 if (value) {
                     onDataLoaded();
                 }

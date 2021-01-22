@@ -52,14 +52,15 @@ public class PoundItemInfo implements Parcelable {
         DRIVER(17), //司机
         REMARKS(18), //备注
         MODELNAME(19),//模板名称
-        JSR(19),//经手人
-        ORDERNUMBER(20),//订单号
-        SERIALNUMBER(21),//序号
-        RECEIVECONTACTS(22), //接收方联系人
-        RECEIVEPHONE(23), //接收方电话
-        RECEIVEADDRESS(24), //接收方地址
-        QSR(25), //签收
-        SHFS(25), //送货方式
+        MODELSTYLE(20),//模板样式
+        JSR(21),//经手人
+        ORDERNUMBER(22),//订单号
+        SERIALNUMBER(23),//序号
+        RECEIVECONTACTS(24), //接收方联系人
+        RECEIVEPHONE(25), //接收方电话
+        RECEIVEADDRESS(26), //接收方地址
+        QSR(27), //签收
+        SHFS(28), //送货方式
 
 
         ADD(100); //按钮

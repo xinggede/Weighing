@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/inputItemLayout">
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/inputTvStyle"
+        android:text="模板样式：" />
+
+    <TextView
+        android:id="@+id/tv_model_style"
+        style="@style/inputEtStyle"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:hint="@string/pls_choose_model_style" />
+
+    <ImageView
+        android:id="@+id/iv_choose_style"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/icon_arrow_right" />
+
+
+</LinearLayout>

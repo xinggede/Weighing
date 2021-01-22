@@ -11,10 +11,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.xing.weight.R;
 import com.xing.weight.base.BaseRecyclerAdapter;
 import com.xing.weight.base.RecyclerViewHolder;
 import com.xing.weight.bean.PoundItemInfo;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -27,9 +31,25 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         super(ctx, list);
     }
 
+    public void setModelStyle(String name){
+        PoundItemInfo item = getItem(1);
+        item.value = name;
+        notifyItemChanged(1);
+    }
+
     @Override
     public void setData(@Nullable List<PoundItemInfo> list) {
         super.setData(list);
+    }
+
+    public List<PoundItemInfo> getChooseItem(){
+        List<PoundItemInfo> list = new ArrayList<>();
+        for (PoundItemInfo itemInfo : getData()) {
+            if(itemInfo.isChecked){
+                list.add(itemInfo);
+            }
+        }
+        return list;
     }
 
     @Override
@@ -37,6 +57,9 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         PoundItemInfo poundItemInfo = getItem(position);
         if (poundItemInfo.type == PoundType.ADD) {
             return 1;
+        }
+        if (poundItemInfo.type == PoundType.MODELSTYLE) {
+            return 2;
         }
         return 0;
     }
@@ -46,6 +69,9 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         if (viewType == 1) {
             return R.layout.list_item_input_weight_button;
         }
+        if (viewType == 2) {
+            return R.layout.list_item_template_outbound1;
+        }
         return R.layout.list_item_template_outbound;
     }
 
@@ -53,7 +79,16 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
     public void bindData(RecyclerViewHolder holder, int position, PoundItemInfo item) {
         int t = getItemViewType(position);
         if (t == 1) {
+            holder.getButton(R.id.bt_confirm).setText(item.name);
             holder.setClickListener(R.id.bt_confirm, new CusClickListener(position));
+        } else if(t == 2){
+            holder.setVisibility(R.id.checkbox, View.INVISIBLE);
+            holder.getCheckBox(R.id.checkbox).setChecked(true);
+            holder.setText(R.id.tv_name, item.name);
+            TextView tvModelStyle = holder.getEditText(R.id.tv_model_style);
+            tvModelStyle.setHint(item.hint);
+            tvModelStyle.setText(item.value);
+            holder.setClickListener(R.id.iv_choose_style, new CusClickListener(position));
         } else {
             holder.setVisibility(R.id.checkbox, item.type == PoundType.MODELNAME?View.INVISIBLE: View.VISIBLE);
             holder.setText(R.id.tv_name, item.name);

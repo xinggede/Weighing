@@ -1,69 +1,57 @@
 package com.xing.weight.fragment.bill.bound;
 
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction;
-import com.qmuiteam.qmui.recyclerView.QMUISwipeAction;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
-import com.xing.weight.fragment.bill.pound.PoundRecordFragment;
+import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.bean.CompanyInfo;
+import com.xing.weight.bean.CustomerInfo;
+import com.xing.weight.bean.PoundItemInfo;
+import com.xing.weight.bean.TemplateInfo;
+import com.xing.weight.fragment.bill.mode.BillContract;
+import com.xing.weight.fragment.bill.mode.BillPresenter;
+import com.xing.weight.fragment.bill.mode.BoundInputAdapter;
 import com.xing.weight.fragment.bill.mode.GoodsAdapter;
-import com.xing.weight.fragment.bill.mode.InputChangeListener;
-import com.xing.weight.fragment.main.MainContract;
-import com.xing.weight.fragment.main.MainPresenter;
-import com.xing.weight.fragment.main.manage.MyCustomAddFragment;
-import com.xing.weight.fragment.main.manage.MyGoodsListFragment;
-import com.xing.weight.view.NestRecyclerView;
+import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
+import com.xing.weight.view.datepicker.CustomDatePicker;
+import com.xing.weight.view.datepicker.DateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.OnClick;
 
-public class OutboundAddFragment extends BaseFragment<MainPresenter> implements MainContract.View, InputChangeListener {
-
+public class OutboundAddFragment extends BaseFragment<BillPresenter> implements BillContract.View, BaseRecyclerAdapter.OnChildClickListener {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
-    @BindView(R.id.tv_code)
-    TextView tvCode;
-    @BindView(R.id.tv_number)
-    TextView tvNumber;
-    @BindView(R.id.tv_receive_name)
-    TextView tvReceiveName;
-    @BindView(R.id.tv_receive_address)
-    TextView tvReceiveAddress;
-    @BindView(R.id.et_create_name)
-    EditText etCreateName;
-    @BindView(R.id.et_handler_name)
-    EditText etHandlerName;
-    @BindView(R.id.tv_date)
-    TextView tvDate;
+    @BindView(R.id.tv_model)
+    TextView tvModel;
     @BindView(R.id.recyclerView)
-    NestRecyclerView recyclerView;
-    @BindView(R.id.tv_total_info)
-    TextView tvTotalInfo;
+    RecyclerView recyclerView;
 
-    private QMUIPopup choosePopup;
+    private BoundInputAdapter inputAdapter;
+    private CompanyInfo companyInfo;
+    private TemplateInfo templateInfo;
+
+    private QMUIPopup chooseModel,chooseCustomPopup;
     private GoodsAdapter adapter;
 
     @Override
-    protected MainPresenter onLoadPresenter() {
-        return new MainPresenter();
+    protected BillPresenter onLoadPresenter() {
+        return new BillPresenter();
     }
 
     @Override
@@ -84,63 +72,63 @@ public class OutboundAddFragment extends BaseFragment<MainPresenter> implements 
 
             @Override
             public void onClick(View view) {
-                startFragment(new PoundRecordFragment());
+
             }
         });
 
-        QMUIRVItemSwipeAction swipeAction = new QMUIRVItemSwipeAction(true, new QMUIRVItemSwipeAction.Callback() {
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                adapter.remove(viewHolder.getAdapterPosition());
-            }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        inputAdapter = new BoundInputAdapter(getContext(), new ArrayList<>());
+        recyclerView.setAdapter(inputAdapter);
+        inputAdapter.setOnChildClickListener(this);
 
-            @Override
-            public int getSwipeDirection(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return QMUIRVItemSwipeAction.SWIPE_LEFT;
-            }
-
-            @Override
-            public void onClickAction(QMUIRVItemSwipeAction swipeAction, RecyclerView.ViewHolder selected, QMUISwipeAction action) {
-                super.onClickAction(swipeAction, selected, action);
-                adapter.remove(selected.getAdapterPosition());
-                swipeAction.clear();
-            }
-        });
-        swipeAction.attachToRecyclerView(recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()) {
-            @Override
-            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-                return new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-            }
-        });
-
-        adapter = new GoodsAdapter(getContext(),new ArrayList<>());
-        adapter.setInputChangeListener(this);
-        recyclerView.setAdapter(adapter);
+        mPresenter.getTemplateChoose(2, false);
+        companyInfo = mPresenter.getCompanyInfo();
     }
 
-
-    private void showChooseName(View v) {
-        List<String> data = new ArrayList<>();
-        data.add("矿砂");
-        data.add("山石");
-        data.add("土方");
-
-        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, data);
-
-        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                tvReceiveName.setText(adapterView.getItemAtPosition(i).toString());
-                if (choosePopup != null) {
-                    choosePopup.dismiss();
-                }
+    private void setTemp() {
+        tvModel.setText(templateInfo.name);
+        List<PoundItemInfo> data = new ArrayList<>();
+        data.addAll(templateInfo.contList);
+        for (PoundItemInfo itemInfo : data) {
+            if(!TextUtils.isEmpty(itemInfo.value)){
+                continue;
             }
-        };
+            if (itemInfo.type == PoundItemInfo.PoundType.ORDERNUMBER || itemInfo.type == PoundItemInfo.PoundType.SERIALNUMBER) {
+                itemInfo.value = String.valueOf(System.currentTimeMillis());
+                continue;
+            }
+            if (itemInfo.type == PoundItemInfo.PoundType.CNAME) {
+                itemInfo.value = companyInfo.comname;
+                continue;
+            }
+            if (itemInfo.type == PoundItemInfo.PoundType.CBOSS) {
+                itemInfo.value = companyInfo.boss;
+                continue;
+            }
+            if (itemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
+                itemInfo.value = DateFormatUtils.getCurrentDate();
+            }
+        }
+        inputAdapter.setData(data);
+    }
 
-        if (choosePopup == null) {
-            choosePopup = QMUIPopups.listPopup(getContext(),
+    private void showChooseModel(View v) {
+        if (chooseModel == null) {
+            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getSaveTemps());
+            AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (chooseModel != null) {
+                        chooseModel.dismiss();
+                    }
+                    TemplateInfo temp = (TemplateInfo) adapterView.getItemAtPosition(i);
+                    if(templateInfo == null || templateInfo.id != temp.id){
+                        templateInfo = temp;
+                        setTemp();
+                    }
+                }
+            };
+            chooseModel = QMUIPopups.listPopup(getContext(),
                     QMUIDisplayHelper.dp2px(getContext(), 200),
                     QMUIDisplayHelper.dp2px(getContext(), 300),
                     adapter,
@@ -151,31 +139,98 @@ public class OutboundAddFragment extends BaseFragment<MainPresenter> implements 
                     .shadow(true)
                     .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
-        choosePopup.show(v);
+        chooseModel.show(v);
     }
 
-    @OnClick({R.id.tv_receive_name, R.id.ib_add, R.id.bt_print, R.id.lin_add_goods})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_receive_name:
-                showChooseName(view);
-                break;
+    private void showChooseCustom(View v) {
+        if (chooseCustomPopup == null) {
+            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_choose, mPresenter.getSaveCustomer());
+            AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (chooseCustomPopup != null) {
+                        chooseCustomPopup.dismiss();
+                    }
+                    CustomerInfo info = (CustomerInfo) adapterView.getItemAtPosition(i);
+                    inputAdapter.updateCustom(info);
 
-            case R.id.ib_add:
-                startFragment(new MyCustomAddFragment(null));
-                break;
-
-            case R.id.bt_print:
-                break;
-
-            case R.id.lin_add_goods:
-                startFragment(new MyGoodsListFragment());
-                break;
+                }
+            };
+            chooseCustomPopup = QMUIPopups.listPopup(getContext(),
+                    QMUIDisplayHelper.dp2px(getContext(), 200),
+                    QMUIDisplayHelper.dp2px(getContext(), 300),
+                    adapter,
+                    onItemClickListener)
+                    .bgColor(ContextCompat.getColor(getContext(), R.color.tab_bj))
+                    .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
+                    .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
+                    .shadow(true)
+                    .offsetYIfTop(QMUIDisplayHelper.dp2px(getContext(), 5));
         }
+        chooseCustomPopup.show(v);
+    }
+
+    private CustomDatePicker mDatePicker;
+
+    private void showDatePicker(String time, PoundItemInfo.PoundType type){
+        long beginTime = DateFormatUtils.getBeforeYear();
+        long endTime = DateFormatUtils.getLastWeek();
+        if(mDatePicker == null){
+            mDatePicker = new CustomDatePicker(getContext(), new CustomDatePicker.Callback() {
+                @Override
+                public void onTimeSelected(long timestamp) {
+                    inputAdapter.updateTime((PoundItemInfo.PoundType) mDatePicker.getTag(), DateFormatUtils.long2Str(timestamp, true));
+                }
+            }, beginTime, endTime);
+            mDatePicker.setCancelable(true);
+            // 显示时和分
+            mDatePicker.setCanShowPreciseTime(true);
+            // 允许循环滚动
+            mDatePicker.setScrollLoop(true);
+            mDatePicker.setCanShowAnim(true);
+        }
+        mDatePicker.setTag(type);
+        mDatePicker.show(time);
     }
 
     @Override
-    public void onChange(String value) {
+    public void onHttpResult(boolean success, int code, Object data) {
+        if (success) {
+            if (code == 0) {
+                if (!mPresenter.getSaveTemps().isEmpty()) {
+                    templateInfo = mPresenter.getSaveTemps().get(0);
+                    setTemp();
+                }
+            } else if (code == 1) {
+                if (!mPresenter.getSaveTemps().isEmpty()) {
+                    showChooseModel(tvModel);
+                } else {
+                    showToast("请先添加模板");
+                }
+            } else if (code == 2) {
+                if (!mPresenter.getSaveCustomer().isEmpty()) {
+                    showChooseCustom(cView);
+                } else {
+                    showToast("请先添加客户");
+                }
+            }
+        }
+    }
 
+    private View cView;
+
+    @Override
+    public void onChildClick(View v, int pos) {
+        PoundItemInfo poundItemInfo = inputAdapter.getItem(pos);
+        if (poundItemInfo.type == PoundItemInfo.PoundType.RECEIVENAME) {
+            cView = v;
+            if (mPresenter.getSaveCustomer().isEmpty()) {
+                mPresenter.getCustom();
+            } else {
+                showChooseCustom(v);
+            }
+        }  else if (poundItemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
+            showDatePicker(poundItemInfo.value, poundItemInfo.type);
+        }
     }
 }

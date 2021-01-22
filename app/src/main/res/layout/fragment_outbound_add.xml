@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray_color_bj">
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -11,224 +11,49 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true" />
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/qmui_topbar_height"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/qmui_config_color_white"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="编码：" />
-
-                    <TextView
-                        android:id="@+id/tv_code"
-                        style="@style/inputEtStyle"
-                        android:hint="@string/text1" />
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="出库编号：" />
-
-                    <TextView
-                        android:id="@+id/tv_number"
-                        style="@style/inputEtStyle"
-                        android:hint="@string/text1" />
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="收货单位：" />
-
-                    <TextView
-                        android:id="@+id/tv_receive_name"
-                        style="@style/inputEtStyle"
-                        android:layout_weight="1"
-                        android:drawableEnd="@mipmap/icon_arrow_down"
-                        android:hint="请选择收货单位" />
-
-                    <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
-                        android:id="@+id/ib_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:padding="10dp"
-                        android:src="@mipmap/icon_black_add" />
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="收货地址：" />
-
-                    <TextView
-                        android:id="@+id/tv_receive_address"
-                        style="@style/inputEtStyle"
-                        android:hint="收货地址" />
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="制单人：" />
-
-                    <EditText
-                        android:id="@+id/et_create_name"
-                        style="@style/inputEtStyle"
-                        android:hint="请输入制单人"
-                        android:inputType="textPersonName" />
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="经手人：" />
-
-                    <EditText
-                        android:id="@+id/et_handler_name"
-                        style="@style/inputEtStyle"
-                        android:hint="请输入经手人"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPersonName" />
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/inputItemLayout">
-
-                    <TextView
-                        style="@style/inputTvStyle"
-                        android:text="录单日期：" />
-
-                    <TextView
-                        android:id="@+id/tv_date"
-                        style="@style/inputEtStyle"
-                        android:hint="@string/text1" />
-                </LinearLayout>
-
-            </LinearLayout>
+            android:id="@+id/lin_top"
+            style="@style/inputItemLayout"
+            android:background="@color/qmui_config_color_white">
 
             <TextView
-                style="@style/DescriptionStyle"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:text="货品明细" />
-
-            <com.qmuiteam.qmui.layout.QMUILinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/qmui_config_color_white"
-                android:padding="10dp"
-                app:qmui_borderColor="@color/divider_color"
-                app:qmui_borderWidth="1px"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/DescriptionStyle"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.3"
-                    android:gravity="start"
-                    android:text="名称" />
-
-                <TextView
-                    style="@style/DescriptionStyle"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:text="单价" />
-
-                <TextView
-                    style="@style/DescriptionStyle"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.3"
-                    android:gravity="center"
-                    android:text="数量" />
-
-                <TextView
-                    style="@style/DescriptionStyle"
-                    android:layout_width="0dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_weight="0.2"
-                    android:gravity="end"
-                    android:text="金额" />
-
-            </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-            <com.xing.weight.view.NestRecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/lin_add_goods"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/list_item_touch_bg"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/iv_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_green_add" />
-
-                <TextView
-                    style="@style/DescriptionStyle"
-                    android:layout_marginStart="10dp"
-                    android:text="添加货品" />
-            </LinearLayout>
+                style="@style/inputTvStyle"
+                android:text="选择模板：" />
 
             <TextView
-                android:id="@+id/tv_total_info"
-                style="@style/DescriptionStyle"
+                android:id="@+id/tv_model"
+                style="@style/inputEtStyle"
+                android:layout_weight="1"
+                android:drawableEnd="@mipmap/icon_arrow_down"
+                android:hint="@string/pls_choose_model" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                android:id="@+id/ib_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:padding="10dp"
-                android:textColor="@color/qmui_config_color_red"
-                android:text="总件数：60      数量：10505     金额：18739.75" />
-
-
-            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/bt_print"
-                style="@style/RoundButtonStyle"
-                android:layout_margin="20dp"
-                android:text="@string/print" />
+                android:src="@mipmap/icon_black_add" />
 
         </LinearLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/qmui_config_color_white"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
 
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

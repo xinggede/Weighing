@@ -25,7 +25,6 @@ import com.xing.weight.fragment.bill.mode.BillContract;
 import com.xing.weight.fragment.bill.mode.BillPresenter;
 import com.xing.weight.fragment.bill.mode.BoundInputAdapter;
 import com.xing.weight.fragment.bill.mode.GoodsAdapter;
-import com.xing.weight.fragment.bill.mode.PoundInputAdapter;
 import com.xing.weight.fragment.main.manage.MyGoodsListFragment;
 import com.xing.weight.view.datepicker.CustomDatePicker;
 import com.xing.weight.view.datepicker.DateFormatUtils;
@@ -48,13 +47,15 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
     TextView tvModel;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.recyclerGoods)
+    RecyclerView recyclerGoods;
 
     private BoundInputAdapter inputAdapter;
     private CompanyInfo companyInfo;
     private TemplateInfo templateInfo;
 
-    private QMUIPopup chooseModel,chooseCustomPopup;
-    private GoodsAdapter adapter;
+    private QMUIPopup chooseModel, chooseCustomPopup;
+    private GoodsAdapter goodsAdapter;
 
     @Override
     protected BillPresenter onLoadPresenter() {
@@ -88,6 +89,10 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
         recyclerView.setAdapter(inputAdapter);
         inputAdapter.setOnChildClickListener(this);
 
+        recyclerGoods.setLayoutManager(new LinearLayoutManager(getContext()));
+        goodsAdapter = new GoodsAdapter(getContext(), new ArrayList<>());
+        recyclerGoods.setAdapter(goodsAdapter);
+
         mPresenter.getTemplateChoose(2, false);
         companyInfo = mPresenter.getCompanyInfo();
 
@@ -100,7 +105,7 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
         List<PoundItemInfo> data = new ArrayList<>();
         data.addAll(templateInfo.contList);
         for (PoundItemInfo itemInfo : data) {
-            if(!TextUtils.isEmpty(itemInfo.value)){
+            if (!TextUtils.isEmpty(itemInfo.value)) {
                 continue;
             }
             if (itemInfo.type == PoundItemInfo.PoundType.ORDERNUMBER || itemInfo.type == PoundItemInfo.PoundType.SERIALNUMBER) {
@@ -132,7 +137,7 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
                         chooseModel.dismiss();
                     }
                     TemplateInfo temp = (TemplateInfo) adapterView.getItemAtPosition(i);
-                    if(templateInfo == null || templateInfo.id != temp.id){
+                    if (templateInfo == null || templateInfo.id != temp.id) {
                         templateInfo = temp;
                         setTemp();
                     }
@@ -182,10 +187,10 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
 
     private CustomDatePicker mDatePicker;
 
-    private void showDatePicker(String time, PoundItemInfo.PoundType type){
+    private void showDatePicker(String time, PoundItemInfo.PoundType type) {
         long beginTime = DateFormatUtils.getBeforeYear();
         long endTime = DateFormatUtils.getLastWeek();
-        if(mDatePicker == null){
+        if (mDatePicker == null) {
             mDatePicker = new CustomDatePicker(getContext(), new CustomDatePicker.Callback() {
                 @Override
                 public void onTimeSelected(long timestamp) {
@@ -239,7 +244,7 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
             } else {
                 showChooseCustom(v);
             }
-        }  else if (poundItemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
+        } else if (poundItemInfo.type == PoundItemInfo.PoundType.OUTTIME) {
             showDatePicker(poundItemInfo.value, poundItemInfo.type);
         }
     }
@@ -282,12 +287,12 @@ public class OutboundAddFragment extends BaseFragment<BillPresenter> implements 
         registerEffect(this, new QMUIFragmentEffectHandler<GoodsDetail>() {
             @Override
             public boolean shouldHandleEffect(@NonNull GoodsDetail effect) {
-                return false;
+                return true;
             }
 
             @Override
             public void handleEffect(@NonNull GoodsDetail effect) {
-
+                goodsAdapter.add(goodsAdapter.getItemCount(), effect);
             }
         });
     }

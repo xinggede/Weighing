@@ -55,15 +55,14 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsDetail> {
         }
         etPrice.setText(Tools.doubleToString2(item.price));
 
-        CusFloatEditText etNumber = (CusFloatEditText) holder.getView(R.id.et_number);
+        EditText etNumber = (EditText) holder.getView(R.id.et_number);
         if (etNumber.getTag(R.string.change) != null) {
             etNumber.removeTextChangedListener((TextWatcher) etNumber.getTag(R.string.change));
         }
-        etNumber.setDigit(3);
-        etNumber.setText(Tools.doubleToString3(item.quantity));
+        etNumber.setText(String.valueOf(item.count));
 
         CusFloatEditText etAmount = (CusFloatEditText) holder.getView(R.id.et_amount);
-        etAmount.setText(Tools.doubleToString2(item.amount));
+        etAmount.setText(Tools.doubleToString2(item.money));
 
         CusPriceTextChanged priceTextChanged = new CusPriceTextChanged(position, etPrice, etAmount);
         etPrice.addTextChangedListener(priceTextChanged);
@@ -137,7 +136,7 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsDetail> {
             if (item == null) {
                 return;
             }
-            double number = Tools.stringToDouble3(etNumber.getText().toString());
+            int number = Tools.parseInt(etNumber.getText().toString());
             if (v.getId() == R.id.bt_jia) {
                 number = number + 1;
             } else {
@@ -151,10 +150,10 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsDetail> {
             etNumber.clearFocus();
             etAmount.clearFocus();
 
-            item.quantity = number;
-            item.amount = Tools.stringToDouble2(item.getCalcAmount());
+            item.count = number;
+            item.money = Tools.stringToDouble2(item.getCalcAmount());
             etNumber.setText(Tools.doubleToString3(number));
-            etAmount.setText(Tools.doubleToString2(item.amount));
+            etAmount.setText(Tools.doubleToString2(item.money));
 
             if (inputChangeListener != null) {
                 inputChangeListener.onChange(String.valueOf(number));
@@ -192,9 +191,9 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsDetail> {
                 etPrice.setSelection(etPrice.length());
             }
             item.price = price;
-            item.amount = Tools.stringToDouble2(item.getCalcAmount());
+            item.money = Tools.stringToDouble2(item.getCalcAmount());
 
-            etAmount.setText(Tools.doubleToString2(item.amount));
+            etAmount.setText(Tools.doubleToString2(item.money));
 
             if (inputChangeListener != null) {
                 inputChangeListener.onChange(s.toString());
@@ -229,15 +228,15 @@ public class GoodsAdapter extends BaseRecyclerAdapter<GoodsDetail> {
                 return;
             }
 
-            double number = Tools.stringToDouble3(s.toString());
-            if (number > 999999.999) {
-                number = 999999.999;
-                etNumber.setText("999999.999");
+            int number = Tools.parseInt(s.toString());
+            if (number > 999999) {
+                number = 999999;
+                etNumber.setText("999999");
                 etNumber.setSelection(etNumber.length());
             }
-            item.quantity = number;
-            item.amount = Tools.stringToDouble2(item.getCalcAmount());
-            etAmount.setText(Tools.doubleToString2(item.amount));
+            item.count = number;
+            item.money = Tools.stringToDouble2(item.getCalcAmount());
+            etAmount.setText(Tools.doubleToString2(item.money));
 
             if (inputChangeListener != null) {
                 inputChangeListener.onChange(s.toString());

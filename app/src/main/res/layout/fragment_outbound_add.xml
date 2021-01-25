@@ -142,7 +142,7 @@
                 android:text="总件数：60      数量：10505     金额：18739.75" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/bt_print"
+                android:id="@+id/bt_ok"
                 style="@style/RoundButtonStyle"
                 android:layout_margin="20dp"
                 android:text="@string/confirm" />

@@ -126,6 +126,7 @@ public class MyGoodsListFragment extends BaseFragment<ManagePresenter> implement
         mAdapter.setOnItemClickListener((itemView, pos) -> {
             if (isChoose) {
                 notifyEffect(mAdapter.getItem(pos));
+                popBackStack();
             } else {
                 startFragment(new MyGoodsAddFragment(mAdapter.getItem(pos)));
             }

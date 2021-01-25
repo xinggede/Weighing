@@ -86,7 +86,7 @@ public class BoundTemplateAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
             holder.setVisibility(R.id.checkbox, View.INVISIBLE);
             holder.getCheckBox(R.id.checkbox).setChecked(true);
             holder.setText(R.id.tv_name, item.name);
-            TextView tvModelStyle = holder.getEditText(R.id.tv_model_style);
+            TextView tvModelStyle = holder.getTextView(R.id.tv_model_style);
             tvModelStyle.setHint(item.hint);
             tvModelStyle.setText(item.value);
             holder.setClickListener(R.id.iv_choose_style, new CusClickListener(position));

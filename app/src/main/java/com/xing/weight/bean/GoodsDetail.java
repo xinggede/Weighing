@@ -30,16 +30,12 @@ public class GoodsDetail extends Effect implements Parcelable {
 
     public String modifyDate;
 
-    public int openid;
+    public int count;
 
-    public int comid;
-
-    public double quantity;
-
-    public double amount;
+    public double money;
 
     public String getCalcAmount() {
-        return Tools.calcAmount(String.valueOf(quantity), String.valueOf(price));
+        return Tools.calcAmount(String.valueOf(count), String.valueOf(price));
     }
 
     @Override
@@ -65,8 +61,8 @@ public class GoodsDetail extends Effect implements Parcelable {
         dest.writeString(this.remark);
         dest.writeString(this.createDate);
         dest.writeString(this.modifyDate);
-        dest.writeDouble(this.quantity);
-        dest.writeDouble(this.amount);
+        dest.writeInt(this.count);
+        dest.writeDouble(this.money);
     }
 
     public GoodsDetail() {
@@ -84,8 +80,8 @@ public class GoodsDetail extends Effect implements Parcelable {
         this.remark = in.readString();
         this.createDate = in.readString();
         this.modifyDate = in.readString();
-        this.quantity = in.readDouble();
-        this.amount = in.readDouble();
+        this.count = in.readInt();
+        this.money = in.readDouble();
     }
 
     public static final Parcelable.Creator<GoodsDetail> CREATOR = new Parcelable.Creator<GoodsDetail>() {

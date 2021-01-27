@@ -13,6 +13,7 @@ import com.xing.weight.bean.PrinterInfo;
 import com.xing.weight.bean.QueryPrintResult;
 import com.xing.weight.bean.StyleInfo;
 import com.xing.weight.bean.TemplateInfo;
+import com.xing.weight.bean.VersionInfo;
 import com.xing.weight.bean.request.RequestList;
 import com.xing.weight.server.http.response.BasicResponse;
 
@@ -101,5 +102,8 @@ public interface MainApi {
 
     @POST("/api/printer/printResult")
     Observable<BasicResponse<QueryPrintResult>> printResult(@Body PrintFile printFile);
+
+    @GET("/api/common/version")
+    Observable<BasicResponse<VersionInfo>> version(); //获取企业信息
 
 }

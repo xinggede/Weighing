@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin_progress"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+
+    <com.qmuiteam.qmui.widget.QMUIProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        app:qmui_type="type_rect"
+        app:qmui_max_value="100"
+        app:qmui_value="0"
+        app:qmui_progress_color="@color/colorAccent"
+        android:textColor="#f00"
+        android:textSize="14sp"
+        app:qmui_stroke_round_cap="true"/>
+
+</LinearLayout>

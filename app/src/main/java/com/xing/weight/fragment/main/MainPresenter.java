@@ -12,4 +12,17 @@ public class MainPresenter extends BasePresenter<MainContract.View, MainContract
     public boolean isCompany(){
         return mModel.isCompany();
     }
+
+    public void checkVersion(long verCode) {
+        requestHttp(mModel.getMainApi().version(),
+                versionInfo -> {
+                    if(versionInfo.versionCode > verCode){
+                        getView().onAppUpdate(versionInfo.url);
+                    } else {
+                        getView().onAppUpdate(null);
+                    }
+                }, e->{
+
+                },false);
+    }
 }

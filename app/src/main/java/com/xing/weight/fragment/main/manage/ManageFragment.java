@@ -4,22 +4,22 @@ import android.view.View;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
+import com.xing.weight.base.EmptyPresenter;
+import com.xing.weight.base.mvp.BaseContract;
 import com.xing.weight.fragment.bill.bound.OutboundTemplateListFragment;
 import com.xing.weight.fragment.bill.pound.PoundTemplateListFragment;
-import com.xing.weight.fragment.main.MainContract;
-import com.xing.weight.fragment.main.MainPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ManageFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class ManageFragment extends BaseFragment<EmptyPresenter> implements BaseContract.View {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
 
     @Override
-    protected MainPresenter onLoadPresenter() {
-        return new MainPresenter();
+    protected EmptyPresenter onLoadPresenter() {
+        return new EmptyPresenter();
     }
 
     @Override

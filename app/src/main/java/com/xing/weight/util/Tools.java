@@ -1,12 +1,14 @@
 package com.xing.weight.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -33,6 +35,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.core.content.FileProvider;
 
 import static java.util.regex.Pattern.compile;
 
@@ -343,27 +347,6 @@ public class Tools {
     }
 
 
-    public static String getSDCardPath() {
-        if (Build.VERSION.SDK_INT >= 29) { //10.0
-            File externalFilesDir = CPApp.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            if (externalFilesDir != null) {
-                return externalFilesDir.getAbsolutePath();
-            } else {
-                return getSavePath();
-            }
-        } else {
-            return getSavePath();
-        }
-    }
-
-    private static String getSavePath() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().getPath();
-        } else {
-            return CPApp.getInstance().getFilesDir().getPath();
-        }
-    }
-
     public static List<byte[]> fen(byte[] data, int length) {
         ArrayList data2 = new ArrayList();
         int num = data.length / length;
@@ -481,6 +464,52 @@ public class Tools {
             amountDecimal = amountDecimal.add(new BigDecimal(amount));
         }
         return amountDecimal.setScale(2, RoundingMode.HALF_UP).toString();
+    }
+
+    public static String getDownloadPath(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { //10.0
+            File externalFilesDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            if (externalFilesDir != null) {
+                return externalFilesDir.getAbsolutePath();
+            } else {
+                return context.getFilesDir().getAbsolutePath();
+            }
+        } else {
+            return getSavePath(context);
+        }
+    }
+
+    private static String getSavePath(Context context) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().getPath();
+        } else {
+            return context.getFilesDir().getAbsolutePath();
+        }
+    }
+
+    /**
+     * 安装apk文件
+     */
+    public static void installAPK(Context c, String filePath) {
+        File apkFile = new File(filePath);
+        if (!apkFile.exists()) {
+            return;
+        }
+        // 通过Intent安装APK文件
+        Intent intents = new Intent();
+        intents.setAction(Intent.ACTION_VIEW);
+        intents.addCategory("android.intent.category.DEFAULT");
+        intents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri contentUri = FileProvider.getUriForFile(c, BuildConfig.APPLICATION_ID + ".provider", apkFile);
+            intents.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intents.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intents.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+        }
+//        android.os.Process.killProcess(android.os.Process.myPid());
+        // 如果不加上这句的话在apk安装完成之后点击单开会崩溃
+        c.startActivity(intents);
     }
 
 }

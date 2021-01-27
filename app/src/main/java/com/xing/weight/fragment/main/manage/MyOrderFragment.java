@@ -8,16 +8,16 @@ import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.xing.weight.R;
 import com.xing.weight.base.BaseFragment;
 import com.xing.weight.base.BaseRecyclerAdapter;
+import com.xing.weight.base.EmptyPresenter;
 import com.xing.weight.base.RecyclerViewHolder;
-import com.xing.weight.fragment.main.MainContract;
-import com.xing.weight.fragment.main.MainPresenter;
+import com.xing.weight.base.mvp.BaseContract;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class MyOrderFragment extends BaseFragment<MainPresenter> implements MainContract.View {
+public class MyOrderFragment extends BaseFragment<EmptyPresenter> implements BaseContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -29,8 +29,8 @@ public class MyOrderFragment extends BaseFragment<MainPresenter> implements Main
     private BaseRecyclerAdapter<String> mAdapter;
 
     @Override
-    protected MainPresenter onLoadPresenter() {
-        return new MainPresenter();
+    protected EmptyPresenter onLoadPresenter() {
+        return new EmptyPresenter();
     }
 
     @Override

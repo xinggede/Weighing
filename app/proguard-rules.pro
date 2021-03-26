@@ -46,7 +46,6 @@
 }
 
 
-
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -64,8 +63,8 @@
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
 
--keep class com.xing.weight.bean.**{*;}
--keep class com.xing.weight.bean.server.http.response.BasicResponse {*;}
+-keep class com.xing.weight.bean.** { *; }
+-keep class com.xing.weight.server.http.response.BasicResponse { *; }
 
 #okhttp
 -keep class okhttp3.** {*;}

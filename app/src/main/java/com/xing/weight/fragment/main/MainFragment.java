@@ -197,8 +197,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     public void onAppUpdate(String url) {
         if(!TextUtils.isEmpty(url)){
             showUpdate(url);
-        } else {
-            showToast("无新版本");
         }
     }
 

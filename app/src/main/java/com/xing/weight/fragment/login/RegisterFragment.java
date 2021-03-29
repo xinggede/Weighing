@@ -106,7 +106,7 @@ public class RegisterFragment extends BaseFragment<LoginPresenter> implements Lo
     public void onHttpResult(boolean success, int code, Object o) {
         if (code == 0) {
             if (success) {
-                showMessage("注册成功");
+                showToast("注册成功");
                 Map<String, Object> map = new HashMap<>();
                 map.put(Constants.PHONE_NUMBER, etPhone.getText().toString());
                 notifyEffect(new MapEffect(map));
@@ -114,7 +114,7 @@ public class RegisterFragment extends BaseFragment<LoginPresenter> implements Lo
             }
         } else if(code == 1){
             if(success){
-                showMessage("验证码发送成功，请注意查收");
+                showToast("验证码发送成功，请注意查收");
                 btGetCaptcha.setEnabled(false);
                 btGetCaptcha.start();
                 etCaptcha.requestFocus();

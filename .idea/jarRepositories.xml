@@ -21,5 +21,15 @@
       <option name="name" value="a5e763e3-3f71-4a0f-b480-283f2b7b7835" />
       <option name="url" value="http://maven.aliyun.com/nexus/content/repositories/jcenter" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="BintrayJCenter" />
+      <option name="name" value="BintrayJCenter" />
+      <option name="url" value="https://jcenter.bintray.com/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Google" />
+      <option name="name" value="Google" />
+      <option name="url" value="https://dl.google.com/dl/android/maven2/" />
+    </remote-repository>
   </component>
 </project>

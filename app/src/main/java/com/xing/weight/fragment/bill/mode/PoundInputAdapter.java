@@ -1,6 +1,7 @@
 package com.xing.weight.fragment.bill.mode;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -30,6 +31,7 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
 
     private int realWeight = -1, carWeight = -1, totalWeight, discount = -1, price = -1, totalPrice = -1, inTime = -1, outTime = -1;
     private KeyBoardUtil keyBoardUtil;
+    private Handler mHandle = new Handler();
 
     public PoundInputAdapter(Context ctx, @Nullable List<PoundItemInfo> list) {
         super(ctx, list);
@@ -115,7 +117,13 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
                 .setScale(2, BigDecimal.ROUND_HALF_UP);
         String value = result.toString();
         getItem(realWeight).value = value;
-        notifyItemChanged(realWeight);
+
+        mHandle.post(new Runnable() {
+            @Override
+            public void run() {
+                notifyItemChanged(realWeight);
+            }
+        });
 
         updatePrice();
     }
@@ -136,7 +144,13 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         BigDecimal total = bigDecimal.multiply(new BigDecimal(p)).setScale(2, BigDecimal.ROUND_HALF_UP);
         String t = total.toString();
         getItem(totalPrice).value = t;
-        notifyItemChanged(totalPrice);
+
+        mHandle.post(new Runnable() {
+            @Override
+            public void run() {
+                notifyItemChanged(totalPrice);
+            }
+        });
     }
 
     //净重=毛重-皮重-毛重*折损
@@ -164,19 +178,33 @@ public class PoundInputAdapter extends BaseRecyclerAdapter<PoundItemInfo> {
         notifyDataSetChanged();
     }
 
+    int n = -1, d = -1;
     public void updateCustom(CustomerInfo customerInfo) {
         for (int i = 0; i < getData().size(); i++) {
             PoundItemInfo info = getItem(i);
             if (info.type == PoundType.RECEIVENAME) {
                 info.value = customerInfo.comname;
+                n = i;
                 continue;
             }
             if (info.type == PoundType.DRIVER) {
                 info.value = customerInfo.name;
+                d = i;
                 continue;
             }
         }
-        notifyDataSetChanged();
+        mHandle.post(new Runnable() {
+            @Override
+            public void run() {
+                if(n != -1){
+                    notifyItemChanged(n);
+                }
+                if(d != -1) {
+                    notifyItemChanged(d);
+                }
+//                notifyDataSetChanged();
+            }
+        });
     }
 
     public void updateTime(PoundType type, String value) {

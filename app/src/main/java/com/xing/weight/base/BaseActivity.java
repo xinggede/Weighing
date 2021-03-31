@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.xing.weight.LoginActivity;
 import com.xing.weight.base.mvp.BaseContract;
 import com.xing.weight.base.mvp.BasePresenter;
 import com.xing.weight.dialog.TipDialog;
@@ -152,7 +153,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends EasyPermissi
 
     @Override
     public void onTokenError() {
-
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     @Override

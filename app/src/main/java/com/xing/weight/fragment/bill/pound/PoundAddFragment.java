@@ -351,7 +351,7 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
                     break;
 
                 case CNAME:
-                    poundInfo.title = info.value;
+                    poundInfo.name = info.value;
                     break;
 
                 case CBOSS:

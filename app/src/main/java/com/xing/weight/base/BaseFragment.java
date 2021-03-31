@@ -13,6 +13,7 @@ import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.SwipeBackLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.xing.weight.LoginActivity;
 import com.xing.weight.base.mvp.BaseContract;
 import com.xing.weight.base.mvp.BasePresenter;
 import com.xing.weight.dialog.TipDialog;
@@ -140,6 +141,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment
 
     @Override
     public void onTokenError() {
+        startActivity(new Intent(getContext(), LoginActivity.class));
+        getActivity().finish();
     }
 
     @Override

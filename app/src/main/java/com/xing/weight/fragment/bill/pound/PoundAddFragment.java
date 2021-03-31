@@ -113,7 +113,7 @@ public class PoundAddFragment extends BaseFragment<BillPresenter> implements Bil
                 continue;
             }
             if (itemInfo.type == PoundItemInfo.PoundType.CNAME) {
-                itemInfo.value = companyInfo.comname;
+//                itemInfo.value = companyInfo.comname;
                 continue;
             }
             if (itemInfo.type == PoundItemInfo.PoundType.CBOSS) {

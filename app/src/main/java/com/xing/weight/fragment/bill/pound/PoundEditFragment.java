@@ -118,7 +118,7 @@ public class PoundEditFragment extends BaseFragment<BillPresenter> implements Bi
                     break;
 
                 case CNAME:
-                    info.value = poundInfo.title;
+                    info.value = poundInfo.name;
                     break;
 
                 case CBOSS:
@@ -337,7 +337,7 @@ public class PoundEditFragment extends BaseFragment<BillPresenter> implements Bi
                     break;
 
                 case CNAME:
-                    poundInfo.title = info.value;
+                    poundInfo.name = info.value;
                     break;
 
                 case CBOSS:
